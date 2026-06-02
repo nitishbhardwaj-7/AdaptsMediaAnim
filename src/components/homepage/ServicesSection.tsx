@@ -142,7 +142,7 @@ const ServicesSection = () => {
                 {service.number}
               </motion.span>
               
-              <h3 className="text-2xl md:text-5xl font-light mb-8 leading-snug min-h-[4rem] w-87">
+              <h3 className="text-2xl md:text-5xl font-light mb-8 leading-snug min-h-[4rem] w-86">
                 {service.title}
               </h3>
              <ServiceList items={service.items} />
