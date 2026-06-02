@@ -54,16 +54,16 @@ const Navbar = () => {
             type="button"
             className="flex items-center gap-2 bg-[#3b6ef5] text-white border-none rounded-full 
                        px-4 py-2 md:px-5 md:py-[10px] 
-                       text-[16px] md:text-[20px] font-medium tracking-[0.01em] 
+                       text-[16px] md:text-[20px] font-regular tracking-[0.01em] 
                        cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105"
           >
-            <span>Start a Project</span>
+            <span className="font-sans">Start a Project</span>
             <Image
               alt=""
               src="/images/clock.png"
               width={20}
               height={20}
-              className="w-4 h-4 md:w-5 md:h-5"
+              className="w-4 h-auto md:w-5 md:h-auto object-contain shrink-0"
             />
           </button>
 

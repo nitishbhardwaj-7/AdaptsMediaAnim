@@ -23,7 +23,7 @@ const ConnectedThinking = () => {
                     maskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
                     WebkitMaskImage: 'radial-gradient(circle, black 40%, transparent 90%)',
                 }}
-                className="absolute inset-0 z-0 w-full h-[70%] object-cover mix-blend-multiply opacity-75 blur-xs pointer-events-none"
+                className="absolute inset-0 z-0 w-full h-[70%] object-cover mix-blend-multiply opacity-75 pointer-events-none"
             >
                 <source src="/assets/video_bg3.mp4" type="video/mp4" />
             </video>

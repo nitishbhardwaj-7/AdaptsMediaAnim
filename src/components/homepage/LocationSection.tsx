@@ -99,29 +99,58 @@ const LocationSection = () => {
         </div>
 
         {/* Branch Offices Section */}
-        <div className="mt-12">
-          <span className="text-[14px] font-medium tracking-[0.1em] opacity-100 mb-6 block">
+        <div className="mt-12 w-full">
+          <span className="text-[14px] font-medium tracking-[0.1em] opacity-80 mb-6 block">
             Branch Offices
           </span>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 pt-8">
-            {locations.map((loc, index) => (
-              <div key={index} className="flex flex-col justify-between h-full group">
-                <div>
-                  <h4 className="text-2xl font-light mb-4 flex items-center gap-2">
-                    {loc.city} {loc.sub && <span className="text-[14px] opacity-90 tracking-widest mt-2">— {loc.sub}</span>}
+          {/* Desktop Layout (Continuous lines) */}
+          <div className="hidden lg:flex flex-col w-full pt-4">
+            <div className="grid grid-cols-5 gap-10">
+              {locations.map((loc, index) => (
+                <div key={`desktop-addr-${index}`} className="flex flex-col">
+                  <h4 className="text-3xl xl:text-4xl font-light mb-6 flex items-baseline gap-2">
+                    {loc.city} {loc.sub && <span className="text-base opacity-80">- {loc.sub}</span>}
                   </h4>
-                  <p className="text-[16px] opacity-60 leading-relaxed min-h-[60px] font-light">
+                  <p className="text-[13px] opacity-80 leading-relaxed font-light pr-4 min-h-[60px]">
                     {loc.address}
                   </p>
                 </div>
-                <div className="text-[13px] py-4 flex flex-col justify-center opacity-60 mt-2 border-t border-b border-white/80 transition-colors whitespace-pre-line font-light">
+              ))}
+            </div>
+            
+            <div className="w-full h-[1px] bg-white/30 my-6" />
+            
+            <div className="grid grid-cols-5 gap-10">
+              {locations.map((loc, index) => (
+                <div key={`desktop-contact-${index}`} className="flex flex-col justify-start">
+                  <div className="text-[13px] opacity-80 whitespace-pre-line font-light leading-relaxed">
+                    {loc.contact}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="w-full h-[1px] bg-white/30 mt-6" />
+          </div>
+
+          {/* Mobile/Tablet Layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:hidden gap-12 pt-4">
+            {locations.map((loc, index) => (
+              <div key={`mobile-${index}`} className="flex flex-col justify-between h-full">
+                <div>
+                  <h4 className="text-3xl font-light mb-4 flex items-baseline gap-2">
+                    {loc.city} {loc.sub && <span className="text-base opacity-80">- {loc.sub}</span>}
+                  </h4>
+                  <p className="text-[13px] opacity-80 leading-relaxed min-h-[60px] font-light">
+                    {loc.address}
+                  </p>
+                </div>
+                <div className="text-[13px] py-4 flex flex-col justify-center opacity-80 mt-4 border-t border-b border-white/30 whitespace-pre-line font-light leading-relaxed">
                   {loc.contact}
                 </div>
               </div>
-              
             ))}
-            
           </div>
         </div>
 

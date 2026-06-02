@@ -4,14 +4,18 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Script from "next/script";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+import { Open_Sans, Roboto } from "next/font/google";
+
+const openSans = Open_Sans({
+  variable: "--font-heading",
   subsets: ["latin"],
+  weight: ["600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -69,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${openSans.variable} ${roboto.variable} h-full antialiased`}
     >
       <head>
          <link

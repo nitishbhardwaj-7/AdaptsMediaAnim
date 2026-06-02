@@ -63,7 +63,7 @@ const OrangeSection = () => {
             <div className="w-full">
               
               <RevealText delay={0.1}>
-                <h2 className="text-[clamp(1rem,2vw,1.875rem)] mb-6 md:mb-8 text-gray-200 font-thin">
+                <h2 className="text-[clamp(1rem,2vw,1.875rem)] mb-6 md:mb-8 text-gray-200 font-thin font-sans">
                   We combine <strong>strategy</strong>, <strong>creativity</strong> and <strong>technology</strong> to define marketing that performs not just looks good.
                 </h2>
               </RevealText>
@@ -76,12 +76,12 @@ const OrangeSection = () => {
               
               <RevealText delay={0.3}>
                 <p className="text-[clamp(0.9rem,1.5vw,1.25rem)] mb-8 md:mb-10 opacity-50 font-thin">
-                  We are a new-generation agency built to bridge that gap — bringing together strategic thinking, creative excellence, and data-driven execution under one roof.
+                  We are a new-generation agency built to bridge that gap — bringing together strategic thinking, creative excellence, and data-driven execution under one roof. Every solution we design is rooted in understanding your business, your audience, and your growth ambitions.
                 </p>
               </RevealText>
               
               <RevealText delay={0.4}>
-                <h2 className="text-[clamp(1rem,2.5vw,2.25rem)] mb-6 md:mb-8 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-medium">
+                <h2 className="text-[clamp(1rem,2.5vw,2.25rem)] mb-6 md:mb-8 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-medium leading-tight">
                   We don't just build campaigns. <br /> We build momentum.
                 </h2>
               </RevealText>
