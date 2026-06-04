@@ -38,10 +38,7 @@ const TeamSection = () => {
                 transition={{ delay: index * 0.1, ease: "easeOut" }}
                 className="relative cursor-pointer aspect-[4/5] rounded-xl overflow-hidden bg-[#0a254a] h-full"
               >
-                {/* Blue Hover Background Layer */}
-                <div className="absolute inset-0 transition-opacity duration-500 
-                  bg-gradient-to-br from-[#064ED3] to-[#002B7F] opacity-0 group-hover:opacity-100 z-10" 
-                />
+
 
                 {/* Top Right Plus Icon */}
                 <div className="absolute top-5 right-5 z-20">

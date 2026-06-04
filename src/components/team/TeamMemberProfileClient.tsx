@@ -17,7 +17,6 @@ export default function TeamMemberProfileClient({
   member,
   allPosts,
 }: TeamMemberProfileClientProps) {
-  const [activeFilter, setActiveFilter] = useState("All");
   const [visibleCount, setVisibleCount] = useState(6);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -40,24 +39,7 @@ export default function TeamMemberProfileClient({
     );
   }, [allPosts, member.topics]);
 
-  // Unique categories from member's posts for filtering
-  const articleCategories = useMemo(() => {
-    const cats = new Set<string>();
-    memberPosts.forEach((post) => {
-      post.categories?.forEach((c: string) => cats.add(c));
-    });
-    return ["All", ...Array.from(cats)];
-  }, [memberPosts]);
 
-  // Filter posts dynamically based on selected category tab
-  const filteredPosts = useMemo(() => {
-    if (activeFilter === "All") return memberPosts;
-    return memberPosts.filter((post) =>
-      post.categories?.some(
-        (cat: string) => cat.toLowerCase() === activeFilter.toLowerCase()
-      )
-    );
-  }, [memberPosts, activeFilter]);
 
   // Get other team members for the "More voices" section
   const otherMembers = useMemo(() => {
@@ -87,9 +69,8 @@ export default function TeamMemberProfileClient({
     };
   }, [memberPosts, member]);
 
-  // Reset active filter and post count when switching team members
+  // Reset post count when switching team members
   useEffect(() => {
-    setActiveFilter("All");
     setVisibleCount(6);
     setSubscribed(false);
     setEmail("");
@@ -253,33 +234,11 @@ export default function TeamMemberProfileClient({
             <h2 className="text-2xl font-semibold text-gray-800 tracking-tight">Latest articles</h2>
           </div>
 
-          {/* Filter tabs */}
-          {articleCategories.length > 2 && (
-            <div className="flex flex-wrap gap-2 mb-10">
-              {articleCategories.map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => {
-                    setActiveFilter(filter);
-                    setVisibleCount(6);
-                  }}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
-                    activeFilter === filter
-                      ? "bg-[#00224D] text-white"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-250"
-                  }`}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
-          )}
-
           {/* Articles Grid */}
-          {filteredPosts.length > 0 ? (
+          {memberPosts.length > 0 ? (
             <div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.slice(0, visibleCount).map((post: any) => {
+                {memberPosts.slice(0, visibleCount).map((post: any) => {
                   const hasImage = post.image && post.image !== "/fallback.jpg";
                   const primaryCategory = post.categories?.[0] || "Insight";
                   const dateFormatted = post.date
@@ -338,7 +297,7 @@ export default function TeamMemberProfileClient({
               </div>
 
               {/* Load More Button */}
-              {filteredPosts.length > visibleCount && (
+              {memberPosts.length > visibleCount && (
                 <div className="flex justify-center mt-12">
                   <button
                     onClick={() => setVisibleCount((prev) => prev + 6)}
@@ -351,13 +310,7 @@ export default function TeamMemberProfileClient({
             </div>
           ) : (
             <div className="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
-              <p className="text-gray-500 font-light mb-2">No articles published in this category yet.</p>
-              <button
-                onClick={() => setActiveFilter("All")}
-                className="text-xs font-bold text-[#c42a27] uppercase tracking-wider underline cursor-pointer"
-              >
-                View all articles
-              </button>
+              <p className="text-gray-500 font-light">No articles published yet.</p>
             </div>
           )}
         </section>
