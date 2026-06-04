@@ -8,7 +8,7 @@ export async function getWordPressPosts(limit: number = 100) {
 
   try {
     const res = await fetch(
-      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${limit}`,
+      `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${limit}&_fields=title,slug,date,categories,featured_media,_links,_embedded`,
       { next: { revalidate: 600 } } // Cache for 10 minutes
     );
 
@@ -21,6 +21,9 @@ export async function getWordPressPosts(limit: number = 100) {
       title: post.title.rendered.replace(/&#(\d+);/g, (match: string, dec: number) => String.fromCharCode(dec)),
       image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "/fallback.jpg",
       slug: post.slug,
+      date: post.date,
+      categories: post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [],
+      content: "",
     }));
   } catch (error) {
     console.error("Error fetching WordPress posts:", error);
