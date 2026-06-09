@@ -129,66 +129,55 @@ export default function VideoRipple() {
         float zone = exp(-dist * 4.5) * uIntensity;
         float hotzone = exp(-dist * 9.0) * uIntensity;
 
-        float wave = sin(dist * 22.0 - uTime * 7.0)
-                     * exp(-dist * 5.5)
-                     * uIntensity;
-        vec2 rippleUV = uv + dir * wave * 0.035;
+        vec2 rippleUV = uv;
+        vec3 col = texture2D(uTexture, rippleUV).rgb;
 
-        float aberrationStrength = zone * 0.028 * (1.0 + uSpeed * 2.5);
+        if (zone > 0.01) {
+          float wave = sin(dist * 22.0 - uTime * 7.0)
+                       * exp(-dist * 5.5)
+                       * uIntensity;
+          rippleUV = uv + dir * wave * 0.035;
 
-        vec2 uvR = rippleUV + dir * aberrationStrength * 1.0;
-        vec2 uvG = rippleUV + dir * aberrationStrength * 0.3;
-        vec2 uvB = rippleUV - dir * aberrationStrength * 0.8;
+          float aberrationStrength = zone * 0.045 * (1.0 + uSpeed * 3.2);
 
-        float r = texture2D(uTexture, uvR).r;
-        float g = texture2D(uTexture, uvG).g;
-        float b = texture2D(uTexture, uvB).b;
-        vec3 col = vec3(r, g, b);
+          vec2 uvR = rippleUV + dir * aberrationStrength * 1.8;
+          vec2 uvB = rippleUV - dir * aberrationStrength * 1.5;
+          vec2 uvG = rippleUV;
 
-        vec3 hsv = rgb2hsv(col);
+          float r = texture2D(uTexture, uvR).r;
+          float g = texture2D(uTexture, uvG).g;
+          float b = texture2D(uTexture, uvB).b;
+          col = vec3(r, g, b);
 
-        float noiseSample = noise(uv * 4.0 + uTime * 0.3);
-        float hueShift = zone * 0.55 * (0.5 + noiseSample * 0.5)
-                       + uSpeed * 0.18;
+          float glitchTrigger = step(0.25, uSpeed) * zone;
 
-        hsv.x = fract(hsv.x + hueShift);
-        hsv.y = clamp(hsv.y + zone * 0.7, 0.0, 1.0);
+          if (glitchTrigger > 0.0) {
+            float row = floor(uv.y * 120.0);
+            float rowRand = hash(vec2(row, floor(uGlitchSeed * 100.0)));
+            float isGlitching = step(0.75, rowRand);
+            float shift = (rowRand - 0.5) * 0.12 * glitchTrigger * isGlitching;
 
-        float brightPulse = sin(uTime * 12.0 + dist * 30.0) * 0.5 + 0.5;
-        hsv.z = clamp(hsv.z + hotzone * brightPulse * 0.35, 0.0, 1.3);
+            float rGlitch = texture2D(uTexture, vec2(uv.x + shift * 2.0, uv.y)).r;
+            float bGlitch = texture2D(uTexture, vec2(uv.x - shift * 1.8, uv.y)).b;
+            float gGlitch = texture2D(uTexture, vec2(uv.x + shift * 0.3, uv.y)).g;
 
-        col = hsv2rgb(hsv);
+            vec3 glitchedCol = vec3(rGlitch, gGlitch, bGlitch);
+            float glitchMix = isGlitching * zone * 1.2;
+            col = mix(col, glitchedCol, glitchMix);
+          }
 
-        float glitchTrigger = step(0.3, uSpeed) * uIntensity;
+          float scanline = sin(uv.y * 240.0 + uTime * 8.0) * 0.5 + 0.5;
+          float scanlineStrength = zone * (0.3 + zone * 0.6) * (0.6 + scanline * 0.4);
+          col *= (1.0 - scanlineStrength * 0.35);
 
-        if (glitchTrigger > 0.0) {
-          float row = floor(uv.y * 80.0);
-          float rowRand = hash(vec2(row, floor(uGlitchSeed * 100.0)));
-          float isGlitching = step(0.85, rowRand);
-          float shift = (rowRand - 0.5) * 0.06 * glitchTrigger * isGlitching;
+          float interlace = mod(floor(uv.y * 480.0), 2.0);
+          float interlaceEffect = zone * interlace * 0.35;
+          col -= interlaceEffect * vec3(0.15, 0.0, 0.0);
 
-          vec3 glitchedCol = vec3(
-            texture2D(uTexture, vec2(uv.x + shift * 1.2, uv.y)).r,
-            texture2D(uTexture, vec2(uv.x + shift * 0.8, uv.y)).g,
-            texture2D(uTexture, vec2(uv.x + shift, uv.y)).b
-          );
-
-          float glitchMix = isGlitching * zone * 0.9;
-          col = mix(col, glitchedCol, glitchMix);
+          float distortPulse = sin(uTime * 10.0 + dist * 20.0) * 0.5 + 0.5;
+          float yShift = (distortPulse - 0.5) * 0.008 * hotzone;
+          col += texture2D(uTexture, uv + vec2(0.0, yShift)).rgb * hotzone * 0.15;
         }
-
-        float scanline = sin((uv.y - uMouse.y) * 180.0 - uTime * 5.0)
-                         * 0.5 + 0.5;
-        float scanBurn = zone * 0.22 * scanline;
-        col -= scanBurn * vec3(0.0, 0.05, 0.15);
-
-        float invertPulse = hotzone
-                          * step(0.6, sin(uTime * 18.0))
-                          * uSpeed;
-        col = mix(col, 1.0 - col, invertPulse * 0.7);
-
-        float burn = zone * 0.18;
-        col *= (1.0 - burn);
 
         col = clamp(col, 0.0, 1.0);
         gl_FragColor = vec4(col, 1.0);
