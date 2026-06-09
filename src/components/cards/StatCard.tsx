@@ -42,16 +42,16 @@ export default function StatsCard({
 
   return (
     <motion.div 
-      className="relative w-full sm:w-[18rem] h-[10rem]"
+      className="relative w-full sm:w-[15rem] h-[8.5rem]"
     >
       {/* 1. THE CARD */}
-      <div className="relative z-30 h-full w-full px-5 py-5 sm:px-8 sm:py-8 flex flex-col justify-center backdrop-blur-sm bg-transparent border border-white/10 border-t-white/30 border-l-white/30 rounded-[2rem] rounded-tl-none text-white transition-all duration-500 ease-out hover:bg-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
-        <div className="flex items-center text-5xl sm:text-[4rem] font-bold text-[#F5A623] drop-shadow-md mb-1">
+      <div className="relative z-30 h-full w-full px-4 py-4 sm:px-6 sm:py-6 flex flex-col justify-center backdrop-blur-sm bg-transparent border border-white/10 border-t-white/30 border-l-white/30 rounded-[1.5rem] rounded-tl-none text-white transition-all duration-500 ease-out hover:bg-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
+        <div className="flex items-center text-4xl sm:text-[2.75rem] font-bold text-[#F5A623] drop-shadow-md mb-1">
           {characters.map((char, index) => (
             <Digit key={index} digit={char} />
           ))}
         </div>
-        <p className="mt-2 text-sm sm:text-[1.1rem] font-medium max-w-full leading-snug opacity-100 whitespace-pre-line">
+        <p className="mt-2 text-xs sm:text-[0.95rem] font-medium max-w-full leading-snug opacity-100 whitespace-pre-line">
           {title}
         </p>
       </div>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import CustomCursor from "@/components/layout/CustomCursor";
+import SmoothScroll from "@/components/providers/SmoothScroll";
 import Script from "next/script";
 
 import { Open_Sans, Roboto } from "next/font/google";
@@ -82,13 +84,13 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {/* Everything inside SmoothScroll will have that buttery momentum effect */}
-        {/* <SmoothScroll> */}
+        <CustomCursor />
+        <SmoothScroll>
           <Navbar />
-          <main style={{ paddingTop: '0px' }}> 
+          <main style={{ paddingTop: '0px' }}>
             {children}
           </main>
-        {/* </SmoothScroll> */}
+        </SmoothScroll>
         {/* Google Tag Manager - Loads only after the page is interactive */}
         <Script id="gtm" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

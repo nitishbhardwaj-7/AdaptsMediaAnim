@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
           <div className="relative w-56 h-12">
             {/* Replace with your actual logo path */}
-            <Image src="/images/footerlogo.png" alt="AdaptsMedia" fill className="object-contain" />
+            <Image src="/images/footerlogo.png" alt="AdaptsMedia" fill sizes="(max-width: 768px) 224px, 224px" className="object-contain" />
           </div>
           <div className="flex gap-4">
             <HeaderSocialIcon icon={<FaFacebookF size={16} />} />
@@ -156,7 +156,7 @@ const FooterSocialIcon = ({ icon }: { icon: React.ReactNode }) => (
 
 const AwardImage = ({ src }: { src: string }) => (
   <div className="relative w-24 h-30 opacity-100">
-    <Image src={src} alt="Award" fill className="object-contain" />
+    <Image src={src} alt="Award" fill sizes="(max-width: 768px) 96px, 96px" className="object-contain" />
   </div>
 );
 

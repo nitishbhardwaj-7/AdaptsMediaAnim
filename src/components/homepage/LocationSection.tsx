@@ -91,8 +91,8 @@ const LocationSection = () => {
                <Image
                src='/images/LocationPin.png'
                alt=''
-               height='20'
-               width='30'
+               height={20}
+               width={30}
                className='hidden md:block lg:block md:absolute lg:absolute top-[38%] left-[58%]'/>
             </div>
           </div>

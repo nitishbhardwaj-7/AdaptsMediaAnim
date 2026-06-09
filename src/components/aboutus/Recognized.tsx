@@ -4,6 +4,12 @@
 import Image from 'next/image';
 import ArrowButton from '../buttons/ArrowButton';
 import AwardCard from '../cards/AwardCard';
+import { useRef } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/all';
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 
 const awardsData = [
@@ -87,8 +93,27 @@ const pageData = {
 };
 
 export default function Recognized() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.from(".award-card-item", {
+      opacity: 0,
+      y: 50,
+      scale: 0.9,
+      rotationX: 15,
+      stagger: 0.12,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".award-card-grid",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+  }, { scope: containerRef });
+
   return (
-    <section className="relative text-white py-20 w-full flex flex-col items-start justify-start md:items-center md:justify-center">
+    <section ref={containerRef} className="relative text-white py-20 w-full flex flex-col items-start justify-start md:items-center md:justify-center">
       <Image
         src="/images/aboutus/RecognizedBg.png"
         alt="Background"
@@ -120,9 +145,9 @@ export default function Recognized() {
         {/* --- AWARDS GRID FIX --- */}
         {/* Added 'content-start' and 'items-stretch' to ensure rows never collapse 
             into each other during browser zoom calculations. */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 md:gap-6 items-stretch content-start px-10 md:px-0 lg:px-0">
+        <div className="award-card-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 md:gap-6 items-stretch content-start px-10 md:px-0 lg:px-0">
           {awardsData.map((award, index) => (
-            <div key={index} className="flex h-full min-h-[200px]">
+            <div key={index} className="award-card-item flex h-full min-h-[200px]">
               <AwardCard 
                 awardName={award.awardName}
                 imagePath={award.imagePath} 
@@ -147,6 +172,7 @@ export default function Recognized() {
                 src="/images/sortlist.png" 
                 alt="Sortlist"
                 fill
+                sizes="(max-width: 768px) 192px, 192px"
                 className="object-contain"
               />
             </div>
@@ -157,6 +183,7 @@ export default function Recognized() {
                 src="/images/digitalagencynetwork.png" 
                 alt="Digital Agency Network"
                 fill
+                sizes="(max-width: 768px) 128px, 128px"
                 className="object-contain"
               />
             </div>
@@ -167,6 +194,7 @@ export default function Recognized() {
                 src="/images/semrush.png" 
                 alt="Semrush"
                 fill
+                sizes="(max-width: 768px) 88px, 88px"
                 className="object-contain"
               />
             </div>

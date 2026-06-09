@@ -1,5 +1,5 @@
 import Footer from "@/components/layout/Footer";
-import BrandsSection from "@/components/homepage/BrandsSection";
+import ClientsSection from "@/components/homepage/ClientsSection";
 import ContactCTA from "@/components/homepage/ContactCTA";
 import InsightsSection from "@/components/homepage/InsightsSection";
 import LocationSection from "@/components/homepage/LocationSection";
@@ -53,7 +53,7 @@ export default async function Home() {
 
       <ServicesSection/>
 
-      <BrandsSection/>
+      <ClientsSection/>
 
       <RecreateDesign/>
 

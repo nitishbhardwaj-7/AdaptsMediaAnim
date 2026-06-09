@@ -63,7 +63,8 @@ const Navbar = () => {
               src="/images/clock.png"
               width={20}
               height={20}
-              className="w-4 h-auto md:w-5 md:h-auto object-contain shrink-0"
+              style={{ height: 'auto' }}
+              className="w-4 md:w-5 object-contain shrink-0"
             />
           </button>
 

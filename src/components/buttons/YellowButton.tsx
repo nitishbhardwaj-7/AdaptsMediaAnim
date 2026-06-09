@@ -17,8 +17,9 @@ const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonPr
 
   // Define dynamic colors based on variant
   const isBlue = variant === 'blue';
-  const textColor = isBlue ? 'text-[#0043e0]' : 'text-[#c42a27]';
-  const borderColor = isBlue ? 'border-[#0043e0]' : 'border-[#c42a27]';
+  const textColor = isBlue ? 'text-[#0043e0] hover:text-white' : 'text-[#c42a27] hover:text-white';
+  const borderColor = isBlue ? 'border-[#0043e0] group-hover:border-white' : 'border-[#c42a27] group-hover:border-white';
+  const hoverBgColor = isBlue ? 'bg-[#0043e0]' : 'bg-[#c42a27]';
 
   return (
     <button
@@ -26,17 +27,23 @@ const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonPr
       className={`
         ${widthMap[width]}
         ${textColor}
-        group cursor-pointer relative z-10 flex items-center justify-center gap-2 overflow-hidden rounded-full border border-black/10 bg-[#fac02d] 
-        px-4 py-2 md:px-5 md:py-2.5 
-        font-['DM_Sans'] text-[16px] md:text-[18px] font-semibold tracking-[0.02em] isolation-auto transition-all duration-700 
-        before:absolute before:-left-full before:-z-10 before:aspect-square before:w-full before:rounded-full before:bg-black before:transition-all before:duration-700 
-        before:hover:left-0 before:hover:w-full before:hover:scale-150 before:hover:duration-700
-        
+        group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border border-black/5 bg-transparent 
+        px-5 py-2.5 md:px-6 md:py-3 
+        font-['DM_Sans'] text-[16px] md:text-[18px] font-semibold tracking-[0.02em] transition-colors duration-300 ease-out
+        shadow-md shadow-yellow-500/5 hover:shadow-lg hover:shadow-yellow-500/10
       `}
     >
-      <span className="relative z-10">{title}</span>
+      {/* Layer 1: Base Yellow Background */}
+      <span className="absolute inset-0 -z-20 bg-[#fac02d] rounded-full" />
+
+      {/* Layer 2: Brand Color Slide-up Hover Background */}
+      <span className={`absolute inset-0 -z-10 translate-y-full ${hoverBgColor} rounded-full transition-transform duration-500 ease-[cubic-bezier(0.3,1,0.2,1)] group-hover:translate-y-0`} />
+
+      {/* Layer 3: Foreground Content (relative z-10) */}
+      <span className="relative z-10 transition-transform duration-300 group-hover:-translate-x-0.5">{title}</span>
+      
       <svg
-        className={`w-5 h-5 md:w-6 md:h-6 rotate-45 rounded-full border ${borderColor} p-1 md:p-1.5 duration-300 ease-linear group-hover:rotate-90 ${textColor}  relative z-10`}
+        className={`w-5 h-5 md:w-6 md:h-6 rotate-45 rounded-full border ${borderColor} p-1 md:p-1.5 transition-all duration-300 ease-out group-hover:rotate-90 group-hover:scale-105 relative z-10`}
         viewBox="0 0 16 19"
         xmlns="http://www.w3.org/2000/svg"
       >

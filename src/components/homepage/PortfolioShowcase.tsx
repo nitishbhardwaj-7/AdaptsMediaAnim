@@ -1,8 +1,13 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ArrowButton from "../buttons/ArrowButton";
 import ArrowIcon from "../icons/ArrowIcon";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface Project {
   id: number;
@@ -57,12 +62,88 @@ const FlowerLogo = () => (
 
 export default function PortfolioShowcase() {
   const [current, setCurrent] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const prev = () => setCurrent((c) => (c - 1 + projects.length) % projects.length);
   const next = () => setCurrent((c) => (c + 1) % projects.length);
 
+  useGSAP(() => {
+    // 1. Parallax Scroll Trigger
+    gsap.to(".portfolio-bg-image", {
+      yPercent: -50,           // background drifts up 50% as user scrolls past
+      ease: "none",            // LINEAR — the scrollbar IS the easing
+      scrollTrigger: {
+        trigger: ".portfolio-section-wrapper",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1.2             // 1.2s lag = silky physical feel
+      }
+    });
+  }, { scope: sectionRef });
+
+  useGSAP(() => {
+    // 2. Cinematic Slide transition logic
+    const slides = gsap.utils.toArray<HTMLElement>(".portfolio-slide");
+    
+    slides.forEach((slide, idx) => {
+      if (idx === current) {
+        // Active Slide Reveal
+        gsap.killTweensOf(slide);
+        gsap.to(slide, {
+          opacity: 1,
+          pointerEvents: "auto",
+          duration: 0.8,
+          ease: "power2.out"
+        });
+
+        // Background Image Wrapper Zoom Reveal (Separated from parallax layer)
+        const bgWrapper = slide.querySelector(".portfolio-bg-wrapper");
+        if (bgWrapper) {
+          gsap.killTweensOf(bgWrapper);
+          gsap.fromTo(bgWrapper, 
+            { scale: 1.15 },
+            { scale: 1, duration: 1.5, ease: "power2.out" }
+          );
+        }
+
+        // Staggered Text & Brand Info Reveals
+        const logo = slide.querySelector(".portfolio-logo");
+        const brand = slide.querySelector(".portfolio-brand");
+        const tagline = slide.querySelector(".portfolio-tagline");
+        const tags = slide.querySelectorAll(".portfolio-tag");
+
+        if (logo) {
+          gsap.killTweensOf(logo);
+          gsap.fromTo(logo, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.15 });
+        }
+        if (brand) {
+          gsap.killTweensOf(brand);
+          gsap.fromTo(brand, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.25 });
+        }
+        if (tagline) {
+          gsap.killTweensOf(tagline);
+          gsap.fromTo(tagline, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: "power2.out", delay: 0.35 });
+        }
+        if (tags.length > 0) {
+          gsap.killTweensOf(tags);
+          gsap.fromTo(tags, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: "power2.out", delay: 0.45 });
+        }
+
+      } else {
+        // Inactive Slide Fadeout
+        gsap.killTweensOf(slide);
+        gsap.to(slide, {
+          opacity: 0,
+          pointerEvents: "none",
+          duration: 0.6,
+          ease: "power2.inOut"
+        });
+      }
+    });
+  }, { scope: sectionRef, dependencies: [current] });
+
   return (
-    <div className="flex flex-col min-h-screen bg-[#12161c] font-['DM_Sans']">
+    <div ref={sectionRef} className="portfolio-section-wrapper flex flex-col min-h-screen bg-[#12161c] font-['DM_Sans']">
 
       {/* ── SHOWCASE WRAPPER (The Rounded Box) ── */}
       <div className="relative flex-1 m-4 md:m-16 rounded-2xl overflow-hidden h-[600px] md:h-auto md:min-h-[580px]">
@@ -71,18 +152,24 @@ export default function PortfolioShowcase() {
           return (
             <div 
               key={p.id} 
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+              className={`portfolio-slide absolute inset-0 ${active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
             >
-              {/* BG (Remains full-width of the card) */}
-              <Image
-                src={p.bgImage}
-                alt={p.brand}
-                fill
-                priority={i === 0}
-                sizes="100vw"
-                quality={85}
-                className={`object-cover transition-transform duration-[8000ms] ease-in-out ${active ? "scale-[1.04]" : "scale-100"}`}
-              />
+              {/* BG Wrapper (for slide transition zoom/scale) */}
+              <div className="portfolio-bg-wrapper absolute inset-0 overflow-hidden">
+                <Image
+                  src={p.bgImage}
+                  alt={p.brand}
+                  fill
+                  priority={i === 0}
+                  sizes="100vw"
+                  quality={85}
+                  className="portfolio-bg-image object-cover"
+                  style={{
+                    transformOrigin: "center center",
+                    scale: "1.3"
+                  }}
+                />
+              </div>
 
               {/* Overlays */}
               <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,12,16,0.9)_0%,rgba(10,12,16,0.4)_40%,transparent_80%)]" />
@@ -106,16 +193,16 @@ export default function PortfolioShowcase() {
                   
                   {/* Brand Branding */}
                   <div className="flex flex-col items-start w-full md:pl-21"> 
-  <div className="flex flex-col gap-2 items-center md:items-start w-fit">
-    <div className="w-full flex justify-center md:justify-center">
-      <FlowerLogo />
-    </div>
+                    <div className="flex flex-col gap-2 items-center md:items-start w-fit">
+                      <div className="portfolio-logo w-full flex justify-center md:justify-center">
+                        <FlowerLogo />
+                      </div>
 
-    <span className="font-['DM_Sans'] text-[20px] md:text-[26px] font-normal tracking-[0.22em] text-white/90 uppercase leading-none">
-      {p.brand}
-    </span>
-  </div>
-</div>
+                      <span className="portfolio-brand font-['DM_Sans'] text-[20px] md:text-[26px] font-normal tracking-[0.22em] text-white/90 uppercase leading-none">
+                        {p.brand}
+                      </span>
+                    </div>
+                  </div>
 
                   {/* Footer Row */}
                   <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
@@ -130,14 +217,14 @@ export default function PortfolioShowcase() {
 
                       <div className="flex flex-col gap-[14px] flex-1">
                         <div className="w-full h-[1px] bg-white/15" />
-                        <h2 className="font-['Cormorant_Garamond'] text-[24px] md:text-[clamp(26px,4vw,40px)] font-normal text-white leading-[1.2] tracking-[-0.01em] max-w-[640px]">
+                        <h2 className="portfolio-tagline font-['Cormorant_Garamond'] text-[24px] md:text-[clamp(26px,4vw,40px)] font-normal text-white leading-[1.2] tracking-[-0.01em] max-w-[640px]">
                           {p.tagline}
                         </h2>
                         <div className="w-full h-[1px] bg-white/15" />
 
                         <div className="flex flex-wrap gap-2">
                           {p.tags.map((tag) => (
-                            <span key={tag} className="flex items-center gap-1.5 border border-white/30 text-white/75 rounded-full px-3 py-[5px] text-[10px] md:text-[12px] bg-white/5">
+                            <span key={tag} className="portfolio-tag flex items-center gap-1.5 border border-white/30 text-white/75 rounded-full px-3 py-[5px] text-[10px] md:text-[12px] bg-white/5">
                               <TagIcon /> {tag}
                             </span>
                           ))}

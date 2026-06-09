@@ -1,4 +1,4 @@
-import BrandsSection from "@/components/homepage/BrandsSection"
+import ClientsSection from "@/components/homepage/ClientsSection"
 import ContactCTA from "@/components/homepage/ContactCTA"
 import Footer from "@/components/layout/Footer"
 import SocialBar from "@/components/layout/SocialBar"
@@ -13,7 +13,7 @@ const page = () => {
       <ServicesHero/>
     <ConnectedThinkingServices/>
     <PortfolioSection/>
-    <BrandsSection/>
+    <ClientsSection/>
     <PerformSection/>
     <ContactCTA/>
     <SocialBar/>

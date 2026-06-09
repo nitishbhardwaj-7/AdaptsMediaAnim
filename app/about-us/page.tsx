@@ -5,7 +5,7 @@ import DubaiSection from '@/components/aboutus/DubaiSection'
 import ImpactSection from '@/components/aboutus/ImpactSection'
 import Recognized from '@/components/aboutus/Recognized'
 import TeamSection from '@/components/aboutus/TeamSection'
-import BrandsSection from '@/components/homepage/BrandsSection'
+import ClientsSection from '@/components/homepage/ClientsSection'
 import ContactCTA from '@/components/homepage/ContactCTA'
 import Footer from '@/components/layout/Footer'
 import SocialBar from '@/components/layout/SocialBar'
@@ -21,7 +21,7 @@ const page = () => {
     <PerformSection/>
     <ImpactSection/>
     <TeamSection/>
-    <BrandsSection/>
+    <ClientsSection/>
     <Recognized/>
     <ContactCTA/>
     <SocialBar/>
