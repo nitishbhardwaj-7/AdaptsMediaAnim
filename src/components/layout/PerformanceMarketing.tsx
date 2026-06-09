@@ -42,7 +42,7 @@ const PerformanceMarketing = () => {
   className="bg-transparent relative text-white py-20 font-sans overflow-hidden"
 >
 
-  <div className="relative z-50 max-w-[1450px] w-full px-8 md:px-20 mx-auto">
+  <div className="relative z-50 max-w-[1350px] w-full px-8 md:px-16 mx-auto">
     
     {/* 1. TOP SECTION: Connected Thinking */}
     <motion.div className="mb-32" variants={fadeInUp}>

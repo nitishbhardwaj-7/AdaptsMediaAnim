@@ -40,7 +40,7 @@ const SocialContent = () => {
     /> */}
   
 
-      <div className="z-50 max-w-[1450px] w-full px-8 md:px-20">
+      <div className="z-50 max-w-[1350px] w-full px-8 md:px-16">
         <div className="flex flex-col min-[1200px]:flex-row gap-12 md:gap-42 items-start">
           
          {/* 1. Left Side: Column Wrapper */}

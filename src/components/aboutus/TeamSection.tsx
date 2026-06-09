@@ -6,8 +6,8 @@ import { teamMembers } from '@/data/teamData';
 
 const TeamSection = () => {
   return (
-    <section className="w-full bg-[#00224D] py-24 px-8 md:px-20 min-h-screen">
-      <div className="max-w-[1450px] mx-auto">
+    <section className="w-full bg-[#00224D] py-24 px-8 md:px-16 min-h-screen">
+      <div className="max-w-[1350px] mx-auto">
         
         {/* Header */}
         <motion.div 

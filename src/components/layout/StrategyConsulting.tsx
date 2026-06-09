@@ -27,7 +27,7 @@ const StrategyConsulting = () => {
       className="bg-transparent relative text-white flex flex-col w-full items-start justify-start md:items-center md:justify-center py-20 font-sans overflow-hidden"
     >
   
-      <div className="z-50 max-w-[1450px] w-full px-8 md:px-20">
+      <div className="z-50 max-w-[1350px] w-full px-8 md:px-16">
         <div className="flex flex-col min-[1200px]:flex-row gap-12 md:gap-42 items-start">
           
          {/* 1. Left Side: Column Wrapper */}

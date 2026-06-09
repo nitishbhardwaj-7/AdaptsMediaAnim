@@ -65,10 +65,10 @@ const PortfolioSection = async () => {
       {/* Removed 'mx-auto' and 'max-w-screen' to pin content to the left.
         Changed to w-full to allow scroll to span the width.
       */}
-      <div className="relative z-20 max-w-[1700px] px-8 md:px-20 w-full">
+      <div className="relative z-20 max-w-[1350px] px-8 md:px-16 w-full">
         
-        {/* Header Section: flex-col below 1400px to keep button left-aligned */}
-        <div className="flex flex-col min-[1400px]:flex-row min-[1400px]:items-end justify-between gap-8 mb-16">
+        {/* Header Section: flex-col below 1300px to keep button left-aligned */}
+        <div className="flex flex-col min-[1300px]:flex-row min-[1300px]:items-end justify-between gap-8 mb-16">
           <div className="flex flex-col gap-4">
             <div className="flex gap-3">
               <span className="text-[10px] font-bold tracking-[0.2em] text-[#f5a623] uppercase">
@@ -90,7 +90,7 @@ const PortfolioSection = async () => {
         {/* Added '-mx-8' and 'px-8' on mobile/tablet range so the scroll 
             goes edge-to-edge but content aligns with the text.
         */}
-        <div className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory scrollbar-hide px-8 min-[1400px]:mx-0 min-[1400px]:px-0">
+        <div className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory scrollbar-hide px-8 min-[1300px]:mx-0 min-[1300px]:px-0">
           {insights.map((item: Insight, index: number) => (
             <Link 
               key={index} 

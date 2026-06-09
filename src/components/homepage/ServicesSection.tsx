@@ -262,7 +262,7 @@ const ServicesSection = () => {
           </div>
 
           <h2 className="services-heading text-4xl md:text-6xl font-medium mb-8 leading-tight max-w-3xl">
-            Services Designed to Drive Growth
+            Services Designed to <br/> Drive Growth
           </h2>
 
           <p className="services-subtitle text-[clamp(1rem,1.6vw,1.35rem)] opacity-90 max-w-3xl font-light leading-relaxed">

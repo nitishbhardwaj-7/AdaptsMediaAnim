@@ -40,7 +40,7 @@ const WebDigitalExperience = () => {
   className="bg-transparent relative text-white font-sans overflow-hidden"
 >
 
-  <div className="relative z-50 max-w-[1450px] w-full px-8 md:px-20 mx-auto">
+  <div className="relative z-50 max-w-[1350px] w-full px-8 md:px-16 mx-auto">
     
     {/* Flex Wrapper: Performance Marketing on Left, Image on Right */}
     <div className="flex flex-col min-[1200px]:flex-row gap-12 md:gap-36 items-start">

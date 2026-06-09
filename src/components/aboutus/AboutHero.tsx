@@ -2,17 +2,17 @@ import Image from "next/image";
 
 const AboutHero = () => {
   return (
-    <section className="relative min-h-[80vh] w-full overflow-hidden bg-[#032d57] flex items-center justify-center px-6 py-12 text-white md:px-16 lg:px-24">
-<Image
-              src="/images/aboutus/HeroMask.png" 
-              alt=""
-              fill
-              priority={true}
-              sizes="100vw"
-              className="absolute z-10 pointer-events-none object-cover" 
-            />
+    <section className="relative min-h-[80vh] w-full overflow-hidden bg-[#032d57] flex items-center justify-center py-12 text-white">
+      <Image
+        src="/images/aboutus/HeroMask.png" 
+        alt=""
+        fill
+        priority={true}
+        sizes="100vw"
+        className="absolute z-10 pointer-events-none object-cover" 
+      />
       {/* Hero Content */}
-      <div className="grid grid-cols-1 gap-8 min-[1200px]:grid-cols-2 w-[1450px]">
+      <div className="grid grid-cols-1 gap-8 min-[1200px]:grid-cols-2 max-w-[1350px] w-full px-8 md:px-16">
         {/* Left Side */}
         <div className="flex items-center">
           <h1 className="text-5xl tracking-wide md:text-7xl">

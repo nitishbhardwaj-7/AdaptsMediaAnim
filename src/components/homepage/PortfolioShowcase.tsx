@@ -175,12 +175,11 @@ export default function PortfolioShowcase() {
               <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(10,12,16,0.9)_0%,rgba(10,12,16,0.4)_40%,transparent_80%)]" />
               <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(10,12,16,0.6)_0%,transparent_50%)]" />
 
-              {/* ── ALIGNMENT CONTAINER (The 1700px Fix) ── */}
-              {/* Added w-full max-w-[1700px] mx-auto and relative positioning */}
-              <div className="relative h-full w-full max-w-[1600px] mx-auto px-6 md:px-10 xl:px-16 pointer-events-none">
+              {/* ── ALIGNMENT CONTAINER (The 1350px Fix) ── */}
+              <div className="relative h-full w-full max-w-[1350px] mx-auto px-8 md:px-16 pointer-events-none">
                 
-                {/* Top bar: Now aligned to the 1700px container's left edge */}
-                <div className="absolute top-[24px] md:top-[48px] left-6 md:left-10 xl:left-16 right-6 md:right-10 xl:right-16 flex items-center gap-[14px] z-[4] pointer-events-auto">
+                {/* Top bar: Now aligned to the 1350px container's left edge */}
+                <div className="absolute top-[24px] md:top-[48px] left-8 md:left-16 right-8 md:right-16 flex items-center gap-[14px] z-[4] pointer-events-auto">
                   <span className="text-[10px] md:text-[11px] font-medium tracking-[0.18em] text-[#f5a623] uppercase">
                     Portfolio
                   </span>
@@ -188,8 +187,8 @@ export default function PortfolioShowcase() {
                   <ArrowButton title="View Portfolio"/>
                 </div>
 
-                {/* Bottom Content Area: Now aligned to 1700px grid */}
-                <div className="absolute bottom-0 left-6 md:left-10 xl:left-16 right-6 md:right-10 xl:right-16 pb-16 md:pb-[60px] z-[4] flex flex-col gap-6 md:gap-4 pointer-events-auto">
+                {/* Bottom Content Area: Now aligned to 1350px grid */}
+                <div className="absolute bottom-0 left-8 md:left-16 right-8 md:right-16 pb-16 md:pb-[60px] z-[4] flex flex-col gap-6 md:gap-4 pointer-events-auto">
                   
                   {/* Brand Branding */}
                   <div className="flex flex-col items-start w-full md:pl-21"> 

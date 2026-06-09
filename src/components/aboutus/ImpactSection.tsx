@@ -31,8 +31,8 @@ const stats = [
 
 const ImpactSection = () => {
   return (
-    <section className="w-full bg-[#F8F9FA] py-20 px-8 md:px-20 overflow-hidden">
-      <div className="max-w-[1450px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    <section className="w-full bg-[#F8F9FA] py-20 px-8 md:px-16 overflow-hidden">
+      <div className="max-w-[1350px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
         
         {/* LEFT CONTENT */}
         <motion.div 

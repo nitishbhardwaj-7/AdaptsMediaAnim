@@ -32,7 +32,7 @@ const BlueSection = () => {
         className="absolute z-10 pointer-events-none object-cover"
       />
 
-      <div className="max-w-[1600px] relative z-50 w-full px-8 md:px-20">
+      <div className="max-w-[1350px] relative z-50 w-full px-8 md:px-16">
         <motion.div className="mb-20" variants={fadeInUp}>
           <div className="flex gap-4 mb-6">
             <span className="text-[10px] tracking-[0.2em] font-bold uppercase opacity-80 text-[#FAC02E]">
