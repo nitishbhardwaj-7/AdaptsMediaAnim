@@ -27,7 +27,7 @@
   border-radius: 50%;
   background: #C9A84C;
   box-shadow: 0 0 6px rgba(201, 168, 76, 0.5);
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, margin 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, margin 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 .cursor-dot.cursor-click {
@@ -50,7 +50,8 @@
               height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               margin 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               border-color 0.35s ease,
-              background 0.35s ease;
+              background 0.35s ease,
+              opacity 0.2s ease;
 }
 
 /* Expand ring on interactive targets */
@@ -63,6 +64,11 @@
   background: rgba(201, 168, 76, 0.08);
   box-shadow: 0 0 18px rgba(201, 168, 76, 0.18);
   backdrop-filter: blur(2px);
+}
+
+.cursor-dot.cursor-hidden,
+.cursor-ring.cursor-hidden {
+  opacity: 0 !important;
 }
 /* ──────────────────────────────────────────────────────── */
 

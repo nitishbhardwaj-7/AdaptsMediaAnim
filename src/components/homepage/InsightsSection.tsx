@@ -1,7 +1,8 @@
 import Image from "next/image";
 import ArrowButton from "../buttons/ArrowButton";
-import Tailwind3DCard from "../cards/Tailwind3DCard";
-import { getWordPressPosts } from "@/lib/getPosts"; // path to your fetcher
+import BlogCardWrapper from "../cards/BlogCardWrapper";
+import BlogCursor from "../cards/BlogCursor";
+import { getWordPressPosts } from "@/lib/getPosts";
 import Link from "next/link";
 
 interface Insight {
@@ -14,7 +15,9 @@ const InsightsSection = async () => {
   // Fetching real data from your WordPress backend via the helper function
   const insights = await getWordPressPosts(10);
   return (
-    <section className="relative bg-black text-white py-20 overflow-hidden font-sans flex flex-col items-start justify-start md:items-center md:justify-center">
+    <>
+      <BlogCursor />
+      <section className="relative bg-black text-white py-20 overflow-hidden font-sans flex flex-col items-start justify-start md:items-center md:justify-center">
       {/* Background Radial Glows */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-yellow-600/20 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-900/30 blur-[100px] rounded-full translate-x-1/4 -translate-y-1/4 pointer-events-none" />
@@ -65,17 +68,12 @@ const InsightsSection = async () => {
         ) : (
           <div className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory scrollbar-hide px-8 min-[1300px]:mx-0 min-[1300px]:px-0">
             {insights.map((item: Insight, index: number) => (
-              <Link
+              <BlogCardWrapper
                 key={index}
-                href={`/blogs/${item.slug}`}
-                className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[380px] snap-start"
-              >
-                {/* The card is now a child of the Link */}
-                <Tailwind3DCard
-                  title={item.title}
-                  image={item.image}
-                />
-              </Link>
+                slug={item.slug || ""}
+                title={item.title}
+                image={item.image}
+              />
             ))}
           </div>
         )}
@@ -83,6 +81,7 @@ const InsightsSection = async () => {
 
       </div>
     </section>
+    </>
   );
 };
 
