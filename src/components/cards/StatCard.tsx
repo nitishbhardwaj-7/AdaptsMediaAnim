@@ -46,12 +46,12 @@ export default function StatsCard({
     >
       {/* 1. THE CARD */}
       <div className="relative z-30 h-full w-full px-4 py-4 sm:px-6 sm:py-6 flex flex-col justify-center backdrop-blur-sm bg-transparent border border-white/10 border-t-white/30 border-l-white/30 rounded-[1.5rem] rounded-tl-none text-white transition-all duration-500 ease-out hover:bg-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
-        <div className="flex items-center text-4xl sm:text-[2.75rem] font-bold text-[#F5A623] drop-shadow-md mb-1">
+        <div className="flex items-center text-4xl sm:text-[2.75rem] font-heading font-bold text-[#F5A623] drop-shadow-md">
           {characters.map((char, index) => (
             <Digit key={index} digit={char} />
           ))}
         </div>
-        <p className="mt-2 text-xs sm:text-[0.95rem] font-medium max-w-full leading-snug opacity-100 whitespace-pre-line">
+        <p className="text-xs sm:text-[0.95rem] font-heading font-normal max-w-full leading-snug opacity-100 whitespace-pre-line">
           {title}
         </p>
       </div>

@@ -261,7 +261,7 @@ const ServicesSection = () => {
             <div className="services-line h-[1px] w-12 bg-yellow-500" />
           </div>
 
-          <h2 className="services-heading text-4xl md:text-6xl font-medium mb-8 leading-tight max-w-3xl">
+          <h2 className="services-heading text-4xl md:text-6xl font-heading font-medium mb-8 leading-tight max-w-3xl">
             Services Designed to <br/> Drive Growth
           </h2>
 
@@ -280,7 +280,7 @@ const ServicesSection = () => {
               >
                 {/* Number */}
                 <span
-                  className="service-number text-7xl font-normal opacity-50 mb-[-12px] leading-none text-white blur-[2px] inline-block"
+                  className="service-number text-7xl font-heading font-normal opacity-50 mb-[-12px] leading-none text-white blur-[2px] inline-block"
                   style={{ marginLeft: "-32px" }}
                 >
                   {service.number}
@@ -288,7 +288,7 @@ const ServicesSection = () => {
 
                 {/* Title */}
                 <h3 
-                  className="service-card-title text-3xl md:text-[46px] font-light mb-8 leading-tight min-h-[6.5rem] md:min-h-[7.2rem] w-full"
+                  className="service-card-title text-3xl md:text-[46px] font-heading font-light mb-8 leading-tight min-h-[6.5rem] md:min-h-[7.2rem] w-full"
                   dangerouslySetInnerHTML={{ __html: service.title }}
                 />
 
@@ -301,7 +301,7 @@ const ServicesSection = () => {
                         className="service-item-row flex items-center justify-between py-3 px-2"
                         style={{ borderRadius: "6px" }}
                       >
-                        <span className="service-item-text text-[clamp(0.85rem,1.1vw,1.05rem)] font-extralight tracking-wide opacity-90">
+                        <span className="service-item-text text-[clamp(0.85rem,1.1vw,1.05rem)] font-heading font-light tracking-wide opacity-90">
                           {item}
                         </span>
                         <span className="service-item-arrow flex items-center justify-center">

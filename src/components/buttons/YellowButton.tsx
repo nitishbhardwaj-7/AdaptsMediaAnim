@@ -29,7 +29,7 @@ const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonPr
         ${textColor}
         group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border border-black/5 bg-transparent 
         px-5 py-2.5 md:px-6 md:py-3 
-        font-['DM_Sans'] text-[16px] md:text-[18px] font-semibold tracking-[0.02em] transition-colors duration-300 ease-out
+        font-['DM_Sans'] text-[16px] md:text-[18px] font-heading font-semibold tracking-[0.02em] transition-colors duration-300 ease-out
         shadow-md shadow-yellow-500/5 hover:shadow-lg hover:shadow-yellow-500/10
       `}
     >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,22 +18,111 @@ const NavLogo = () => (
   </div>
 );
 
+const IDLE_TIMEOUT = 2500; // ms before hiding on no movement
+const TOP_HOVER_ZONE = 80; // px from top to trigger show on hover
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const lastScrollY = useRef(0);
+  const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isHoveringNav = useRef(false);
+
   const menuBarClass = "block w-[22px] h-[2px] bg-white rounded-[2px]";
 
+  // ── Reset idle timer: hides navbar after inactivity ──
+  const resetIdleTimer = useCallback(() => {
+    if (idleTimer.current) clearTimeout(idleTimer.current);
+    idleTimer.current = setTimeout(() => {
+      // Don't hide if user is hovering on the navbar itself or still in hero
+      if (!isHoveringNav.current && window.scrollY > window.innerHeight) {
+        setIsVisible(false);
+      }
+    }, IDLE_TIMEOUT);
+  }, []);
+
+  // ── Scroll handler: direction detection + pill morph ──
   useEffect(() => {
     const handleScroll = () => {
-      // Trigger the narrow version after 50px of scrolling
-      setIsScrolled(window.scrollY > 250);
+      const currentY = window.scrollY;
+      const heroEnd = window.innerHeight; // hero is h-screen
+
+      // Original pill transition
+      setIsScrolled(currentY > 250);
+
+      // Within the hero section (first 70%) → stay visible for pill animation
+      if (currentY <= heroEnd * 0.8) {
+        setIsVisible(true);
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+        lastScrollY.current = currentY;
+        return;
+      }
+
+      // Approaching hero end → auto-hide so it disappears before section 2
+      if (currentY <= heroEnd && currentY > lastScrollY.current) {
+        setIsVisible(false);
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+        lastScrollY.current = currentY;
+        return;
+      }
+
+      // Past the hero: scroll-up → show, scroll-down → hide
+      if (currentY < lastScrollY.current) {
+        setIsVisible(true);
+        resetIdleTimer();
+      } else if (currentY > lastScrollY.current) {
+        setIsVisible(false);
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+      }
+
+      lastScrollY.current = currentY;
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [resetIdleTimer]);
+
+  // ── Mouse movement: show on top-zone hover & restart idle timer ──
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // If mouse is in the top hover zone, show navbar
+      if (e.clientY <= TOP_HOVER_ZONE) {
+        setIsVisible(true);
+      }
+
+      // Any movement while visible resets idle
+      resetIdleTimer();
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [resetIdleTimer]);
+
+  // ── Cleanup ──
+  useEffect(() => {
+    return () => {
+      if (idleTimer.current) clearTimeout(idleTimer.current);
+    };
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-[1000] py-4 transition-all duration-500 ease-in-out pointer-events-none">
+    <header
+      className="fixed top-0 left-0 w-full z-[1000] py-4 pointer-events-none"
+      style={{
+        transform: isVisible ? "translateY(0)" : "translateY(-100%)",
+        transition: "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
+      }}
+      onMouseEnter={() => {
+        isHoveringNav.current = true;
+        setIsVisible(true);
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+      }}
+      onMouseLeave={() => {
+        isHoveringNav.current = false;
+        resetIdleTimer();
+      }}
+    >
       <nav
         aria-label="Main Navigation"
         className={`

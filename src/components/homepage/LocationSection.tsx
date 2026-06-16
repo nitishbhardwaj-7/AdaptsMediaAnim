@@ -53,13 +53,13 @@ const LocationSection = () => {
               <div className="w-12 h-[1px] bg-[#f5a623]" />
             </div>
             
-            <h2 className="text-5xl md:text-7xl relative font-medium mb-16 leading-tight tracking-tight">
+            <h2 className="text-5xl md:text-7xl relative font-heading font-medium mb-16 leading-tight tracking-tight">
               Exactly Where <br /> You Need Us <Image
               src='/images/Arrow.png'
               alt=""
               width={20}
               height={20}
-              className="hidden md:block lg:block md:absolute lg:absolute right-32 top-28"/>
+              className="hidden md:block lg:block md:absolute lg:absolute right-6 top-28"/>
               
             </h2>
 

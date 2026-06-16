@@ -43,7 +43,7 @@ const InsightsSection = async () => {
               </span>
               <div className="w-12 h-[1px] bg-[#f5a623]" />
             </div>
-            <h2 className="text-3xl md:text-6xl min-[1300px]:text-7xl tracking-wide font-medium leading-[1.1] tracking-tight md:max-w-full lg:max-w-full">
+            <h2 className="text-3xl md:text-6xl min-[1300px]:text-7xl tracking-wide font-heading font-medium leading-[1.1] tracking-tight md:max-w-full lg:max-w-full">
               Ideas, Trends & <br /> Industry Insights
             </h2>
           </div>

@@ -133,7 +133,7 @@ export default function RecognizedSection() {
               </span>
               <div className="w-12 h-[0.6px] bg-[#FAC02E] translate-y-[3px]" />
             </div>
-            <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-medium leading-[1.05] -tracking-wide max-w-2xl">
+            <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-heading font-medium leading-[1.05] -tracking-wide max-w-2xl">
               Recognized for <br/> Excellence
             </h2>
           </div>
@@ -158,7 +158,7 @@ export default function RecognizedSection() {
 
         {/* --- PROUD PARTNERSHIPS FIX --- */}
         <div className="mt-24 flex flex-col gap-8 items-start">
-          <span className="text-sm font-light tracking-[0.15em] opacity-90 text-white font-sans uppercase">
+          <span className="text-sm font-heading font-normal tracking-[0.15em] text-white">
             Proud Partnerships
           </span>
 

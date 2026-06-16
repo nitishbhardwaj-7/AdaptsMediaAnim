@@ -32,7 +32,7 @@ const Tailwind3DCard = ({ title, image }: { title: string; image: string }) => {
           <span className="text-[10px] font-bold tracking-[0.3em] text-[#f5a623] uppercase mb-3 block opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700">
             Blog Post
           </span>
-          <h3 className="text-2xl font-['Cormorant_Garamond'] font-medium leading-tight text-white">
+          <h3 className="text-2xl font-heading font-light leading-tight text-white">
             {title}
           </h3>
           

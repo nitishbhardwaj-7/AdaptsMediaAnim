@@ -133,7 +133,7 @@ export default function Recognized() {
               </span>
               <div className="w-12 h-[0.6px] bg-[#FAC02E] translate-y-[3px]" />
             </div>
-            <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-medium leading-[1.05] -tracking-wide max-w-2xl">
+            <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-heading font-medium leading-[1.05] -tracking-wide max-w-2xl">
               Recognized for <br/> Excellence
             </h2>
           </div>

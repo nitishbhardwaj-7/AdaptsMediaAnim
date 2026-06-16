@@ -400,7 +400,7 @@ const ClientsSection = () => {
           <div className="clients-label-line w-16 h-[1.5px] bg-[#003B65]" />
         </div>
 
-        <h2 className="clients-heading text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-medium text-[#003B65] mb-10 md:mb-16 tracking-tight">
+        <h2 className="clients-heading text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-medium text-[#003B65] mb-10 md:mb-16 tracking-tight">
           Brands We Work With
         </h2>
 

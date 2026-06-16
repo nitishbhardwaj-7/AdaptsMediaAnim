@@ -55,7 +55,7 @@ const BrandingIntro = () => {
       >
         {/* Paragraph Description */}
         <motion.div variants={textVariants} className="max-w-6xl">
-          <p className="text-[22px] sm:text-2xl md:text-[35px] font-semibold text-[#1a2b49] leading-[1.35] tracking-tight">
+          <p className="text-[36px] sm:text-2xl md:text-[40px] font-semibold text-[#1a2b49] leading-[1.35] tracking-tight">
             We combine strategic thinking with creative execution to build
             brands that are{" "}
             <span className="text-[#064ed3] font-bold">
@@ -73,7 +73,7 @@ const BrandingIntro = () => {
         {/* Pills / Tags Section */}
         <motion.div 
           variants={containerVariants}
-          className="mt-16 flex flex-wrap gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 max-w-3xl"
+          className="mt-16 flex flex-wrap gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 max-w-6xl"
         >
           {pills.map((pill, idx) => (
             <motion.div

@@ -44,7 +44,7 @@ interface Insight {
   slug?: string;
 }
 
-const PortfolioSection = async () => {
+const PortfolioSection = () => {
   // Fetching real data from your WordPress backend via the helper function
 //   const insights = await getWordPressPosts(10);
   return (
@@ -80,7 +80,7 @@ const PortfolioSection = async () => {
           </div>
 
           <div className="flex justify-start">
-  <Link href="/blogs">
+  <Link href="/portfolio">
     <ArrowButton title="View Portfolio"/>
   </Link>
 </div>

@@ -161,7 +161,7 @@ export default function AwardCard({ awardName, imagePath }: AwardCardProps) {
           className="text-center relative z-20"
           style={{ transform: 'translateZ(20px)' }}
         >
-          <p className="text-[15px] font-light text-white/90">
+          <p className="text-[15px] font-heading font-light text-white/90">
             {awardName}
           </p>
         </div>

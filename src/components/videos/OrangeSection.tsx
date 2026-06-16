@@ -191,7 +191,7 @@ const OrangeSection = () => {
                 We are a new-generation agency built to bridge that gap — bringing together strategic thinking, creative excellence, and data-driven execution under one roof. Every solution we design is rooted in understanding your business, your audience, and your growth ambitions.
               </p>
 
-              <h2 className="orange-quote text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-medium leading-tight">
+              <h2 className="orange-quote text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-heading font-medium leading-tight">
                 We don&apos;t just build campaigns. <br /> We build momentum.
               </h2>
 
