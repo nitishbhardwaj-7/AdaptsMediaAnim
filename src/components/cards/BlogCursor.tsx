@@ -6,7 +6,7 @@ import gsap from "gsap"
 export default function BlogCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
-  const delayTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+  const delayTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
