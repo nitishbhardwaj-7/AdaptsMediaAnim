@@ -91,18 +91,39 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
   const next = () => setCurrent((c) => (c + 1) % activeProjects.length);
 
   useGSAP(() => {
-    if (isList) return; // Skip parallax in list mode
-    gsap.to(".portfolio-bg-image", {
-      yPercent: -50,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".portfolio-section-wrapper",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1.2
-      }
-    });
-  }, { scope: sectionRef });
+    if (isList) {
+      const cards = gsap.utils.toArray<HTMLElement>(".portfolio-list-card");
+      cards.forEach((card) => {
+        const bgImage = card.querySelector(".portfolio-bg-image");
+        if (bgImage) {
+          gsap.fromTo(bgImage,
+            { yPercent: -8 },
+            {
+              yPercent: 8,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 1.2,
+              }
+            }
+          );
+        }
+      });
+    } else {
+      gsap.to(".portfolio-bg-image", {
+        yPercent: -20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".portfolio-section-wrapper",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.2
+        }
+      });
+    }
+  }, { scope: sectionRef, dependencies: [activeProjects, isList] });
 
   useGSAP(() => {
     if (isList) return; // Skip slide transitions in list mode
@@ -174,7 +195,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         className={`portfolio-bg-image object-cover`}
         style={{
           transformOrigin: "center center",
-          ...(isList ? {} : { scale: "1.3" }),
+          scale: "1.1",
         }}
       />
     </div>
@@ -335,7 +356,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         {activeProjects.map((p, i) => (
           <div
             key={p.id}
-            className="relative mx-4 md:mx-16 rounded-2xl overflow-hidden h-[600px] md:h-[750px]"
+            className="portfolio-list-card relative mx-4 md:mx-16 rounded-2xl overflow-hidden h-[600px] md:h-[750px]"
           >
             {renderCard(p, i)}
             {renderOverlays()}

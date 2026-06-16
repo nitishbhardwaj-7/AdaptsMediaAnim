@@ -1,7 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import PortfolioShowcase, { Project } from "../homepage/PortfolioShowcase";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger, SplitText } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const allCaseStudies: (Project & { displayName: string; industry: string; service: string; objective: string })[] = [
   {
@@ -61,6 +66,34 @@ const ArrowDown = () => (
 );
 
 export default function PortfolioList() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  useGSAP(() => {
+    const textSplit = SplitText.create(".portfolio-intro-text", {
+      type: "lines",
+      mask: "lines",
+    });
+
+    gsap.from(textSplit.lines, {
+      yPercent: 110,
+      opacity: 0,
+      rotationX: -12,
+      transformOrigin: "0% 50% -60px",
+      duration: 1.0,
+      ease: "expo.out",
+      stagger: 0.08,
+      scrollTrigger: {
+        trigger: ".portfolio-intro-text",
+        start: "top 85%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    return () => {
+      textSplit.revert();
+    };
+  }, { scope: containerRef });
+
   const [selectedIndustry, setSelectedIndustry] = useState("All Case Studies");
   const [selectedService, setSelectedService] = useState("All Services");
   const [selectedObjective, setSelectedObjective] = useState("All Objectives");
@@ -91,11 +124,11 @@ export default function PortfolioList() {
   const uniqueObjectives = ["All Objectives", "Performance", "Branding", "Marketing"];
 
   return (
-    <div className="w-full bg-[#12161c] text-white font-heading">
+    <div ref={containerRef} className="w-full bg-[#12161c] text-white font-heading">
       {/* ── INTRO SECTION ── */}
       <div className="w-full bg-white py-16 md:py-24 text-[#17313B]">
         <div className="max-w-[1350px] mx-auto px-8 md:px-16 lg:px-20">
-          <p className="text-[clamp(20px,3.2vw,36px)] font-heading font-semibold leading-[1.35] tracking-tight max-w-[1100px]">
+          <p className="portfolio-intro-text text-[clamp(20px,3.2vw,36px)] font-heading font-semibold leading-[1.35] tracking-tight max-w-[1100px]">
             Every brand has different goals, challenges, and audiences - which
             is why we create tailored strategies built around performance,
             creativity, and real business impact. From branding and content to
