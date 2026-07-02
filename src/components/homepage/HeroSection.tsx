@@ -215,12 +215,14 @@ const HeroSection = () => {
       const thisDistance = thisRect.top + window.scrollY + wrappers[0].offsetHeight / 2;
       const offset = nextDistance - thisDistance;
 
-      tl.add(
-        Flip.fit(target, wrappers[1], {
-          duration: offset,
-          ease: "none"
-        })
-      );
+      const flipTween = Flip.fit(target, wrappers[1], {
+        duration: offset,
+        ease: "none"
+      });
+      
+      if (flipTween) {
+        tl.add(flipTween as gsap.core.Tween);
+      }
     };
 
     // Initialize Flip timeline
