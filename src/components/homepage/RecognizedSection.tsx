@@ -16,25 +16,25 @@ const awardsData = [
   {
     number: "01",
     
-    awardName: "TechBehemoths 2025 Award Winner (UAE)",
+    awardName: "TechBehemoths 2025 Award<br />Winner (UAE)",
     imagePath: "/images/techbehemoths.png"
   },
   {
     number: "02",
     
-    awardName: "Top Digital Marketing Company",
+    awardName: "Top Digital Marketing<br />Company",
     imagePath: "/images/digitalmarketing.png"
   },
   {
     number: "03",
    
-    awardName: "Top Web Development Company",
+    awardName: "Top Web Development<br />Company",
     imagePath: "/images/webdevelopment.png"
   },
   {
     number: "04",
 
-    awardName: "Top Technical SEO Company",
+    awardName: "Top Technical SEO<br />Company",
     imagePath: "/images/technicalseo.png"
   },
   {
@@ -127,11 +127,11 @@ export default function RecognizedSection() {
         {/* Header Section */}
         <div className="flex flex-col min-[1300px]:flex-row min-[1300px]:items-end min-[1300px]:justify-between gap-4 mb-20">
           <div className="flex flex-col items-start">
-            <div className="flex items-center gap-1 mb-5">
-              <span className="text-[10px] text-[#FAC02E] font-bold tracking-[0.2em] uppercase opacity-90">
+            <div className="flex items-center gap-[14px] mb-5">
+              <span className="text-[10px] md:text-[11px] font-medium tracking-tight uppercase text-[#FAC02D]">
                 Awards & Recognition
               </span>
-              <div className="w-12 h-[0.6px] bg-[#FAC02E] translate-y-[3px]" />
+              <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02D] translate-y-[4px] md:translate-y-[5px]" />
             </div>
             <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-heading font-medium leading-[1.05] -tracking-wide max-w-2xl">
               Recognized for <br/> Excellence
@@ -157,14 +157,14 @@ export default function RecognizedSection() {
         </div>
 
         {/* --- PROUD PARTNERSHIPS FIX --- */}
-        <div className="mt-24 flex flex-col gap-8 items-start">
-          <span className="text-sm font-heading font-normal tracking-[0.15em] text-white">
+        <div className="mt-12 flex flex-col gap-4 items-start">
+          <span className="text-sm font-heading font-normal text-white">
             Proud Partnerships
           </span>
 
-          {/* Changed gap to gap-y-12 for better vertical spacing when 
+          {/* Changed gap to gap-y-6 for better vertical spacing when 
               wrapped during high zoom levels. */}
-          <div className="flex flex-wrap items-center justify-start gap-x-6 gap-y-2 md:gap-y-12 lg:gap-y-12">
+          <div className="flex flex-wrap items-center justify-start gap-x-6 gap-y-2 md:gap-y-6 lg:gap-y-6">
             
             {/* Sortlist */}
             <div className="relative w-48 h-20 shrink-0">

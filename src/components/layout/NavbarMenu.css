@@ -1,0 +1,86 @@
+/* NavbarMenu.css */
+
+/* Dropdown container */
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  pointer-events: auto;
+  opacity: 0; /* GSAP will animate */
+  transform: translateY(-20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 999;
+}
+
+.menu-dropdown.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Grid layout for cards */
+.menu-grid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Individual cards */
+.menu-card {
+  background: rgba(20, 20, 20, 0.72);
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.card-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-links li {
+  margin-bottom: 0.5rem;
+}
+
+.card-links a {
+  color: #fff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.card-links a:hover {
+  color: #f5a623;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.2s ease;
+}

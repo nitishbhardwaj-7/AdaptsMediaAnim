@@ -10,6 +10,9 @@ import HeroVideo from "@/components/videos/HeroVideo";
 import OrangeSection from "@/components/videos/OrangeSection";
 import SocialBar from "@/components/layout/SocialBar";
 import { Metadata } from "next";
+import HorizontalScrollSection from "@/components/HorizontalScrollSection";
+import ParallaxSection from "@/components/homepage/ParallaxSection";
+import HeroSection from "@/components/homepage/HeroSection";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -44,29 +47,30 @@ export default async function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(data.json.schema) }}
         />
       )}
-    <main>
-      <HeroVideo/>
-       
-      <OrangeSection/>
+      <main>
+        {/* <HeroSection /> */}
+        {/* <ParallaxSection /> */}
 
-      <PortfolioShowcase/>
+        <OrangeSection />
 
-      <ServicesSection/>
+        <PortfolioShowcase />
 
-      <ClientsSection/>
+        <ServicesSection />
 
-      <RecreateDesign/>
+        <ClientsSection />
 
-      <InsightsSection/>
+        <RecreateDesign />
 
-      <ContactCTA/>
+        <InsightsSection />
 
-      <LocationSection/>
+        <ContactCTA />
 
-      <SocialBar/>
+        <LocationSection />
 
-      <Footer/>
-    </main>
+        <SocialBar />
+
+        <Footer />
+      </main>
     </>
   );
 }

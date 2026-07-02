@@ -254,19 +254,19 @@ const ServicesSection = () => {
 
         {/* Header */}
         <div className="mb-20">
-          <div className="flex gap-4 mb-6 items-center">
-            <span className="services-label text-[10px] tracking-[0.2em] font-bold uppercase opacity-80 text-[#FAC02E]">
+          <div className="flex items-center gap-[14px] mb-6">
+            <span className="services-label text-[10px] md:text-[11px] font-medium tracking-tight text-[#FAC02D] uppercase">
               Services
             </span>
-            <div className="services-line h-[1px] w-12 bg-yellow-500" />
+            <div className="services-line flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02D] translate-y-[4px] md:translate-y-[5px]" />
           </div>
 
           <h2 className="services-heading text-4xl md:text-6xl font-heading font-medium mb-8 leading-tight max-w-3xl">
-            Services Designed to <br/> Drive Growth
+            Services Designed to <br /> Drive Growth
           </h2>
 
-          <p className="services-subtitle text-[clamp(1rem,1.6vw,1.35rem)] opacity-90 max-w-3xl font-light leading-relaxed">
-            End-to-end solutions built to help brands grow, connect, and <br/> perform across every touchpoint.
+          <p className="services-subtitle text-[clamp(1rem,1.6vw,1.35rem)] max-w-3xl font-light leading-relaxed">
+            End-to-end solutions built to help brands grow, connect, and <br /> perform across every touchpoint.
           </p>
         </div>
 
@@ -287,7 +287,7 @@ const ServicesSection = () => {
                 </span>
 
                 {/* Title */}
-                <h3 
+                <h3
                   className="service-card-title text-3xl md:text-[46px] font-heading font-light mb-8 leading-tight min-h-[6.5rem] md:min-h-[7.2rem] w-full"
                   dangerouslySetInnerHTML={{ __html: service.title }}
                 />

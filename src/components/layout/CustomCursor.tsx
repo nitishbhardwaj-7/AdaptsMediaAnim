@@ -48,20 +48,8 @@ export default function CustomCursor() {
     const onDown = () => dotRef.current?.classList.add("cursor-click");
     const onUp = () => dotRef.current?.classList.remove("cursor-click");
 
-    const onBlogEnter = () => {
-      dotRef.current?.classList.add("cursor-hidden");
-      ringRef.current?.classList.add("cursor-hidden");
-    };
-
-    const onBlogLeave = () => {
-      dotRef.current?.classList.remove("cursor-hidden");
-      ringRef.current?.classList.remove("cursor-hidden");
-    };
-
     document.addEventListener("mousedown", onDown);
     document.addEventListener("mouseup", onUp);
-    document.addEventListener("blog-card-enter", onBlogEnter);
-    document.addEventListener("blog-card-leave", onBlogLeave);
 
     // Delegate hover detection to interactive elements
     const interactables = "a, button, [role='button'], input, textarea, select, label, [data-cursor-hover]";
@@ -78,8 +66,6 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", onMove);
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("mouseup", onUp);
-      document.removeEventListener("blog-card-enter", onBlogEnter);
-      document.removeEventListener("blog-card-leave", onBlogLeave);
       cancelAnimationFrame(rafRef.current);
       targets.forEach((el) => {
         el.removeEventListener("mouseenter", addHover);

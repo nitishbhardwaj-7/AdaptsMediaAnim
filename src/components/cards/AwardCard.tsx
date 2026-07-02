@@ -121,12 +121,12 @@ export default function AwardCard({ awardName, imagePath }: AwardCardProps) {
 
   return (
     /* 1. Interactive Wrapper */
-    <div ref={containerRef} className="h-[16rem] w-[18rem] cursor-pointer flex items-center justify-center">
+    <div ref={containerRef} className="h-[14rem] w-full max-w-[22rem] mx-auto cursor-pointer flex items-center justify-center">
       
       {/* 2. Main Card Body with 3D Styles */}
       <div 
         ref={cardRef} 
-        className="relative h-full w-full flex flex-col items-center justify-center p-6 backdrop-blur-md bg-white/[0.02] border border-white/10 border-t-white/25 border-l-white/25 rounded-[2rem] rounded-tl-none text-white overflow-hidden transition-colors duration-300 hover:bg-white/[0.05] hover:border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.2)]"
+        className="relative h-full w-full flex flex-col items-center justify-center px-3 py-6 backdrop-blur-md bg-white/[0.02] border border-white/10 border-t-white/25 border-l-white/25 rounded-[2rem] rounded-tl-none text-white overflow-hidden transition-colors duration-300 hover:bg-white/[0.05] hover:border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.2)]"
         style={{ transformStyle: 'preserve-3d' }}
       >
         
@@ -143,7 +143,7 @@ export default function AwardCard({ awardName, imagePath }: AwardCardProps) {
         {/* 5. Logo Image (Popped forward significantly) */}
         <div 
           ref={logoRef}
-          className="w-35 h-35 mb-3 flex items-center justify-center relative z-20"
+          className="w-28 h-28 mb-3 flex items-center justify-center relative z-20 shrink-0"
           style={{ transform: 'translateZ(40px)' }}
         >
           <Image 
@@ -155,15 +155,15 @@ export default function AwardCard({ awardName, imagePath }: AwardCardProps) {
           />
         </div>
 
-        {/* 6. Text Content (Popped forward moderately) */}
         <div 
           ref={textRef}
           className="text-center relative z-20"
           style={{ transform: 'translateZ(20px)' }}
         >
-          <p className="text-[15px] font-heading font-light text-white/90">
-            {awardName}
-          </p>
+          <p 
+            className="text-[14px] xl:text-[15px] font-heading font-light text-white/90 whitespace-nowrap"
+            dangerouslySetInnerHTML={{ __html: awardName }}
+          />
         </div>
 
         {/* 8. Border Glow Ring */}

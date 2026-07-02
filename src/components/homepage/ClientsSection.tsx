@@ -393,14 +393,14 @@ const ClientsSection = () => {
       `}} />
 
       <div className="max-w-[1350px] px-8 md:px-16 w-full">
-        <div className="flex items-center gap-3 mb-4 clients-label">
-          <span className="clients-label-text text-[10px] font-bold tracking-[0.15em] text-[#003B65] uppercase">
+        <div className="flex items-center gap-[14px] mb-4 clients-label">
+          <span className="clients-label-text text-[10px] md:text-[11px] font-medium tracking-tight text-[#064ED3] uppercase">
             Clients
           </span>
-          <div className="clients-label-line w-16 h-[1.5px] bg-[#003B65]" />
+          <div className="clients-label-line flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#003B65] translate-y-[4px] md:translate-y-[5px]" />
         </div>
 
-        <h2 className="clients-heading text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-medium text-[#003B65] mb-10 md:mb-16 tracking-tight">
+        <h2 className="clients-heading text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-medium text-[#07476B] mb-10 md:mb-16 tracking-tight">
           Brands We Work With
         </h2>
 

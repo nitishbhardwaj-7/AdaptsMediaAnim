@@ -34,16 +34,16 @@ const LocationSection = () => {
   return (
     <section className="bg-[#022C56] relative text-white flex flex-col items-start justify-start md:items-center md:justify-center py-20 font-sans overflow-hidden">
       <Image
-              src="/images/LocationMask.png" 
-              alt="Decorative Element"
-              fill
-              className="absolute z-0 pointer-events-none" // Add your animation class here
-            />
+        src="/images/LocationMask.png"
+        alt="Decorative Element"
+        fill
+        className="absolute z-0 pointer-events-none" // Add your animation class here
+      />
       <div className="max-w-[1350px] w-full px-8 md:px-16">
-        
+
         {/* Main Content Row */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-24 gap-12">
-          
+
           {/* Left: Dubai Info */}
           <div className="w-full md:w-[70%]">
             <div className="flex items-center gap-3 mb-6">
@@ -52,15 +52,15 @@ const LocationSection = () => {
               </span>
               <div className="w-12 h-[1px] bg-[#f5a623]" />
             </div>
-            
+
             <h2 className="text-5xl md:text-7xl relative font-heading font-medium mb-16 leading-tight tracking-tight">
               Exactly Where <br /> You Need Us <Image
-              src='/images/Arrow.png'
-              alt=""
-              width={20}
-              height={20}
-              className="hidden md:block lg:block md:absolute lg:absolute right-6 top-28"/>
-              
+                src='/images/Arrow.png'
+                alt=""
+                width={20}
+                height={20}
+                className="hidden md:block lg:block md:absolute lg:absolute right-6 top-28" />
+
             </h2>
 
             <div className="space-y-6">
@@ -82,18 +82,18 @@ const LocationSection = () => {
           <div className="w-full relative min-h-[300px] flex items-center justify-center">
             {/* Dotted Map Placeholder (Using an SVG pattern or Image) */}
             <div className="opacity-100 w-full h-full">
-               <img 
-                 src="/images/global_map.png" 
-                 alt="World Map"
-                 className="w-full  object-contain opacity-100"
-               />
-               {/* Location Pin */}
-               <Image
-               src='/images/LocationPin.png'
-               alt=''
-               height={20}
-               width={30}
-               className='hidden md:block lg:block md:absolute lg:absolute top-[38%] left-[58%]'/>
+              <img
+                src="/images/global_map.png"
+                alt="World Map"
+                className="w-full  object-contain opacity-100"
+              />
+              {/* Location Pin */}
+              <Image
+                src='/images/LocationPin.png'
+                alt=''
+                height={20}
+                width={30}
+                className='hidden md:block lg:block md:absolute lg:absolute top-[38%] left-[58%]' />
             </div>
           </div>
         </div>
@@ -118,9 +118,9 @@ const LocationSection = () => {
                 </div>
               ))}
             </div>
-            
+
             <div className="w-full h-[1px] bg-white/30 my-6" />
-            
+
             <div className="grid grid-cols-5 gap-10">
               {locations.map((loc, index) => (
                 <div key={`desktop-contact-${index}`} className="flex flex-col justify-start">
@@ -130,7 +130,7 @@ const LocationSection = () => {
                 </div>
               ))}
             </div>
-            
+
             <div className="w-full h-[1px] bg-white/30 mt-6" />
           </div>
 

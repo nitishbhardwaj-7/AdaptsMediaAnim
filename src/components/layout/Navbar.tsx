@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import "./NavbarMenu.css";
+import { gsap } from "gsap";
 
 const NavLogo = () => (
   <div className="relative w-[60px] h-[40px]">
@@ -30,6 +32,12 @@ const Navbar = () => {
   const isHoveringNav = useRef(false);
 
   const menuBarClass = "block w-[22px] h-[2px] bg-white rounded-[2px]";
+// Menu state and refs
+const [menuOpen, setMenuOpen] = useState(false);
+const topBarRef = useRef<HTMLSpanElement>(null);
+const middleBarRef = useRef<HTMLSpanElement>(null);
+const bottomBarRef = useRef<HTMLSpanElement>(null);
+const menuRef = useRef<HTMLDivElement>(null);
 
   // ── Reset idle timer: hides navbar after inactivity ──
   const resetIdleTimer = useCallback(() => {
@@ -41,6 +49,28 @@ const Navbar = () => {
       }
     }, IDLE_TIMEOUT);
   }, []);
+
+  // Toggle menu with GSAP animation
+  const toggleMenu = () => {
+    const opening = !menuOpen;
+    setMenuOpen(opening);
+    const tl = gsap.timeline({ defaults: { duration: 0.35, ease: "power3.out" } });
+    if (opening) {
+      tl.to(topBarRef.current, { rotate: 45, y: 6 })
+        .to(middleBarRef.current, { opacity: 0 }, 0)
+        .to(bottomBarRef.current, { rotate: -45, y: -6 }, 0);
+      gsap.fromTo(
+        menuRef.current,
+        { autoAlpha: 0, y: -20 },
+        { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }
+      );
+    } else {
+      tl.to(topBarRef.current, { rotate: 0, y: 0 })
+        .to(middleBarRef.current, { opacity: 1 }, 0)
+        .to(bottomBarRef.current, { rotate: 0, y: 0 }, 0);
+      gsap.to(menuRef.current, { autoAlpha: 0, y: -20, duration: 0.3, ease: "power3.out" });
+    }
+  };
 
   // ── Scroll handler: direction detection + pill morph ──
   useEffect(() => {
@@ -159,18 +189,49 @@ const Navbar = () => {
 
           <button
             type="button"
-            aria-label="Open Menu"
+            aria-label={menuOpen ? "Close Menu" : "Open Menu"}
             className="w-10 h-10 md:w-12 md:h-12 bg-[#f5a623] border-none rounded-full 
                        flex flex-col items-center justify-center gap-1 cursor-pointer 
-                       transition-transform duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)] 
-                       hover:rotate-90"
+                       transition-transform duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)]"
+            onClick={toggleMenu}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") toggleMenu(); }}
           >
-            <span className={menuBarClass} />
-            <span className={menuBarClass} />
-            <span className={menuBarClass} />
+            <span ref={topBarRef} className={menuBarClass} />
+            <span ref={middleBarRef} className={menuBarClass} />
+            <span ref={bottomBarRef} className={menuBarClass} />
           </button>
         </div>
-      </nav>
+</nav>
+        {/* Dropdown Menu */}
+        <div
+          ref={menuRef}
+          className={`menu-dropdown ${menuOpen ? "open" : ""}`}
+          aria-hidden={!menuOpen}
+        >
+          <div className="menu-grid">
+            <div className="menu-card">
+              <h3 className="card-title">About</h3>
+              <ul className="card-links">
+                <li><a href="/about">Our Story ↗</a></li>
+                <li><a href="/team">Team ↗</a></li>
+              </ul>
+            </div>
+            <div className="menu-card">
+              <h3 className="card-title">Projects</h3>
+              <ul className="card-links">
+                <li><a href="/projects">Portfolio ↗</a></li>
+                <li><a href="/services">Services ↗</a></li>
+              </ul>
+            </div>
+            <div className="menu-card">
+              <h3 className="card-title">Contact</h3>
+              <ul className="card-links">
+                <li><a href="/contact">Get in Touch ↗</a></li>
+                <li><a href="/support">Support ↗</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
     </header>
   );
 };

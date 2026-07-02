@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useState, useRef } from "react";
 import ArrowButton from "../buttons/ArrowButton";
 import ArrowIcon from "../icons/ArrowIcon";
+import { Project as SharedProject, allCaseStudies } from "@/data/portfolioData";
+
+export type Project = SharedProject;
 
 const getSlug = (p: Project) => {
   const name = p.displayName || p.brand;
@@ -15,39 +18,7 @@ import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export interface Project {
-  id: number;
-  brand: string;
-  tagline: string;
-  tags: string[];
-  bgImage: string;
-  logoSrc?: string;
-  displayName?: string;
-}
-
-const projects: Project[] = [
-  {
-    id: 1,
-    brand: "THE BLISS",
-    tagline: "Turning Vision into Brand Reality",
-    tags: ["Branding", "AI Generation", "Marketing"],
-    bgImage: "https://images.unsplash.com/photo-1522748906645-95d8adfd52c7?w=1400&q=80",
-  },
-  {
-    id: 2,
-    brand: "LUMINARY",
-    tagline: "Crafting Digital Experiences That Inspire",
-    tags: ["UI/UX", "Web Design", "Strategy"],
-    bgImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=80",
-  },
-  {
-    id: 3,
-    brand: "NOVA STUDIO",
-    tagline: "Where Imagination Meets Execution",
-    tags: ["Motion", "Branding", "Identity"],
-    bgImage: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1400&q=80",
-  },
-];
+const projects: Project[] = allCaseStudies;
 
 const TagIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -128,7 +99,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
   useGSAP(() => {
     if (isList) return; // Skip slide transitions in list mode
     const slides = gsap.utils.toArray<HTMLElement>(".portfolio-slide");
-    
+
     slides.forEach((slide, idx) => {
       if (idx === current) {
         gsap.killTweensOf(slide);
@@ -142,7 +113,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         const bgWrapper = slide.querySelector(".portfolio-bg-wrapper");
         if (bgWrapper) {
           gsap.killTweensOf(bgWrapper);
-          gsap.fromTo(bgWrapper, 
+          gsap.fromTo(bgWrapper,
             { scale: 1.15 },
             { scale: 1, duration: 1.5, ease: "power2.out" }
           );
@@ -209,21 +180,21 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
   );
 
   const renderCarouselContent = (p: Project) => (
-    <div className="relative h-full w-full max-w-[1350px] mx-auto px-8 md:px-16 lg:px-20 pointer-events-none">
+    <div className="relative h-full w-full px-8 md:px-16 lg:px-20 pointer-events-none">
       {/* Top bar */}
       <div className="absolute top-[24px] md:top-[48px] left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 flex items-center gap-[14px] z-[4] pointer-events-auto">
-        <span className="text-[10px] md:text-[11px] font-medium tracking-[0.18em] text-[#f5a623] uppercase">
+        <span className="text-[10px] md:text-[11px] font-medium tracking-tight text-[#f5a623] uppercase">
           Portfolio
         </span>
-        <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[1px] bg-[#f5a623]/50" />
-        <ArrowButton title="View Portfolio"/>
+        <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#f5a623] translate-y-[4px] md:translate-y-[5px]" />
+        <ArrowButton width="md" title="View Portfolio" />
       </div>
 
       {/* Bottom Content Area */}
       <div className="absolute bottom-0 left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 pb-16 md:pb-[60px] z-[4] flex flex-col gap-6 md:gap-4 pointer-events-auto">
-        
+
         {/* Brand Logo */}
-        <div className="flex flex-col items-start w-full md:pl-21"> 
+        <div className="flex flex-col items-start w-full md:pl-21">
           <div className="flex flex-col gap-2 items-center md:items-start w-fit">
             <div className="portfolio-logo w-full flex justify-center md:justify-center">
               {p.logoSrc ? (
@@ -234,19 +205,15 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
                 <FlowerLogo />
               )}
             </div>
-
-            <span className="portfolio-brand font-['DM_Sans'] text-[20px] md:text-[26px] font-normal tracking-[0.22em] text-white/90 uppercase leading-none">
-              {p.brand}
-            </span>
           </div>
         </div>
 
         {/* Footer Row */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-          
+
           <div className="flex items-center gap-4 md:gap-8 w-full flex-1">
-            <button 
-              onClick={prev} 
+            <button
+              onClick={prev}
               className="hidden md:flex mb-10 w-[52px] h-[52px] border border-white/40 rounded-full items-center justify-center text-white cursor-pointer hover:bg-white/10 transition-colors shrink-0"
             >
               <ArrowIcon direction="left" />
@@ -254,15 +221,20 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
 
             <div className="flex flex-col gap-[14px] flex-1">
               <div className="w-full h-[1px] bg-gradient-to-r from-white via-transparent to-transparent" />
-              <h2 className="portfolio-tagline font-heading font-light text-[24px] md:text-[clamp(26px,4vw,40px)] text-white leading-[1.2] tracking-[-0.01em] max-w-[640px]">
-                {p.tagline}
-              </h2>
+              <div className="portfolio-tagline flex flex-col gap-1">
+                <span className="text-white/80 font-['DM_Sans'] text-[16px] md:text-[20px] font-light">
+                  {p.displayName || p.brand}:
+                </span>
+                <h2 className="font-heading font-light text-[24px] md:text-[clamp(26px,4vw,40px)] text-white leading-[1.2] tracking-[-0.01em] max-w-none">
+                  {p.tagline}
+                </h2>
+              </div>
               <div className="w-full h-[1px] bg-gradient-to-r from-white via-transparent to-transparent" />
 
               <div className="flex flex-wrap gap-2">
                 {p.tags.map((tag) => (
                   <span key={tag} className="portfolio-tag flex items-center gap-1.5 border border-white/30 text-white/75 rounded-full px-3 py-[5px] text-[10px] md:text-[12px] bg-white/5">
-                    <TagIcon /> {tag}
+                    <BookmarkIcon /> {tag}
                   </span>
                 ))}
               </div>
@@ -271,15 +243,15 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
 
           <div className="flex items-center justify-between md:justify-end gap-3 w-full md:w-auto shrink-0 md:mb-10 z-10 pointer-events-auto">
             <div className="md:hidden">
-              <button onClick={prev} className="w-[44px] h-[44px] border border-white/40 rounded-full flex items-center justify-center text-white"><ArrowIcon direction="left"/></button>
+              <button onClick={prev} className="w-[44px] h-[44px] border border-white/40 rounded-full flex items-center justify-center text-white"><ArrowIcon direction="left" /></button>
             </div>
-            
+
             <Link href={`/portfolio/${getSlug(p)}`}>
-              <ArrowButton title="Read Case Study"/>
+              <ArrowButton title="Read Case Study" />
             </Link>
 
-            <button 
-              onClick={next} 
+            <button
+              onClick={next}
               className="w-[44px] h-[44px] md:w-[52px] md:h-[52px] border border-white/40 rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-white/10 transition-colors"
             >
               <ArrowIcon direction="right" />
@@ -291,20 +263,20 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
   );
 
   const renderListContent = (p: Project) => (
-    <div className="relative h-full w-full max-w-[1350px] mx-auto px-8 md:px-16 lg:px-20 pointer-events-none">
+    <div className="relative h-full w-full px-8 md:px-16 lg:px-20 pointer-events-none">
       {/* Top bar: Case Study */}
       <div className="absolute top-[24px] md:top-[48px] left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 flex items-center gap-[14px] z-[4] pointer-events-auto">
         <span className="text-[10px] md:text-[11px] font-medium tracking-[0.18em] text-[#FAC02D] uppercase">
           Case Study
         </span>
-        <div className="flex-[0_0_120px] md:flex-[0_0_120px] h-[1px] bg-[#FAC02D]/50" />
+        <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02D] translate-y-[4px] md:translate-y-[5px]" />
       </div>
 
       {/* Bottom Content Area */}
       <div className="absolute bottom-0 left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 pb-16 md:pb-[60px] z-[4] flex flex-col gap-6 md:gap-4 pointer-events-auto">
-        
+
         {/* Brand Logo */}
-        <div className="flex flex-col items-start w-full"> 
+        <div className="flex flex-col items-start w-full">
           <div className="portfolio-logo w-full flex justify-start md:justify-start">
             {p.logoSrc ? (
               <div className="relative w-40 h-16">
@@ -319,17 +291,17 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         {/* Details section */}
         <div className="w-full flex flex-col gap-[14px]">
           <div className="w-full h-[1px] bg-gradient-to-r from-white via-transparent to-transparent" />
-          
+
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-8">
             <div className="flex flex-col gap-1.5 flex-1">
-              <h2 className="portfolio-tagline font-heading font-thin text-[24px] md:text-[clamp(26px,4vw,36px)] font-normal text-white leading-[1.2] tracking-[-0.01em] max-w-[740px]">
+              <h2 className="portfolio-tagline font-heading font-thin text-[24px] md:text-[clamp(26px,4vw,36px)] font-normal text-white leading-[1.2] tracking-[-0.01em] max-w-none">
                 {p.tagline}
               </h2>
             </div>
 
             <div className="flex items-center justify-start md:justify-end shrink-0 pointer-events-auto z-10">
               <Link href={`/portfolio/${getSlug(p)}`}>
-                <ArrowButton title="Read Case Study"/>
+                <ArrowButton title="Read Case Study" />
               </Link>
             </div>
           </div>
@@ -376,8 +348,8 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         {activeProjects.map((p, i) => {
           const active = i === current;
           return (
-            <div 
-              key={p.id} 
+            <div
+              key={p.id}
               className={`portfolio-slide absolute inset-0 ${active ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
             >
               {renderCard(p, i)}

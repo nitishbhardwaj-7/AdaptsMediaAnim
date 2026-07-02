@@ -16,15 +16,28 @@ export async function getWordPressPosts(limit: number = 100) {
 
     const posts = await res.json();
 
-    return posts.map((post: any) => ({
-      // Decoding titles for production-ready text
-      title: post.title.rendered.replace(/&#(\d+);/g, (match: string, dec: number) => String.fromCharCode(dec)),
-      image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "/fallback.jpg",
-      slug: post.slug,
-      date: post.date,
-      categories: post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [],
-      content: "",
-    }));
+    return posts.map((post: any) => {
+      let authorName = "Shruti Goswami";
+      if (post._embedded?.author && post._embedded.author.length > 0) {
+        authorName = post._embedded.author[0].name;
+      }
+      
+      const parsedDate = post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "June 30, 2026";
+      
+      let cats = post._embedded?.['wp:term']?.[0]?.filter((t: any) => t.taxonomy === 'category').map((c: any) => c.name) || [];
+      if (cats.length === 0) cats = ["SEO", "Content Marketing", "Digital Strategy"];
+
+      return {
+        // Decoding titles for production-ready text
+        title: post.title.rendered.replace(/&#(\d+);/g, (match: string, dec: number) => String.fromCharCode(dec)),
+        image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "/fallback.jpg",
+        slug: post.slug,
+        date: parsedDate,
+        author: authorName,
+        categories: cats,
+        content: "",
+      };
+    });
   } catch (error) {
     console.error("Error fetching WordPress posts:", error);
     return []; // Return empty array so .map() doesn't break your UI

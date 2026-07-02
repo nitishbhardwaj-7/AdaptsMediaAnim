@@ -8,7 +8,7 @@ const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonPr
   // Responsive width mapping
   const widthMap = {
     sm: "w-32 md:w-40",
-    md: "w-44 md:w-52",
+    md: "w-52 md:w-56",
     lg: "w-64 md:w-72",
     xl: "w-80 md:w-96",
     full: "w-full",
@@ -30,7 +30,7 @@ const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonPr
         group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border border-black/5 bg-transparent 
         px-5 py-2.5 md:px-6 md:py-3 
         font-['DM_Sans'] text-[16px] md:text-[18px] font-heading font-semibold tracking-[0.02em] transition-colors duration-300 ease-out
-        shadow-md shadow-yellow-500/5 hover:shadow-lg hover:shadow-yellow-500/10
+        shadow-md shadow-yellow-500/5 hover:shadow-lg hover:shadow-yellow-500/10 whitespace-nowrap
       `}
     >
       {/* Layer 1: Base Yellow Background */}

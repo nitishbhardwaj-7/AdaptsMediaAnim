@@ -8,7 +8,7 @@ import { ScrollTrigger, SplitText } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
-const PortfolioHero = () => {
+const BlogHero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -30,21 +30,6 @@ const PortfolioHero = () => {
       duration: 1.2,
       ease: "expo.out",
       stagger: 0.12,
-    });
-
-    const subSplit = SplitText.create(".hero-subheading", {
-      type: "words",
-      mask: "words",
-    });
-    splits.push(subSplit);
-
-    gsap.from(subSplit.words, {
-      yPercent: 100,
-      opacity: 0,
-      duration: 0.85,
-      ease: "expo.out",
-      stagger: 0.03,
-      delay: 0.25,
     });
 
     // 2. Entrance for right-side visual assets
@@ -77,11 +62,11 @@ const PortfolioHero = () => {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen w-full overflow-hidden bg-[#d61e1b] flex items-center justify-center py-20 text-white"
+      className="relative min-h-[90vh] lg:min-h-screen w-full overflow-hidden flex items-center justify-center py-20 text-white"
     >
       {/* Hero Background Image */}
       <Image
-        src="/images/portfolio/Hero.png"
+        src="/images/BrandingCreative/HeroImage.png"
         alt="Hero Background"
         fill
         priority={true}
@@ -94,34 +79,32 @@ const PortfolioHero = () => {
       <div className="relative z-10 grid grid-cols-1 gap-12 lg:grid-cols-2 max-w-[1350px] w-full px-8 md:px-16 lg:px-20 items-center mt-12 lg:mt-0">
         {/* Left Side - Text */}
         <div className="flex flex-col justify-center text-left">
-          <h1 className="hero-heading text-[clamp(38px,5.5vw,68px)] font-heading font-medium tracking-normal leading-[1.12] text-white font-sans max-w-xl">
-            Work That <br />
-            Delivers Results
+          <h1 className="hero-heading text-[clamp(38px,5.5vw,68px)] font-heading font-medium tracking-normal leading-[1.24] text-white font-sans max-w-xl">
+            Insights That <br />
+            Move Brands <br />
+            Forward
           </h1>
-          <p className="hero-subheading text-[clamp(16px,1.8vw,24px)] font-heading font-light leading-snug text-white/90 max-w-[520px] mt-6">
-            Explore the brands, campaigns, and digital experiences we've created to drive growth, engagement, and measurable impact.
-          </p>
         </div>
 
         {/* Right Side - Images */}
         <div className="relative w-full flex items-center justify-center lg:justify-end min-h-[350px] md:min-h-[500px]">
           {/* Main container that aligns Layer 1 behind the target */}
           <div className="relative w-full max-w-[520px] aspect-square flex items-center justify-center" style={{ perspective: 1000, transformStyle: "preserve-3d" }}>
-            {/* Dot pattern/Stars layer (Layer 1.png) - static background */}
-            <div className="hero-pattern absolute w-[80%] h-[80%] pointer-events-none z-0">
+            {/* Pattern layer - static background */}
+            <div className="hero-pattern absolute w-[100%] h-[100%] pointer-events-none z-0">
               <Image
-                src="/images/portfolio/Layer 1.png"
+                src="/images/BrandingCreative/DesignSystemLogoBg.png"
                 alt=""
                 fill
                 priority={true}
                 className="object-contain"
               />
             </div>
-            {/* Target Dart image (Target Hit.L03.2k 1.png) - interactive overlay */}
-            <div className="hero-target relative w-[92%] h-[92%] z-10">
+            {/* Target icon image - interactive overlay */}
+            <div className="hero-target relative w-[75%] h-[75%] z-10">
               <Image
-                src="/images/portfolio/Target Hit.L03.2k 1.png"
-                alt="Target Hit"
+                src="/images/BrandingCreative/Get Idea 1.png"
+                alt="Get Idea"
                 fill
                 priority={true}
                 className="object-contain"
@@ -134,4 +117,4 @@ const PortfolioHero = () => {
   );
 };
 
-export default PortfolioHero;
+export default BlogHero;

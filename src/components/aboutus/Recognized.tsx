@@ -158,7 +158,7 @@ export default function Recognized() {
 
         {/* --- PROUD PARTNERSHIPS FIX --- */}
         <div className="mt-24 flex flex-col gap-8 items-start">
-          <span className="text-sm font-light tracking-[0.15em] opacity-90 text-white font-sans uppercase">
+          <span className="text-sm font-light opacity-90 text-white font-sans uppercase">
             Proud Partnerships
           </span>
 

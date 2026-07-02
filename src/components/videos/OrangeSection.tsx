@@ -192,14 +192,14 @@ const OrangeSection = () => {
               </p>
 
               <h2 className="orange-quote text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-heading font-medium leading-tight">
-                We don&apos;t just build campaigns. <br /> We build momentum.
+                We don&apos;t just deliver campaigns. <br /> We build momentum.
               </h2>
 
               {/* Buttons */}
               <div className="orange-cta flex flex-wrap justify-start gap-3 sm:gap-6 items-center">
-                <ArrowButton title="Read More" />
+                <ArrowButton title="Read More" width="md" />
                 <div className="btn-start-project p-6 -m-6">
-                  <YellowButton title="Start a Project" variant="red" />
+                  <YellowButton title="Start a Project" variant="red" width="md" />
                 </div>
               </div>
             </div>

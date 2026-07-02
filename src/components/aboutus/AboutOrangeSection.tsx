@@ -36,7 +36,7 @@ const AboutOrangeSection = () => {
               
               
               <h2 className="text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-medium">
-                We don't just build campaigns. <br /> We build momentum.
+                We don't just deliver campaigns. <br /> We build momentum.
               </h2>
 
             </div>

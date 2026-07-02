@@ -5,7 +5,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        // The double asterisk '**' allows ANY subdomain (www, cdn, etc.)
+        hostname: 'adaptsmedia.com', 
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: '**.adaptsmedia.com', 
         pathname: '/**',
       },

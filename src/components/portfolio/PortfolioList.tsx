@@ -1,63 +1,13 @@
 "use client";
 
 import { useState, useRef } from "react";
-import PortfolioShowcase, { Project } from "../homepage/PortfolioShowcase";
+import PortfolioShowcase from "../homepage/PortfolioShowcase";
+import { Project, allCaseStudies } from "@/data/portfolioData";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger, SplitText } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
-
-const allCaseStudies: (Project & { displayName: string; industry: string; service: string; objective: string })[] = [
-  {
-    id: 1,
-    brand: "HYUNDAI MOBIS",
-    displayName: "Hyundai Mobis",
-    tagline: "Driving Trust Through Genuine Parts",
-    tags: ["Branding", "AI Generation", "Marketing"],
-    bgImage: "/images/portfolio/Hyundai/butterfly_2 1.png",
-    logoSrc: "/images/portfolio/Hyundai/Group.png",
-    industry: "Automotive",
-    service: "Web Development",
-    objective: "Performance",
-  },
-  {
-    id: 2,
-    brand: "THE CAPHE VIETNAM",
-    displayName: "The Caphe Vietnam",
-    tagline: "Brewing a Brand Experience That Stands Out",
-    tags: ["Branding", "AI Execution", "Marketing"],
-    bgImage: "/images/portfolio/TheCapheVietnam/image 30.png",
-    logoSrc: "/images/portfolio/TheCapheVietnam/Layer_1.png",
-    industry: "F&B",
-    service: "Social Media",
-    objective: "Branding",
-  },
-  {
-    id: 3,
-    brand: "THE BLISS",
-    displayName: "The Bliss",
-    tagline: "Turning Vision into Brand Reality",
-    tags: ["Branding", "AI Execution", "Marketing"],
-    bgImage: "/images/portfolio/TheBliss/Mask group.png",
-    logoSrc: "/images/portfolio/TheBliss/thebliss@4x 1.png",
-    industry: "Wellness",
-    service: "UI/UX Design",
-    objective: "Branding",
-  },
-  {
-    id: 4,
-    brand: "JAYWAN",
-    displayName: "Jaywan",
-    tagline: "UAE's Own National Payment",
-    tags: ["Branding", "AI Execution", "Marketing"],
-    bgImage: "/images/portfolio/Jaywan/Sustenance_KV_V2_07 1.png",
-    logoSrc: "/images/portfolio/Jaywan/logo_2 1.png",
-    industry: "Finance",
-    service: "Branding",
-    objective: "Marketing",
-  },
-];
 
 const ArrowDown = () => (
   <svg width="12" height="8" viewBox="0 0 12 8" fill="none" className="text-current shrink-0 ml-2">
@@ -69,24 +19,51 @@ export default function PortfolioList() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   useGSAP(() => {
+    // 1. Word by word reveal
     const textSplit = SplitText.create(".portfolio-intro-text", {
-      type: "lines",
-      mask: "lines",
+      type: "words",
     });
 
-    gsap.from(textSplit.lines, {
-      yPercent: 110,
+    gsap.fromTo(textSplit.words,
+      { opacity: 0, y: 4 },
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.025,
+        duration: 0.45,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".portfolio-intro-text",
+          start: "top 85%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    // 2. Filter section entrance
+    gsap.from(".filter-title", {
       opacity: 0,
-      rotationX: -12,
-      transformOrigin: "0% 50% -60px",
-      duration: 1.0,
-      ease: "expo.out",
-      stagger: 0.08,
+      y: 20,
+      duration: 0.8,
+      ease: "power2.out",
       scrollTrigger: {
-        trigger: ".portfolio-intro-text",
+        trigger: ".filter-title",
+        start: "top 90%",
+        toggleActions: "play none none none",
+      }
+    });
+
+    gsap.from(".filter-item, .filter-btn-apply", {
+      opacity: 0,
+      y: 25,
+      duration: 0.8,
+      ease: "power2.out",
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: ".filter-title",
         start: "top 85%",
         toggleActions: "play none none none",
-      },
+      }
     });
 
     return () => {
@@ -105,6 +82,21 @@ export default function PortfolioList() {
   const [isIndustryOpen, setIsIndustryOpen] = useState(false);
   const [isServiceOpen, setIsServiceOpen] = useState(false);
   const [isObjectiveOpen, setIsObjectiveOpen] = useState(false);
+
+  // Cascading dropdown options animation
+  useGSAP(() => {
+    const activeOpen = isIndustryOpen || isServiceOpen || isObjectiveOpen;
+    if (activeOpen) {
+      gsap.fromTo(".dropdown-panel", 
+        { opacity: 0, y: -10, scaleY: 0.95, transformOrigin: "top center" },
+        { opacity: 1, y: 0, scaleY: 1, duration: 0.3, ease: "power2.out" }
+      );
+      gsap.fromTo(".dropdown-item",
+        { opacity: 0, x: -6 },
+        { opacity: 1, x: 0, stagger: 0.03, duration: 0.2, ease: "power2.out", delay: 0.05 }
+      );
+    }
+  }, { scope: containerRef, dependencies: [isIndustryOpen, isServiceOpen, isObjectiveOpen] });
 
   const filterStudies = () => {
     setActiveIndustry(selectedIndustry);
@@ -141,13 +133,13 @@ export default function PortfolioList() {
       {/* ── FILTER SECTION ── */}
       <div className="w-full bg-[#004dc3] py-10">
         <div className="max-w-[1350px] mx-auto px-8 md:px-16 lg:px-20">
-          <h2 className="text-xl font-heading font-medium tracking-wide mb-6 uppercase text-white font-sans">
+          <h2 className="filter-title text-xl font-heading font-medium tracking-wide mb-6 uppercase text-white font-sans">
             Filter by
           </h2>
 
           <div className="flex flex-col lg:flex-row items-start lg:items-end gap-6 lg:gap-8 w-full z-30">
             {/* Industry Filter */}
-            <div className="relative w-full lg:w-72 flex flex-col gap-2">
+            <div className="filter-item relative w-full lg:w-72 flex flex-col gap-2">
               <span className="text-sm font-heading font-normal text-white/80">Industries:</span>
               <button
                 onClick={() => {
@@ -161,7 +153,7 @@ export default function PortfolioList() {
                 <ArrowDown />
               </button>
               {isIndustryOpen && (
-                <div className="absolute top-full left-0 w-full mt-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-2xl z-50">
+                <div className="dropdown-panel absolute top-full left-0 w-full mt-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-2xl z-50">
                   {uniqueIndustries.map((ind) => (
                     <button
                       key={ind}
@@ -169,7 +161,7 @@ export default function PortfolioList() {
                         setSelectedIndustry(ind);
                         setIsIndustryOpen(false);
                       }}
-                      className="w-full px-5 py-3 text-left text-sm hover:bg-white/10 text-white/90 hover:text-white transition-colors cursor-pointer"
+                      className="dropdown-item w-full px-5 py-3 text-left text-sm hover:bg-white/10 text-white/90 hover:text-white transition-colors cursor-pointer"
                     >
                       {ind}
                     </button>
@@ -179,7 +171,7 @@ export default function PortfolioList() {
             </div>
 
             {/* Service Filter */}
-            <div className="relative w-full lg:w-72 flex flex-col gap-2">
+            <div className="filter-item relative w-full lg:w-72 flex flex-col gap-2">
               <span className="text-sm font-heading font-normal text-white/80">Services:</span>
               <button
                 onClick={() => {
@@ -193,7 +185,7 @@ export default function PortfolioList() {
                 <ArrowDown />
               </button>
               {isServiceOpen && (
-                <div className="absolute top-full left-0 w-full mt-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-2xl z-50">
+                <div className="dropdown-panel absolute top-full left-0 w-full mt-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-2xl z-50">
                   {uniqueServices.map((ser) => (
                     <button
                       key={ser}
@@ -201,7 +193,7 @@ export default function PortfolioList() {
                         setSelectedService(ser);
                         setIsServiceOpen(false);
                       }}
-                      className="w-full px-5 py-3 text-left text-sm hover:bg-white/10 text-white/90 hover:text-white transition-colors cursor-pointer"
+                      className="dropdown-item w-full px-5 py-3 text-left text-sm hover:bg-white/10 text-white/90 hover:text-white transition-colors cursor-pointer"
                     >
                       {ser}
                     </button>
@@ -211,7 +203,7 @@ export default function PortfolioList() {
             </div>
 
             {/* Objective Filter */}
-            <div className="relative w-full lg:w-72 flex flex-col gap-2">
+            <div className="filter-item relative w-full lg:w-72 flex flex-col gap-2">
               <span className="text-sm font-heading font-normal text-white/80">Objective:</span>
               <button
                 onClick={() => {
@@ -225,7 +217,7 @@ export default function PortfolioList() {
                 <ArrowDown />
               </button>
               {isObjectiveOpen && (
-                <div className="absolute top-full left-0 w-full mt-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-2xl z-50">
+                <div className="dropdown-panel absolute top-full left-0 w-full mt-2 bg-gray-900 border border-gray-800 rounded-xl overflow-hidden shadow-2xl z-50">
                   {uniqueObjectives.map((obj) => (
                     <button
                       key={obj}
@@ -233,7 +225,7 @@ export default function PortfolioList() {
                         setSelectedObjective(obj);
                         setIsObjectiveOpen(false);
                       }}
-                      className="w-full px-5 py-3 text-left text-sm hover:bg-white/10 text-white/90 hover:text-white transition-colors cursor-pointer"
+                      className="dropdown-item w-full px-5 py-3 text-left text-sm hover:bg-white/10 text-white/90 hover:text-white transition-colors cursor-pointer"
                     >
                       {obj}
                     </button>
@@ -245,7 +237,7 @@ export default function PortfolioList() {
             {/* Apply Button */}
             <button
               onClick={filterStudies}
-              className="w-full lg:w-auto bg-white text-[#004dc3] hover:bg-white/90 font-heading font-semibold px-16 py-3 rounded-full text-sm tracking-wide transition-colors cursor-pointer"
+              className="filter-btn-apply w-full lg:w-auto bg-white text-[#004dc3] hover:bg-white/90 font-heading font-semibold px-16 py-3 rounded-full text-sm tracking-wide transition-colors cursor-pointer"
             >
               Apply
             </button>

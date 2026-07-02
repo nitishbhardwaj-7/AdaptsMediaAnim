@@ -53,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
       `https://adaptsmedia.com/wp-json/yoast/v1/get_head?url=https://adaptsmedia.com/`,
       { next: { revalidate: 3600 } } // Cache for 1 hour
     );
-    
+
     const data = await response.json();
     const yoast = data.json; // This contains the raw SEO objects
 
@@ -104,19 +104,19 @@ export default function RootLayout({
       className={`${openSans.variable} ${roboto.variable} h-full antialiased`}
     >
       <head>
-         <link
+        <link
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap"
           rel="stylesheet"
         />
       </head>
       <body>
         <CustomCursor />
-        <SmoothScroll>
-          <Navbar />
-          <main style={{ paddingTop: '0px' }}>
-            {children}
-          </main>
-        </SmoothScroll>
+        {/* <SmoothScroll> */}
+        <Navbar />
+        <main style={{ paddingTop: '0px' }}>
+          {children}
+        </main>
+        {/* </SmoothScroll> */}
         {/* Google Tag Manager - Loads only after the page is interactive */}
         <Script id="gtm" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

@@ -1,35 +1,46 @@
 interface ArrowButtonProps {
   title: string;
   width?: 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'auto';
+  onClick?: () => void;
+  variant?: 'light' | 'blue';
 }
 
-const ArrowButton = ({ title, width = 'auto' }: ArrowButtonProps) => {
+const ArrowButton = ({ title, width = 'auto', onClick, variant = 'light' }: ArrowButtonProps) => {
   // Responsive width mapping
   const widthMap = {
     sm: "w-32 md:w-40",
-    md: "w-44 md:w-52",
+    md: "w-52 md:w-56",
     lg: "w-64 md:w-72",
     xl: "w-80 md:w-96",
     full: "w-full",
     auto: "w-auto"
   };
 
+  const isBlue = variant === 'blue';
+  
+  const borderClass = isBlue ? 'border-[#8dafe2] bg-transparent' : 'border-white/50 bg-white/5 hover:bg-white/5';
+  const textClass = isBlue ? 'text-[#6a9bd6] group-hover:text-white' : 'text-white';
+  const beforeBgClass = isBlue ? 'before:bg-[#6a9bd6]' : 'before:bg-white';
+  const iconBorderClass = isBlue ? 'border-[#8dafe2] text-[#6a9bd6]' : 'border-white/40 text-white';
+  const iconHoverClass = isBlue ? 'group-hover:border-white/40 group-hover:text-white group-hover:bg-transparent' : 'group-hover:border-none group-hover:bg-white group-hover:text-black';
+
   return (
     <button
       type="button"
+      onClick={onClick}
       className={`
         ${widthMap[width]}
-        group cursor-pointer relative z-10 flex items-center justify-center gap-2 overflow-hidden rounded-full border border-white/50 bg-white/5 
-        px-4 py-2 md:px-5 md:py-2.5 
-        font-['DM_Sans'] text-[16px] md:text-[18px] font-normal tracking-[0.02em] text-white isolation-auto backdrop-blur-md transition-all duration-700 
+        group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border ${borderClass}
+        px-5 py-2.5 md:px-6 md:py-3 
+        font-['DM_Sans'] text-[16px] md:text-[18px] font-normal tracking-[0.02em] ${textClass} isolation-auto backdrop-blur-md transition-all duration-700 
         whitespace-nowrap
-        before:absolute before:-left-full before:-z-10 before:aspect-square before:w-full before:rounded-full before:bg-white before:transition-all before:duration-700 
-        hover:bg-white/5 before:hover:left-0 before:hover:w-full before:hover:scale-150 before:hover:duration-700
+        before:absolute before:-left-full before:-z-10 before:aspect-square before:w-full before:rounded-full ${beforeBgClass} before:transition-all before:duration-700 
+        before:hover:left-0 before:hover:w-full before:hover:scale-150 before:hover:duration-700
       `}
     >
       <span className="relative z-10 font-thin">{title}</span>
       <svg
-        className="w-5 h-5 md:w-6 md:h-6 rotate-45 rounded-full border border-white/40 p-1 md:p-1.5 duration-300 ease-linear group-hover:border-none group-hover:bg-white group-hover:rotate-90 text-white group-hover:text-black relative z-10"
+        className={`w-5 h-5 md:w-6 md:h-6 rotate-45 rounded-full border ${iconBorderClass} p-1 md:p-1.5 duration-300 ease-linear group-hover:rotate-90 ${iconHoverClass} relative z-10`}
         viewBox="0 0 16 19"
         xmlns="http://www.w3.org/2000/svg"
       >
