@@ -83,16 +83,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         }
       });
     } else {
-      gsap.to(".portfolio-bg-image", {
-        yPercent: -20,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.2
-        }
-      });
+      // Parallax removed to prevent need for image scaling/cropping
     }
   }, { scope: sectionRef, dependencies: [activeProjects, isList] });
 
@@ -113,10 +104,6 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         const bgWrapper = slide.querySelector(".portfolio-bg-wrapper");
         if (bgWrapper) {
           gsap.killTweensOf(bgWrapper);
-          gsap.fromTo(bgWrapper,
-            { scale: 1.15 },
-            { scale: 1, duration: 1.5, ease: "power2.out" }
-          );
         }
 
         const logo = slide.querySelector(".portfolio-logo");
@@ -164,10 +151,6 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         sizes="100vw"
         quality={85}
         className={`portfolio-bg-image object-cover`}
-        style={{
-          transformOrigin: "center center",
-          scale: "1.1",
-        }}
       />
     </div>
   );
@@ -181,14 +164,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
 
   const renderCarouselContent = (p: Project) => (
     <div className="relative h-full w-full px-8 md:px-16 lg:px-20 pointer-events-none">
-      {/* Top bar */}
-      <div className="absolute top-[24px] md:top-[48px] left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 flex items-center gap-[14px] z-[4] pointer-events-auto">
-        <span className="text-[10px] md:text-[11px] font-medium tracking-tight text-[#f5a623] uppercase">
-          Portfolio
-        </span>
-        <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#f5a623] translate-y-[4px] md:translate-y-[5px]" />
-        <ArrowButton width="md" title="View Portfolio" />
-      </div>
+
 
       {/* Bottom Content Area */}
       <div className="absolute bottom-0 left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 pb-16 md:pb-[60px] z-[4] flex flex-col gap-6 md:gap-4 pointer-events-auto">
@@ -199,7 +175,13 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
             <div className="portfolio-logo w-full flex justify-center md:justify-center">
               {p.logoSrc ? (
                 <div className="relative w-40 h-16">
-                  <Image src={p.logoSrc} alt={p.brand} fill className="object-contain object-left" />
+                  <Image 
+                    src={p.logoSrc} 
+                    alt={p.brand} 
+                    fill 
+                    sizes="160px"
+                    className="object-contain object-left" 
+                  />
                 </div>
               ) : (
                 <FlowerLogo />
@@ -264,13 +246,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
 
   const renderListContent = (p: Project) => (
     <div className="relative h-full w-full px-8 md:px-16 lg:px-20 pointer-events-none">
-      {/* Top bar: Case Study */}
-      <div className="absolute top-[24px] md:top-[48px] left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 flex items-center gap-[14px] z-[4] pointer-events-auto">
-        <span className="text-[10px] md:text-[11px] font-medium tracking-[0.18em] text-[#FAC02D] uppercase">
-          Case Study
-        </span>
-        <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02D] translate-y-[4px] md:translate-y-[5px]" />
-      </div>
+
 
       {/* Bottom Content Area */}
       <div className="absolute bottom-0 left-8 md:left-16 lg:left-20 right-8 md:right-16 lg:right-20 pb-16 md:pb-[60px] z-[4] flex flex-col gap-6 md:gap-4 pointer-events-auto">
@@ -280,7 +256,13 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
           <div className="portfolio-logo w-full flex justify-start md:justify-start">
             {p.logoSrc ? (
               <div className="relative w-40 h-16">
-                <Image src={p.logoSrc} alt={p.brand} fill className="object-contain object-left" />
+                <Image 
+                  src={p.logoSrc} 
+                  alt={p.brand} 
+                  fill 
+                  sizes="160px"
+                  className="object-contain object-left" 
+                />
               </div>
             ) : (
               <FlowerLogo />

@@ -183,24 +183,6 @@ const OrangeSection = () => {
       });
     }
 
-    // Stats Cards 3D entrance (ScrollTrigger based)
-    gsap.from(".stats-card-3d", {
-      opacity: 0,
-      y: 70,
-      rotationX: 35,
-      rotationY: -15,
-      z: -100,
-      transformPerspective: 1000,
-      duration: 1.2,
-      stagger: 0.12,
-      ease: "expo.out",
-      clearProps: "transform",
-      scrollTrigger: {
-        trigger: ".stats-card-3d",
-        start: "top 92%",
-        toggleActions: "play none none none",
-      }
-    });
 
     // ── Cleanup ───────────────────────────────────────────────────────────
     return () => {
@@ -251,7 +233,7 @@ const OrangeSection = () => {
           <div className="flex flex-col w-full min-[1200px]:w-[58%]">
             <div className="w-full">
 
-              <h2 className="orange-subheading text-[clamp(1rem,1.6vw,1.67rem)] mb-4 md:mb-6 text-gray-200 font-normal font-sans">
+              <h2 className="orange-subheading text-[clamp(1rem,1.6vw,1.67rem)] mb-4 md:mb-6 text-gray-200 font-thin font-sans">
                 We combine <strong>strategy</strong>, <strong>creativity</strong>, and <strong>technology</strong> to <br className="hidden md:block" /> deliver <strong>marketing</strong> that performs not just looks good.
               </h2>
 

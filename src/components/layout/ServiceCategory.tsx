@@ -61,17 +61,7 @@ const ServiceCategory = ({
       <div className="max-w-[1350px] z-50 w-full px-8 md:px-16">
         {/* Header Section */}
         <motion.div className="mb-20" variants={fadeInUp}>
-          <div className="flex gap-4 mb-6">
-            <span className="text-[10px] tracking-[0.2em] font-bold uppercase opacity-80 text-[#FAC02E]">
-              {label}
-            </span>
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: 48 }}
-              transition={{ duration: 1, ease: "easeInOut" }}
-              className="h-[1px] bg-yellow-500" 
-            />
-          </div>
+
           
           <h2 className="text-4xl md:text-7xl font-normal mb-8 leading-tight max-w-3xl" 
               dangerouslySetInnerHTML={{ __html: mainTitle }} 

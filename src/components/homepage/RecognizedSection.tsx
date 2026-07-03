@@ -127,12 +127,7 @@ export default function RecognizedSection() {
         {/* Header Section */}
         <div className="flex flex-col min-[1300px]:flex-row min-[1300px]:items-end min-[1300px]:justify-between gap-4 mb-20">
           <div className="flex flex-col items-start">
-            <div className="flex items-center gap-[14px] mb-5">
-              <span className="text-[10px] md:text-[11px] font-medium tracking-tight uppercase text-[#FAC02D]">
-                Awards & Recognition
-              </span>
-              <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02D] translate-y-[4px] md:translate-y-[5px]" />
-            </div>
+
             <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-heading font-medium leading-[1.05] -tracking-wide max-w-2xl">
               Recognized for <br/> Excellence
             </h2>

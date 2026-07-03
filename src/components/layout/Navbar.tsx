@@ -159,8 +159,8 @@ const menuRef = useRef<HTMLDivElement>(null);
           mx-auto flex items-center justify-between transition-all duration-500 ease-in-out pointer-events-auto
           ${
             isScrolled
-              ? "max-w-[1200px] w-[90%] bg-white/10 backdrop-blur-md border border-white/20 px-6 py-3 rounded-full shadow-lg"
-              : "max-w-full w-full bg-transparent border-transparent px-8 md:px-16 py-4 rounded-none shadow-none"
+              ? "w-[calc(100%-4rem)] md:w-[calc(100%-8rem)] max-w-[calc(1350px-4rem)] md:max-w-[calc(1350px-8rem)] bg-white/10 backdrop-blur-md border border-white/20 px-6 md:px-8 py-3 rounded-full shadow-lg"
+              : "max-w-[1350px] w-full bg-transparent border-transparent px-8 md:px-16 py-4 rounded-none shadow-none"
           }
         `}
       >
@@ -182,7 +182,7 @@ const menuRef = useRef<HTMLDivElement>(null);
               src="/images/clock.png"
               width={20}
               height={20}
-              style={{ height: 'auto' }}
+              style={{ width: 'auto', height: 'auto' }}
               className="w-4 md:w-5 object-contain shrink-0"
             />
           </button>

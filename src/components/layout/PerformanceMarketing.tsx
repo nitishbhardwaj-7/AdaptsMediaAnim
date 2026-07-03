@@ -152,12 +152,7 @@ const PerformanceMarketing = () => {
         
         {/* 1. TOP SECTION: Connected Thinking */}
         <div className="mb-32">
-          <div className="flex items-center gap-4 mb-6 connected-desc">
-            <span className="text-[10px] tracking-[0.2em] font-bold uppercase text-[#FAC02E]">
-              Services
-            </span>
-            <div className="h-[1px] w-12 bg-yellow-500" />
-          </div>
+
           <h2 className="connected-title text-4xl md:text-7xl font-normal mb-8 leading-tight max-w-4xl">
             Connected Thinking.<br/>Measureable Results.
           </h2>
@@ -193,6 +188,7 @@ const PerformanceMarketing = () => {
               <div className="w-full h-full relative">
                 {/* 1. THE BACKGROUND IMAGE (Small Jump) */}
                 <img 
+                  loading="lazy"
                   src="/images/services/commonbg.png" 
                   className="img-bg absolute inset-0 w-full h-full object-contain scale-150 z-0 opacity-50 pointer-events-none" 
                   style={{ filter: 'brightness(0)' }}
@@ -201,6 +197,7 @@ const PerformanceMarketing = () => {
 
                 {/* 2. THE MAIN IMAGE (Large Jump) */}
                 <img 
+                  loading="lazy"
                   src="/images/services/i1.png" 
                   className="img-main relative z-10 w-full h-full object-contain" 
                   alt="Rocket" 

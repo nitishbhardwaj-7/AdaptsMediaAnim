@@ -50,12 +50,7 @@ export default function PerformSection() {
         {/* Header Section */}
         <div className="flex flex-col min-[1300px]:flex-row min-[1300px]:items-end min-[1300px]:justify-between gap-12 mb-20">
           <div className="flex flex-col items-start">
-            <div className="flex items-center gap-4 mb-5">
-              <span className="text-[10px] text-[#FAC02E] font-bold tracking-[0.2em] uppercase opacity-90">
-                Our Approach
-              </span>
-              <div className="w-12 h-[0.6px] bg-[#FAC02E] translate-y-[3px]" />
-            </div>
+
             <h2 className="text-4xl md:text-7xl min-[1300px]:text-7xl font-medium leading-[1.05] -tracking-wide max-w-2xl">
               Built to Perform. <br/> Designed to Scale.
             </h2>

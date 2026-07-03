@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import CustomCursor from "@/components/layout/CustomCursor";
@@ -7,7 +7,6 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 import Script from "next/script";
 
 import localFont from "next/font/local";
-import { Roboto } from "next/font/google";
 
 const openSans = localFont({
   src: [
@@ -38,12 +37,14 @@ const openSans = localFont({
     },
   ],
   variable: "--font-heading",
+  preload: false,
 });
 
 const roboto = Roboto({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
+  preload: false,
 });
 
 export async function generateMetadata(): Promise<Metadata> {

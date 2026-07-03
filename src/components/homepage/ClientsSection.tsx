@@ -28,32 +28,6 @@ const ClientsSection = () => {
     const isMobile = window.matchMedia("(max-width: 768px)").matches
     const cleanups: (() => void)[] = []
 
-    // ANIMATION 1 — "CLIENTS" LABEL
-    gsap.from([".clients-label-text", ".clients-label-line"], {
-      opacity: 0,
-      x: -20,
-      duration: 0.6,
-      ease: "power3.out",
-      stagger: 0.08,
-      scrollTrigger: {
-        trigger: ".clients-label-text",
-        start: "top 88%",
-        toggleActions: "play none none none",
-      },
-    })
-
-    // Line draws itself in from left to right
-    gsap.from(".clients-label-line", {
-      scaleX: 0,
-      transformOrigin: "left center",
-      duration: 0.7,
-      ease: "expo.out",
-      scrollTrigger: {
-        trigger: ".clients-label-text",
-        start: "top 88%",
-        toggleActions: "play none none none",
-      },
-    })
 
     // ANIMATION 2 — HEADLINE CLIP REVEAL
     const headingSplit = SplitText.create(".clients-heading", {
@@ -394,12 +368,7 @@ const ClientsSection = () => {
       `}} />
 
       <div className="max-w-[1350px] px-8 md:px-16 w-full">
-        <div className="flex items-center gap-[14px] mb-4 clients-label">
-          <span className="clients-label-text text-[10px] md:text-[11px] font-medium tracking-tight text-[#064ED3] uppercase">
-            Clients
-          </span>
-          <div className="clients-label-line flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#003B65] translate-y-[4px] md:translate-y-[5px]" />
-        </div>
+
 
         <h2 className="clients-heading text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-medium text-[#07476B] mb-10 md:mb-16 tracking-tight">
           Brands We Work With

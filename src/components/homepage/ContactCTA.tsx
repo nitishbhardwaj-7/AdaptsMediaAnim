@@ -32,13 +32,7 @@ const ContactCTA = () => {
       <div className="relative z-10 group max-w-[1350px] w-full px-8 md:px-16 items-start justify-start">
         <div className="flex flex-col gap-4 max-w-4xl">
 
-          {/* Top Label */}
-          <div className="flex items-center gap-[14px]">
-            <span className="text-[10px] md:text-[11px] font-medium tracking-tight text-[#FAC02E] uppercase">
-              Contact Us
-            </span>
-            <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02E] translate-y-[4px] md:translate-y-[5px]" />
-          </div>
+
 
           {/* Main Content */}
           <h2 className="text-3xl md:text-7xl font-heading font-medium text-white leading-[1.3] tracking-tight">

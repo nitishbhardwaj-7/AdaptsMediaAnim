@@ -43,18 +43,6 @@ const ServicesSection = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const splits: any[] = []
 
-    // ── 1. Label slide-in ──────────────────────────────────────────────────
-    gsap.from(".services-label", {
-      opacity: 0,
-      x: -24,
-      duration: 0.6,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".services-label",
-        start: "top 88%",
-        toggleActions: "play none none none",
-      },
-    })
 
     // ── 2. Heading — SplitText line mask reveal ────────────────────────────
     const headingSplit = SplitText.create(".services-heading", {
@@ -254,12 +242,7 @@ const ServicesSection = () => {
 
         {/* Header */}
         <div className="mb-20">
-          <div className="flex items-center gap-[14px] mb-6">
-            <span className="services-label text-[10px] md:text-[11px] font-medium tracking-tight text-[#FAC02D] uppercase">
-              Services
-            </span>
-            <div className="services-line flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02D] translate-y-[4px] md:translate-y-[5px]" />
-          </div>
+
 
           <h2 className="services-heading text-4xl md:text-6xl font-heading font-medium mb-8 leading-tight max-w-3xl">
             Services Designed to <br /> Drive Growth

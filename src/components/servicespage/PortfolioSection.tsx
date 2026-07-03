@@ -70,12 +70,7 @@ const PortfolioSection = () => {
         {/* Header Section: flex-col below 1300px to keep button left-aligned */}
         <div className="flex flex-col min-[1300px]:flex-row min-[1300px]:items-end justify-between gap-8 mb-16">
           <div className="flex flex-col gap-4">
-            <div className="flex gap-3">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-[#f5a623] uppercase">
-                Portfolio
-              </span>
-              <div className="w-12 h-[1px] bg-[#f5a623]" />
-            </div>
+
             
           </div>
 

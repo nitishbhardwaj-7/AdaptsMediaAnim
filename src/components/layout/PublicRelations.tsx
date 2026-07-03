@@ -154,6 +154,7 @@ const PublicRelations = () => {
               <div className="w-full h-full relative">
                 {/* 1. THE BACKGROUND IMAGE */}
                 <img 
+                  loading="lazy"
                   src="/images/services/commonbg.png" 
                   className="img-bg-pr absolute inset-0 w-full h-full object-contain scale-150 z-0 opacity-50 pointer-events-none" 
                   style={{ filter: 'brightness(0)' }}
@@ -162,6 +163,7 @@ const PublicRelations = () => {
               
                 {/* 2. THE MAIN IMAGE */}
                 <img 
+                  loading="lazy"
                   src="/images/services/i5.png" 
                   className="img-main-pr relative z-10 w-full h-full object-contain" 
                   alt="Rocket" 

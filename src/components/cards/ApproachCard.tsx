@@ -49,6 +49,7 @@ const ApproachCard = ({ steps }: { steps: Step[] }) => {
   <div className="text-white w-full h-full flex items-center justify-center">
     {typeof step.icon === 'string' && step.icon !== '' ? (
       <img 
+        loading="lazy"
         src={step.icon} 
         alt={step.title} 
         className="w-8 h-8 object-contain" // Adjusted size to fit nicely in the circle

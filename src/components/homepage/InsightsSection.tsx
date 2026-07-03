@@ -36,12 +36,7 @@ const InsightsSection = async () => {
           {/* Header Section: flex-col below 1300px to keep button left-aligned */}
           <div className="flex flex-col min-[1300px]:flex-row min-[1300px]:items-end justify-between gap-8 mb-16">
             <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-[14px]">
-                <span className="text-[10px] md:text-[11px] font-medium tracking-tight text-[#FAC02D] uppercase">
-                  Insights
-                </span>
-                <div className="flex-[0_0_30px] md:flex-[0_0_60px] h-[0.5px] bg-[#FAC02D] translate-y-[4px] md:translate-y-[5px]" />
-              </div>
+
               <h2 className="text-3xl md:text-6xl min-[1300px]:text-7xl tracking-wide font-heading font-medium leading-[1.1] tracking-tight md:max-w-full lg:max-w-full">
                 Ideas, Trends & <br /> Industry Insights
               </h2>

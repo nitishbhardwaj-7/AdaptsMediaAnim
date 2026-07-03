@@ -123,6 +123,7 @@ const SocialContent = () => {
               <div className="w-full h-full relative">
                 {/* 1. THE BACKGROUND IMAGE */}
                 <img 
+                  loading="lazy"
                   src="/images/services/commonbg.png" 
                   className="img-bg-social absolute inset-0 w-full h-full object-contain scale-150 z-0 opacity-50 pointer-events-none" 
                   style={{ filter: 'brightness(0)' }}
@@ -131,6 +132,7 @@ const SocialContent = () => {
               
                 {/* 2. THE MAIN IMAGE */}
                 <img 
+                  loading="lazy"
                   src="/images/services/i2.png" 
                   className="img-main-social relative z-10 w-full h-full object-contain" 
                   alt="Rocket" 

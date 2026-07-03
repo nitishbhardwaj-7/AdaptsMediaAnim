@@ -22,7 +22,6 @@ export default function HyundaiMobisCaseStudy() {
           src="/images/portfolio/Hyundai/gBg6l9R6F_4XlnSb9zosTP1vjW3PERUjqgtrxngEo9MfManDgqbSyUDdUpidHt0H1ON2HmmSeqiq4ga0ys-U-X9SMNqno2pnNEPQXag32Js 1.png"
           alt="Hyundai Mobis Exploded Parts Background"
           fill
-          priority
           quality={95}
           className="absolute inset-0 z-0 object-cover object-right pointer-events-none"
         />
@@ -33,13 +32,7 @@ export default function HyundaiMobisCaseStudy() {
         {/* Content wrapper */}
         <div className="relative z-10 max-w-[1350px] w-full mx-auto px-8 md:px-16 lg:px-20 py-12 flex flex-col justify-center text-left min-h-[calc(100vh-160px)]">
           <div className="max-w-[700px]">
-            {/* Case Study Tag */}
-            <div className="flex items-center gap-3.5 mb-8">
-              <span className="text-[10px] md:text-[11px] font-heading font-semibold tracking-[0.2em] text-[#FAC02E] uppercase">
-                Case Study
-              </span>
-              <div className="w-16 h-[1px] bg-[#FAC02E]/60" />
-            </div>
+
 
             {/* Logo */}
             <div className="relative w-48 h-14 mb-8">
@@ -47,6 +40,7 @@ export default function HyundaiMobisCaseStudy() {
                 src="/images/portfolio/Hyundai/Group.png"
                 alt="Hyundai Mobis Logo"
                 fill
+                sizes="192px"
                 priority
                 className="object-contain object-left"
               />
@@ -115,7 +109,6 @@ export default function HyundaiMobisCaseStudy() {
           src="/images/BrandingCreative/IdentityBg.png"
           alt="Identity Background Pattern"
           fill
-          priority={true}
           quality={90}
           className="absolute inset-0 z-0 pointer-events-none object-cover"
         />
@@ -222,7 +215,6 @@ export default function HyundaiMobisCaseStudy() {
           src="/images/BrandingCreative/CampaignsBg.png"
           alt="Campaigns Background Pattern"
           fill
-          priority={true}
           quality={90}
           className="absolute inset-0 z-0 pointer-events-none object-cover"
         />
@@ -277,6 +269,7 @@ export default function HyundaiMobisCaseStudy() {
                     src="/images/portfolio/Hyundai/Mask group (2).png"
                     alt="Hyundai Mobis Cricket Campaign"
                     fill
+                    sizes="(max-width: 768px) 180px, 230px"
                     className="object-contain drop-shadow-lg"
                   />
                 </motion.div>
@@ -294,6 +287,7 @@ export default function HyundaiMobisCaseStudy() {
                     src="/images/portfolio/Hyundai/Mask group (1).png"
                     alt="Hyundai Mobis Door Visors Campaign"
                     fill
+                    sizes="(max-width: 768px) 180px, 230px"
                     className="object-contain drop-shadow-lg"
                   />
                 </motion.div>
@@ -311,6 +305,7 @@ export default function HyundaiMobisCaseStudy() {
                     src="/images/portfolio/Hyundai/Mask group.png"
                     alt="Hyundai Mobis Red Ignite Campaign"
                     fill
+                    sizes="(max-width: 768px) 200px, 250px"
                     className="object-contain drop-shadow-[0_20px_20px_rgba(0,0,0,0.5)]"
                   />
                 </motion.div>
@@ -387,7 +382,6 @@ export default function HyundaiMobisCaseStudy() {
           src="/images/portfolio/Hyundai/BgYellow.png"
           alt="Services Delivered Background"
           fill
-          priority={true}
           quality={90}
           className="absolute inset-0 z-0 pointer-events-none object-cover"
         />
@@ -478,6 +472,7 @@ export default function HyundaiMobisCaseStudy() {
                   alt="Facebook"
                   width={14}
                   height={14}
+                  style={{ width: 'auto', height: 'auto' }}
                   className="object-contain brightness-0 invert"
                 />
               </a>
@@ -493,6 +488,7 @@ export default function HyundaiMobisCaseStudy() {
                   alt="LinkedIn"
                   width={20}
                   height={20}
+                  style={{ width: 'auto', height: 'auto' }}
                   className="object-contain brightness-0 invert"
                 />
               </a>
@@ -508,6 +504,7 @@ export default function HyundaiMobisCaseStudy() {
                   alt="Instagram"
                   width={20}
                   height={20}
+                  style={{ width: 'auto', height: 'auto' }}
                   className="object-contain brightness-0 invert"
                 />
               </a>
@@ -551,6 +548,7 @@ export default function HyundaiMobisCaseStudy() {
                     src="/images/portfolio/Hyundai/image 31.png"
                     alt="Services Delivered 3D Illustration"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 420px"
                     className="object-contain drop-shadow-2xl"
                   />
                 </motion.div>
