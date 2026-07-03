@@ -55,8 +55,9 @@ const BrandingIntro = () => {
     // Precalculate final colors and custom staggered delays
     let currentDelay = 0;
     const delays = split.words.map((word, i) => {
-      const isHighlight = word.closest(".highlight") !== null;
-      const prevIsHighlight = i > 0 && split.words[i - 1].closest(".highlight") !== null;
+      const htmlWord = word as HTMLElement;
+      const isHighlight = htmlWord.closest(".highlight") !== null;
+      const prevIsHighlight = i > 0 && (split.words[i - 1] as HTMLElement).closest(".highlight") !== null;
 
       // Highlighted words get a slightly larger delay/gap before their reveal starts
       if (isHighlight && !prevIsHighlight) {
@@ -65,14 +66,14 @@ const BrandingIntro = () => {
         currentDelay += 0.03; 
       }
 
-      word.dataset.finalColor = isHighlight ? "#2563eb" : "#1a1a2e";
+      htmlWord.dataset.finalColor = isHighlight ? "#2563eb" : "#1a1a2e";
       return currentDelay;
     });
 
     // Create the reveal animation
     gsap.to(split.words, {
       opacity: 1,
-      color: (i, target) => target.dataset.finalColor || "#1a1a2e",
+      color: (i, target) => (target as HTMLElement).dataset.finalColor || "#1a1a2e",
       scale: 1,
       stagger: (i) => delays[i],
       ease: "none",
