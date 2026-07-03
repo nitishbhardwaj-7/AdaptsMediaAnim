@@ -303,3 +303,29 @@ body::-webkit-scrollbar,
   transform: scale(0.95);
 }
 
+/* ─── Text Reveal Animation ───────────────────────────── */
+.reveal-text .highlight {
+  color: #2563eb !important;
+  font-weight: 700;
+}
+.reveal-text .word {
+  opacity: 0.25;
+  color: #9ca3af;
+  display: inline-block;
+}
+
+/* ─── Prevent SplitText line masking descender clipping ─── */
+.hero-left-title > div > div,
+.hero-right-title > div > div,
+.identity-title > div > div,
+.campaigns-title > div > div,
+.designsystems-title > div > div,
+.contentstrategy-title > div > div,
+.leverage-title > div > div,
+.intro-paragraph > div > div {
+  padding-bottom: 0.25em !important;
+  margin-bottom: -0.25em !important;
+}
+
+
+

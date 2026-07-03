@@ -327,7 +327,8 @@ const ClientsSection = () => {
 
   return (
     <section ref={sectionRef} className="bg-white py-20 font-sans w-full flex flex-col items-center">
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .clients-heading {
           overflow: visible;
         }

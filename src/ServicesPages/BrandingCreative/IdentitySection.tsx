@@ -1,9 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger, SplitText } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const IdentitySection = () => {
+  const containerRef = useRef<HTMLElement>(null);
+
   const deliverables = [
     "Brand Strategy and Positioning",
     "Logo and Visual Identity Design",
@@ -12,41 +19,107 @@ const IdentitySection = () => {
     "Verbal Identity and Tone of Voice",
   ];
 
-  const containerVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  useGSAP(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const splits: any[] = [];
 
-  const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: [0.25, 1, 0.5, 1] as const,
-      },
-    },
-  };
+    // Title reveal
+    const titleSplit = SplitText.create(".identity-title", {
+      type: "lines",
+      mask: "lines",
+    });
+    splits.push(titleSplit);
 
-  const starVariants: Variants = {
-    hidden: { scale: 0, rotate: -45 },
-    visible: {
-      scale: 1,
-      rotate: 0,
-      transition: {
-        duration: 0.5,
-        ease: "backOut",
-      },
-    },
-  };
+    gsap.from(titleSplit.lines, {
+      yPercent: 110,
+      opacity: 0,
+      rotationX: -10,
+      transformOrigin: "0% 50% -50px",
+      duration: 1.0,
+      stagger: 0.1,
+      ease: "expo.out",
+      scrollTrigger: {
+        trigger: ".identity-title",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // Content paragraphs reveal
+    gsap.from(".identity-desc p", {
+      y: 30,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".identity-desc",
+        start: "top 88%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // Deliverables heading & list items stagger
+    gsap.from(".identity-deliverables-header", {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      scrollTrigger: {
+        trigger: ".identity-deliverables-header",
+        start: "top 90%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    gsap.from(".identity-deliverable-item", {
+      y: 30,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.08,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".identity-deliverable-item",
+        start: "top 90%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // Image Parallax scroll-scrub
+    gsap.fromTo(".identity-img-bg",
+      { y: 30 },
+      {
+        y: -30,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".identity-img-container",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1
+        }
+      }
+    );
+
+    gsap.fromTo(".identity-img-main",
+      { y: 65 },
+      {
+        y: -65,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".identity-img-container",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5
+        }
+      }
+    );
+
+    return () => {
+      splits.forEach((s) => s.revert());
+    };
+  }, { scope: containerRef });
 
   return (
-    <section className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden bg-[#064ed3] text-white">
+    <section ref={containerRef} className="relative w-full py-24 md:py-32 flex justify-center overflow-hidden bg-[#064ed3] text-white">
       {/* Background Image */}
       <Image
         src="/images/BrandingCreative/IdentityBg.png"
@@ -57,104 +130,71 @@ const IdentitySection = () => {
         className="absolute inset-0 z-0 pointer-events-none object-cover"
       />
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={containerVariants}
-        className="max-w-[1350px] w-full px-8 md:px-16 flex flex-col gap-16 relative z-10"
-      >
+      <div className="max-w-[1350px] w-full px-8 md:px-16 flex flex-col gap-16 relative z-10">
         {/* Top Content Row: Text Left, Image Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
           {/* Left Column: Text Content */}
-          <motion.div variants={fadeInUp} className="lg:col-span-7 flex flex-col items-start">
+          <div className="lg:col-span-7 flex flex-col items-start">
             <span className="text-[#FAC02E] text-lg tracking-wider mb-3">
               Identity
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.15] mb-8 max-w-2xl">
+            <h2 className="identity-title text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.25] pb-2 mb-8 max-w-2xl font-heading">
               Creating Brands with Purpose and Personality
             </h2>
 
-            <div className="space-y-6 max-w-xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">
+            <div className="identity-desc space-y-6 max-w-xl text-[17px] md:text-[19px] font-light leading-relaxed text-blue-50/90">
               <p>
                 A strong identity creates recognition, trust, and differentiation. We develop brand identities that go beyond aesthetics — building systems that communicate who you are, what you stand for, and why your audience should care.
               </p>
               <p>
-
                 From logos and typography to color systems and brand language, every detail is crafted to create a cohesive and memorable presence.
               </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column: Illustration & CTA */}
-          <motion.div
-            variants={fadeInUp}
-            className="lg:col-span-5 flex flex-col items-center justify-center"
-          >
+          <div className="lg:col-span-5 flex flex-col items-center justify-center">
             {/* Illustration Container */}
-            <div className="relative w-full max-w-[300px] aspect-square flex items-center justify-center">
-              {/* THE SENSOR: Stays still to avoid jitter */}
-              <motion.div
-                initial="down"
-                whileInView="up"
-                viewport={{ once: false, amount: 0.6, margin: "-15% 0px -20% 0px" }}
-                className="w-full h-full relative"
-              >
-                {/* 1. THE BACKGROUND IMAGE (Small Jump) */}
-                <motion.img
+            <div className="identity-img-container relative w-full max-w-[300px] aspect-square flex items-center justify-center">
+              <div className="w-full h-full relative">
+                {/* 1. THE BACKGROUND IMAGE (Small Scrub) */}
+                <img
                   src="/images/BrandingCreative/LogoBgBlue.png"
-                  variants={{
-                    down: { y: 0 },
-                    up: { y: -30 }
-                  }}
-                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as const }}
-                  className="absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-40 pointer-events-none"
+                  className="identity-img-bg absolute inset-0 w-full h-full object-contain scale-110 z-0 opacity-40 pointer-events-none"
                   style={{ filter: 'brightness(0)' }}
                   alt="Logo Background Grid"
                 />
 
-                {/* 2. THE MAIN IMAGE (Large Jump) */}
-                <motion.img
+                {/* 2. THE MAIN IMAGE (Large Scrub) */}
+                <img
                   src="/images/BrandingCreative/LogoBlue.png"
-                  variants={{
-                    down: { y: 0 },
-                    up: { y: -70 }
-                  }}
-                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as const }}
-                  className="relative z-10 w-full h-full object-contain scale-[0.75]"
+                  className="identity-img-main relative z-10 w-full h-full object-contain scale-[0.75]"
                   alt="Logo Blue Screen"
                 />
-              </motion.div>
+              </div>
             </div>
 
             {/* Button Centered Under Image */}
-            <motion.div
-              className="mt-8"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <div className="mt-8">
               <a
                 href="#"
                 className="inline-flex items-center justify-center px-10 py-3.5 rounded-full border border-white/60 bg-transparent text-white font-semibold text-[15px] md:text-base tracking-wide transition-all duration-300 hover:bg-white hover:text-[#064ed3] hover:border-white shadow-md cursor-pointer"
               >
                 View Work <span className="ml-2">↗</span>
               </a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Bottom Content Row: What We Deliver */}
-        <motion.div variants={fadeInUp} className="w-full mt-8">
-          <h3 className="text-xl md:text-2xl mb-6">
+        <div className="w-full mt-8">
+          <h3 className="identity-deliverables-header text-xl md:text-2xl mb-6">
             What We Deliver
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-4">
             {deliverables.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-2.5">
-                <motion.div
-                  variants={starVariants}
-                  className="mt-1 flex-shrink-0"
-                >
+              <div key={idx} className="identity-deliverable-item flex items-start gap-2.5">
+                <div className="mt-1 flex-shrink-0">
                   <svg
                     className="w-4 h-4 text-[#FAC02E]"
                     fill="currentColor"
@@ -162,15 +202,15 @@ const IdentitySection = () => {
                   >
                     <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" />
                   </svg>
-                </motion.div>
+                </div>
                 <span className="text-sm md:text-[15px] text-white/90 leading-snug">
                   {item}
                 </span>
               </div>
             ))}
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

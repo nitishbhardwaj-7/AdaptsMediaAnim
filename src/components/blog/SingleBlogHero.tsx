@@ -20,7 +20,7 @@ const SingleBlogHero = ({ title, author, date, categories }: SingleBlogHeroProps
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col items-center">
         {/* Breadcrumb */}
         <p className="text-[10px] md:text-xs font-sans text-white/70 mb-6 tracking-wide">
           Adapts Media | Blog | <span className="text-[#6a9bd6]">{title}</span>
@@ -28,14 +28,17 @@ const SingleBlogHero = ({ title, author, date, categories }: SingleBlogHeroProps
 
         {/* Title */}
         <h1
-          className="text-3xl md:text-5xl lg:text-6xl font-bold font-sans leading-tight mb-8 max-w-4xl"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold font-sans leading-snug mb-8 max-w-5xl text-center line-clamp-2"
+          title={title}
           dangerouslySetInnerHTML={{ __html: title }}
         />
 
         {/* Meta Info: Author */}
-        <p className="text-sm md:text-base font-sans text-white/80 mb-2">
-          By <span className="text-[#6a9bd6]">{author}</span>
-        </p>
+        {author && (
+          <p className="text-sm md:text-base font-sans text-white/80 mb-2">
+            By <span className="text-[#6a9bd6]">{author}</span>
+          </p>
+        )}
 
         {/* Meta Info: Date & Primary Category */}
         <p className="text-xs md:text-sm font-sans text-white/60 mb-8">

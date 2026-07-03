@@ -6,7 +6,7 @@ export default async function AllBlogsPage() {
   const posts = await getWordPressPosts(100);
 
   return (
-    <main className="bg-black min-h-screen">
+    <main className="bg-[#004dc3] min-h-screen">
       <BlogHero />
       <BlogList posts={posts} />
     </main>

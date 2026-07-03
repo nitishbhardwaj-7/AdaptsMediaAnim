@@ -30,7 +30,10 @@ export async function getWordPressPosts(limit: number = 100) {
       return {
         // Decoding titles for production-ready text
         title: post.title.rendered.replace(/&#(\d+);/g, (match: string, dec: number) => String.fromCharCode(dec)),
-        image: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || "/fallback.jpg",
+        image: post._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.medium_large?.source_url || 
+               post._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.large?.source_url || 
+               post._embedded?.['wp:featuredmedia']?.[0]?.source_url || 
+               "/fallback.jpg",
         slug: post.slug,
         date: parsedDate,
         author: authorName,

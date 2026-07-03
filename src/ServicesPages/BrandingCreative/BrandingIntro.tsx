@@ -1,8 +1,15 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger, SplitText } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const BrandingIntro = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   const pills = [
     "Identity",
     "Campaigns",
@@ -11,83 +18,128 @@ const BrandingIntro = () => {
     "Leverage Influencers",
   ];
 
-  const containerVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  useGSAP(() => {
+    const el = containerRef.current?.querySelector(".reveal-text") as HTMLElement;
+    if (!el) return;
 
-  const textVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.25, 1, 0.5, 1] as const, // easeOutQuart
-      },
-    },
-  };
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-  const pillVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: {
+    if (prefersReducedMotion) {
+      // Just render the paragraph at full opacity/color with no animation
+      gsap.set(el.querySelectorAll(".word"), { 
+        opacity: 1, 
+        color: (i, target) => {
+          const isHighlight = target.closest(".highlight") !== null;
+          return isHighlight ? "#2563eb" : "#1a1a2e";
+        }
+      });
+      return;
+    }
+
+    // Split paragraph into words
+    const split = new SplitText(el, {
+      type: "words",
+      wordsClass: "word",
+    });
+
+    // Set initial dimmed state
+    gsap.set(split.words, {
+      opacity: 0.25,
+      color: "#9ca3af",
+      scale: (i, target) => target.closest(".highlight") ? 0.96 : 1,
+      transformOrigin: "center center"
+    });
+
+    // Precalculate final colors and custom staggered delays
+    let currentDelay = 0;
+    const delays = split.words.map((word, i) => {
+      const isHighlight = word.closest(".highlight") !== null;
+      const prevIsHighlight = i > 0 && split.words[i - 1].closest(".highlight") !== null;
+
+      // Highlighted words get a slightly larger delay/gap before their reveal starts
+      if (isHighlight && !prevIsHighlight) {
+        currentDelay += 0.07; 
+      } else {
+        currentDelay += 0.03; 
+      }
+
+      word.dataset.finalColor = isHighlight ? "#2563eb" : "#1a1a2e";
+      return currentDelay;
+    });
+
+    // Create the reveal animation
+    gsap.to(split.words, {
       opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: [0.25, 1, 0.5, 1] as const,
+      color: (i, target) => target.dataset.finalColor || "#1a1a2e",
+      scale: 1,
+      stagger: (i) => delays[i],
+      ease: "none",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 75%",
+        end: "bottom 40%",
+        scrub: 1,
       },
-    },
-  };
+    });
+
+    // Pills staggered fade-up
+    gsap.from(".intro-pill", {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.06,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".intro-pill-container",
+        start: "top 90%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    return () => {
+      split.revert();
+    };
+  }, { scope: containerRef });
 
   return (
     <section className="w-full bg-white py-24 flex justify-center font-sans overflow-hidden">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={containerVariants}
+      <div
+        ref={containerRef}
         className="max-w-[1350px] w-full px-8 md:px-16 flex flex-col items-start"
       >
         {/* Paragraph Description */}
-        <motion.div variants={textVariants} className="max-w-6xl">
-          <p className="text-[36px] sm:text-2xl md:text-[40px] font-semibold text-[#1a2b49] leading-[1.35] tracking-tight">
+        <div className="w-full">
+          <p className="intro-paragraph reveal-text text-[36px] sm:text-2xl md:text-[40px] font-semibold text-[#1a1a2e] leading-[1.35] tracking-tight font-heading">
             We combine strategic thinking with creative execution to build
             brands that are{" "}
-            <span className="text-[#064ed3] font-bold">
+            <span className="highlight text-[#2563eb] font-bold">
               visually distinctive, emotionally engaging
             </span>
             , and positioned for long-term growth. From identity creation to
             campaign storytelling, every element is designed to create{" "}
-            <span className="text-[#064ed3] font-bold">
+            <span className="highlight text-[#2563eb] font-bold">
               consistency, relevance, and impact
             </span>{" "}
             across every touchpoint.
           </p>
-        </motion.div>
+        </div>
 
         {/* Pills / Tags Section */}
-        <motion.div 
-          variants={containerVariants}
-          className="mt-16 flex flex-wrap gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 max-w-6xl"
+        <div 
+          className="intro-pill-container mt-16 flex flex-wrap gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 w-full"
         >
           {pills.map((pill, idx) => (
-            <motion.div
+            <div
               key={idx}
-              variants={pillVariants}
-              whileHover={{ scale: 1.04, backgroundColor: "#faeacb", borderColor: "#f9d79c" }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center rounded-full border border-[#fce4bd] bg-[#fdf2df] px-8 py-3 text-center text-sm md:text-[17px] font-semibold text-[#064ed3] shadow-xs transition-all duration-300 cursor-pointer"
+              className="intro-pill inline-flex items-center justify-center rounded-full border border-[#fce4bd] bg-[#fdf2df] px-8 py-3 text-center text-sm md:text-[17px] font-semibold text-[#064ed3] shadow-xs transition-all duration-300 cursor-pointer hover:scale-[1.04] hover:bg-[#faeacb] hover:border-[#f9d79c] active:scale-[0.98]"
             >
               {pill}
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

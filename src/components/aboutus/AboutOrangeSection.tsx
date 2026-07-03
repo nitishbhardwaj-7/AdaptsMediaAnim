@@ -22,20 +22,23 @@ const AboutOrangeSection = () => {
             </h1>
             
             <div className="w-full">
-              <h2 className="text-[clamp(1rem,1.6vw,1.35rem)] mb-4 md:mb-6 text-gray-200 font-thin">
-                We combine <strong>strategy</strong>, <strong>creativity</strong> and <strong>technology</strong> to define marketing that performs not just looks good.
+              <h2 className="text-[clamp(1rem,1.6vw,1.35rem)] mb-4 md:mb-6 text-gray-200 opacity-100 font-thin">
+                We combine <strong>strategy</strong>, <strong>creativity</strong>, and <strong>technology</strong> to <br className="hidden md:block" /> deliver <strong>marketing</strong> that performs not just looks good.
               </h2>
               
               <p className="text-[clamp(0.85rem,1.1vw,1.05rem)] mb-4 opacity-70 font-thin">
-                In today's fast-moving digital <strong>landscape</strong>, visibility alone is not enough. Brands need <strong>clarity</strong>, <strong>consistency</strong> and <strong>performance</strong> at every touch point.
+                In today&apos;s fast-moving <strong>digital landscape</strong>, visibility alone isn&apos;t enough. Brands <br className="hidden md:block" /> need <strong>clarity</strong>, <strong>consistency</strong>, and <strong>performance</strong> at every touchpoint.
               </p>
               
-              <p className="text-[clamp(0.85rem,1.1vw,1.05rem)] mb-6 md:mb-8 opacity-50 font-thin">
-                We are a new-generation agency built to bridge that gap — bringing together strategic thinking, creative excellence, and data-driven execution under one roof. Every solution we design is rooted in understanding your business, your audience, and your growth ambitions.
+              <p className="text-[clamp(0.85rem,1.1vw,1.05rem)] mb-6 md:mb-8 font-thin">
+                <span className="opacity-90">We are a new-generation agency built to bridge that gap — bringing together </span><br className="hidden md:block" />
+                <span className="opacity-70">strategic thinking, creative excellence, and data-driven execution under one </span><br className="hidden md:block" />
+                <span className="opacity-50">roof. Every solution we design is rooted in understanding your business, your </span><br className="hidden md:block" />
+                <span className="opacity-30">audience, and your growth ambitions.</span>
               </p>
               
               
-              <h2 className="text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-medium">
+              <h2 className="text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAC02E] bg-clip-text text-transparent font-medium">
                 We don't just deliver campaigns. <br /> We build momentum.
               </h2>
 

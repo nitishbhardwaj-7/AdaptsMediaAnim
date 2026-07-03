@@ -128,7 +128,79 @@ const OrangeSection = () => {
           goldBtn.removeEventListener("mouseleave", onLeave);
         });
       }
+      // 3D Stats Card Tilt Effect (Desktop only)
+      const cards = sectionRef.current.querySelectorAll<HTMLElement>(".stats-card-3d");
+      
+      // Initialize 3D defaults once to prevent first-hover jump or recalculation flicker
+      gsap.set(cards, {
+        transformPerspective: 1000,
+        transformOrigin: "center center",
+        rotateX: 0,
+        rotateY: 0,
+        z: 0,
+        scale: 1
+      });
+
+      cards.forEach((card) => {
+        const onMouseMove = (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          // Max rotation: 15 degrees
+          const rotateX = -(y / (rect.height / 2)) * 15;
+          const rotateY = (x / (rect.width / 2)) * 15;
+          
+          gsap.to(card, {
+            rotateX: rotateX,
+            rotateY: rotateY,
+            z: 25,
+            scale: 1.04,
+            duration: 0.5,
+            ease: "power2.out",
+            overwrite: "auto"
+          });
+        };
+
+        const onMouseLeave = () => {
+          gsap.to(card, {
+            rotateX: 0,
+            rotateY: 0,
+            z: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            overwrite: "auto"
+          });
+        };
+
+        card.addEventListener("mousemove", onMouseMove);
+        card.addEventListener("mouseleave", onMouseLeave);
+        cleanups.push(() => {
+          card.removeEventListener("mousemove", onMouseMove);
+          card.removeEventListener("mouseleave", onMouseLeave);
+        });
+      });
     }
+
+    // Stats Cards 3D entrance (ScrollTrigger based)
+    gsap.from(".stats-card-3d", {
+      opacity: 0,
+      y: 70,
+      rotationX: 35,
+      rotationY: -15,
+      z: -100,
+      transformPerspective: 1000,
+      duration: 1.2,
+      stagger: 0.12,
+      ease: "expo.out",
+      clearProps: "transform",
+      scrollTrigger: {
+        trigger: ".stats-card-3d",
+        start: "top 92%",
+        toggleActions: "play none none none",
+      }
+    });
 
     // ── Cleanup ───────────────────────────────────────────────────────────
     return () => {
@@ -169,7 +241,7 @@ const OrangeSection = () => {
       <div className="relative z-20 max-w-[1350px] px-8 md:px-16">
 
         {/* Main Heading */}
-        <h1 className="orange-heading text-[clamp(1.5rem,3.2vw,3rem)] font-extralight mb-6 md:mb-8 tracking-wider leading-tight">
+        <h1 className="orange-heading text-[clamp(1.5rem,3.2vw,4rem)] font-extralight mb-6 md:mb-8 tracking-wider leading-tight">
           A New-Age Agency <br /> Built for Today&apos;s Brands
         </h1>
 
@@ -179,19 +251,22 @@ const OrangeSection = () => {
           <div className="flex flex-col w-full min-[1200px]:w-[58%]">
             <div className="w-full">
 
-              <h2 className="orange-subheading text-[clamp(1rem,1.6vw,1.35rem)] mb-4 md:mb-6 text-gray-200 font-thin font-sans">
-                We combine <strong>strategy</strong>, <strong>creativity</strong> and <strong>technology</strong> to define marketing that performs not just looks good.
+              <h2 className="orange-subheading text-[clamp(1rem,1.6vw,1.67rem)] mb-4 md:mb-6 text-gray-200 font-normal font-sans">
+                We combine <strong>strategy</strong>, <strong>creativity</strong>, and <strong>technology</strong> to <br className="hidden md:block" /> deliver <strong>marketing</strong> that performs not just looks good.
               </h2>
 
-              <p className="orange-body text-[clamp(0.85rem,1.1vw,1.05rem)] mb-4 opacity-70 font-thin">
-                In today&apos;s fast-moving digital <strong>landscape</strong>, visibility alone is not enough. Brands need <strong>clarity</strong>, <strong>consistency</strong> and <strong>performance</strong> at every touch point.
+              <p className="orange-body text-[clamp(0.85rem,1.1vw,1.05rem)] mb-4 opacity-90 font-thin">
+                In today&apos;s fast-moving <strong>digital landscape</strong>, visibility alone isn&apos;t enough. Brands <br className="hidden md:block" /> need <strong>clarity</strong>, <strong>consistency</strong>, and <strong>performance</strong> at every touchpoint.
               </p>
 
-              <p className="orange-body text-[clamp(0.85rem,1.1vw,1.05rem)] mb-6 md:mb-8 opacity-50 font-thin">
-                We are a new-generation agency built to bridge that gap — bringing together strategic thinking, creative excellence, and data-driven execution under one roof. Every solution we design is rooted in understanding your business, your audience, and your growth ambitions.
+              <p className="orange-body text-[clamp(0.85rem,1.1vw,1.05rem)] mb-6 md:mb-8 font-thin">
+                <span className="opacity-90">We are a new-generation agency built to bridge that gap — bringing together </span><br className="hidden md:block" />
+                <span className="opacity-70">strategic thinking, creative excellence, and data-driven execution under one </span><br className="hidden md:block" />
+                <span className="opacity-50">roof. Every solution we design is rooted in understanding your business, your </span><br className="hidden md:block" />
+                <span className="opacity-40">audience, and your growth ambitions.</span>
               </p>
 
-              <h2 className="orange-quote text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#fffdf7] to-[#fcd87c] bg-clip-text text-transparent font-heading font-medium leading-tight">
+              <h2 className="orange-quote text-[clamp(1rem,2vw,1.6rem)] mb-5 md:mb-6 bg-gradient-to-r from-[#FFFFFF] to-[#FAC02E] bg-clip-text text-transparent font-heading font-medium leading-tight">
                 We don&apos;t just deliver campaigns. <br /> We build momentum.
               </h2>
 
@@ -205,15 +280,15 @@ const OrangeSection = () => {
             </div>
           </div>
 
-          {/* RIGHT COLUMN (Stats Cards — untouched) */}
-          <div className="flex gap-4 md:gap-6 mt-6 w-auto lg:w-auto lg:flex-shrink lg:justify-start">
+          {/* RIGHT COLUMN (Stats Cards) */}
+          <div className="flex gap-4 md:gap-6 mt-6 w-auto lg:w-auto lg:flex-shrink lg:justify-start min-[1200px]:translate-x-8 min-[1400px]:translate-x-12" style={{ perspective: "1000px" }}>
             <div className="flex flex-col gap-3 sm:gap-4 lg:flex-none">
-              <StatsCard value="100+" title={`Brands Scaled\n Across Industries`} />
-              <StatsCard value="500+" title={`Successfully Executed Campaigns`} />
+              <StatsCard className="stats-card-3d" value="100+" title={`Brands Scaled\n Across Industries`} />
+              <StatsCard className="stats-card-3d" value="500+" title={`Successfully Executed Campaigns`} />
             </div>
             <div className="flex flex-col gap-3 sm:gap-4 mt-6 md:mt-8 flex-1 lg:flex-none">
-              <StatsCard value="3X" title={`Average Campaign Performance Uplift`} />
-              <StatsCard value="5+" title={`Key Market Presence`} />
+              <StatsCard className="stats-card-3d" value="3X" title={`Average Campaign Performance Uplift`} />
+              <StatsCard className="stats-card-3d" value="5+" title={`Key Market Presence`} />
             </div>
           </div>
 

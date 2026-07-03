@@ -72,7 +72,7 @@ const BlogHero = () => {
         priority={true}
         sizes="100vw"
         quality={95}
-        className="absolute inset-0 z-0 pointer-events-none object-cover"
+        className="absolute inset-0 z-0 pointer-events-none object-cover scale-[1.01]"
       />
 
       {/* Hero Content */}

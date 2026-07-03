@@ -104,7 +104,7 @@ export default function BlogList({ posts }: { posts: any[] }) {
   const uniqueTags = ["All Tags", "Trends", "Tips", "News"];
 
   return (
-    <div ref={containerRef} className="w-full bg-[#12161c] text-white font-heading relative z-20">
+    <div ref={containerRef} className="w-full bg-[#004dc3] text-white font-heading relative z-20">
       
       {/* ── FILTER SECTION ── */}
       <div className="w-full bg-[#004dc3] py-10 relative z-50">

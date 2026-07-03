@@ -1,7 +1,13 @@
-"use client"
-import { motion, Variants } from "framer-motion"; 
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger, SplitText } from "gsap/all";
 import ServiceList from "../layout/ServicesList";
+
+gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const services = [
   {
@@ -17,84 +23,129 @@ const services = [
 ];
 
 const SocialContent = () => {
-  return (
-    <motion.section
-      initial="hidden"
-      whileInView="visible"
-      // once: false means the animation resets when you scroll away
-      // amount: 0.2 means it triggers when 20% of the section is visible
-      viewport={{ once: false, amount: 0.8 }}
-      className="bg-transparent text-white flex flex-col -mb[-1px] w-full items-start justify-start md:items-center md:justify-center py-20 font-sans overflow-hidden"
-    >
-   
-    {/* <Image
-      src="/images/Services_Bg.png"
-      alt=""
-      fill
-      style={{
-      // This mask makes the top and bottom 15% of the image transparent
-      maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-      WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
-    }}
-      className="object-cover opacity-50" // Adjusted z-index and added opacity for consistency
-    /> */}
-  
+  const containerRef = useRef<HTMLElement>(null);
 
+  useGSAP(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const splits: any[] = [];
+
+    // Title animation
+    const titleSplit = SplitText.create(".social-title", {
+      type: "lines",
+      mask: "lines",
+    });
+    splits.push(titleSplit);
+
+    gsap.from(titleSplit.lines, {
+      yPercent: 120,
+      opacity: 0,
+      rotationX: -15,
+      transformOrigin: "0% 50% -60px",
+      duration: 1.2,
+      stagger: 0.1,
+      ease: "expo.out",
+      scrollTrigger: {
+        trigger: ".social-title",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // Description fade up
+    gsap.from(".social-desc", {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".social-desc",
+        start: "top 90%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // Service Lists stagger
+    gsap.from(".social-list", {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: ".social-list",
+        start: "top 85%",
+        toggleActions: "play none none none"
+      }
+    });
+
+    // Image Parallax Effect
+    gsap.fromTo(".img-bg-social", 
+      { y: 30 },
+      { 
+        y: -30, 
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".img-container-social",
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 1
+        }
+      }
+    );
+
+    gsap.fromTo(".img-main-social", 
+      { y: 60 },
+      { 
+        y: -80, 
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".img-container-social",
+          start: "top 80%",
+          end: "bottom 20%",
+          scrub: 1.5
+        }
+      }
+    );
+
+    return () => {
+      splits.forEach((s) => s.revert());
+    };
+  }, { scope: containerRef });
+
+  return (
+    <section ref={containerRef} className="bg-transparent text-white flex flex-col -mb[-1px] w-full items-start justify-start md:items-center md:justify-center py-20 font-sans overflow-hidden">
       <div className="z-50 max-w-[1350px] w-full px-8 md:px-16">
         <div className="flex flex-col min-[1200px]:flex-row gap-12 md:gap-42 items-start">
           
-         {/* 1. Left Side: Column Wrapper */}
-<div className="flex-shrink-0 md:sticky md:top-20">
-  
-  {/* THE SENSOR: Stays still to avoid jitter */}
-    <motion.div
-      initial="down"
-      whileInView="up"
-      viewport={{ once: false, amount: 0.6, margin: "-15% 0px -20% 0px" }}
-      className="h-40 w-40 md:h-72 md:w-72 relative"
-    >
-      {/* THE MOVER: Both images are now inside this animated div */}
-      <motion.div
-    initial="down"
-    whileInView="up"
-    viewport={{ once: false, amount: 0.6, margin: "-15% 0px -20% 0px" }}
-    className="w-full h-full relative"
-  >
-    {/* 1. THE BACKGROUND IMAGE (Small Jump) */}
-    <motion.img 
-      src="/images/services/commonbg.png" 
-      variants={{
-        down: { y: 0 },
-        up: { y: -30 } // Much smaller jump
-      }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-      className="absolute inset-0 w-full h-full object-contain scale-150 z-0 opacity-50 pointer-events-none" 
-      style={{ filter: 'brightness(0)' }}
-      alt="Background" 
-    />
-  
-    {/* 2. THE MAIN IMAGE (Large Jump) */}
-    <motion.img 
-      src="/images/services/i2.png" 
-      variants={{
-        down: { y: 0 },
-        up: { y: -80 } // Original jump
-      }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-      className="relative z-10 w-full h-full object-contain" 
-      alt="Rocket" 
-    />
-  </motion.div>
-    </motion.div>
-</div>
+          {/* 1. Left Side: Column Wrapper */}
+          <div className="img-container-social flex-shrink-0 md:sticky md:top-20">
+            <div className="h-40 w-40 md:h-72 md:w-72 relative">
+              <div className="w-full h-full relative">
+                {/* 1. THE BACKGROUND IMAGE */}
+                <img 
+                  src="/images/services/commonbg.png" 
+                  className="img-bg-social absolute inset-0 w-full h-full object-contain scale-150 z-0 opacity-50 pointer-events-none" 
+                  style={{ filter: 'brightness(0)' }}
+                  alt="Background" 
+                />
+              
+                {/* 2. THE MAIN IMAGE */}
+                <img 
+                  src="/images/services/i2.png" 
+                  className="img-main-social relative z-10 w-full h-full object-contain" 
+                  alt="Rocket" 
+                />
+              </div>
+            </div>
+          </div>
 
           {/* 2. Right Side: Text & Content */}
           <div className="flex-grow w-full">
             <div>
-              <h2 className="text-2xl md:text-6xl font-light mb-8 leading-tight max-w-3xl">
+              <h2 className="social-title text-2xl md:text-6xl font-light mb-8 leading-tight max-w-3xl">
                 Social & <br /> Content
               </h2>
-              <p className="text-lg md:text-3xl opacity-90 max-w-3xl font-light leading-relaxed mb-20">
+              <p className="social-desc text-lg md:text-3xl opacity-90 max-w-3xl font-light leading-relaxed mb-20">
                 Content that connects. We build stories and experiences that engage
                 your audience and keep your brand top of mind.
               </p>
@@ -104,7 +155,7 @@ const SocialContent = () => {
               {services.map((service, index) => (
                 <div 
                   key={index} 
-                  className="flex flex-col w-full"
+                  className="social-list flex flex-col w-full"
                 >
                   <ServiceList items={service.items} />
                 </div>
@@ -114,7 +165,7 @@ const SocialContent = () => {
           
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

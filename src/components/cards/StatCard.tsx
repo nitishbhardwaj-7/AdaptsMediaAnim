@@ -7,6 +7,7 @@ type StatsCardProps = {
   title: string;
   description?: string;
   direction?: "left" | "right";
+  className?: string;
 };
 
 
@@ -34,18 +35,23 @@ function Digit({ digit }: { digit: string }) {
   );
 }
 
-export default function StatsCard({ 
-  value, 
-  title
+export default function StatsCard({
+  value,
+  title,
+  className = ""
 }: StatsCardProps) {
   const characters = value.split("");
 
   return (
-    <motion.div 
-      className="relative w-full sm:w-[15rem] h-[8.5rem]"
+    <div
+      className={`relative w-full sm:w-[15rem] h-[8.5rem] ${className}`}
+      style={{ transformStyle: "preserve-3d" }}
     >
       {/* 1. THE CARD */}
-      <div className="relative z-30 h-full w-full px-4 py-4 sm:px-6 sm:py-6 flex flex-col justify-center backdrop-blur-sm bg-transparent border border-white/10 border-t-white/30 border-l-white/30 rounded-[1.5rem] rounded-tl-none text-white transition-all duration-500 ease-out hover:bg-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
+      <div 
+        className="relative z-30 h-full w-full px-4 py-4 sm:px-6 sm:py-6 flex flex-col justify-center backdrop-blur-sm bg-transparent border border-white/10 border-t-white/30 border-l-white/30 rounded-[1.5rem] rounded-tl-none text-white transition-colors duration-500 ease-out hover:bg-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
+        style={{ transform: "translateZ(45px)", transformStyle: "preserve-3d" }}
+      >
         <div className="flex items-center text-4xl sm:text-[2.75rem] font-heading font-bold text-[#F5A623] drop-shadow-md">
           {characters.map((char, index) => (
             <Digit key={index} digit={char} />
@@ -55,6 +61,6 @@ export default function StatsCard({
           {title}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
