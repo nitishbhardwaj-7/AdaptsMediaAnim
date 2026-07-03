@@ -87,7 +87,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
         yPercent: -20,
         ease: "none",
         scrollTrigger: {
-          trigger: ".portfolio-section-wrapper",
+          trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
           scrub: 1.2
