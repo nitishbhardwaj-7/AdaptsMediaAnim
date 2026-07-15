@@ -50,7 +50,7 @@ function MenuLink({
 
   return (
     <div className="overflow-hidden relative group -my-4 md:-my-6">
-      <motion.div variants={linkVariants} className="flex items-start md:items-center gap-4 md:gap-8">
+      <motion.div variants={linkVariants as any} className="flex items-start md:items-center gap-4 md:gap-8">
         <span className="text-sm md:text-lg font-light text-white/30 font-sans mt-2 md:mt-0 transition-colors duration-300 group-hover:text-[#FAC02D]">
           {link.number}
         </span>
@@ -118,7 +118,7 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
           initial="closed"
           animate="open"
           exit="closed"
-          variants={overlayVariants}
+          variants={overlayVariants as any}
           className="fixed inset-0 z-[950] w-full h-full bg-[#050505] text-white flex pointer-events-auto"
         >
           {/* Noise overlay */}
@@ -145,7 +145,7 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
             
             {/* LEFT SIDE - Huge Links */}
             <motion.div 
-              variants={containerVariants}
+              variants={containerVariants as any}
               className="flex flex-col justify-center gap-2 md:gap-4 lg:gap-6 w-full lg:w-2/3 h-full"
             >
               {navLinks.map((link) => (
@@ -161,7 +161,7 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
 
             {/* RIGHT SIDE - Agency Details */}
             <motion.div 
-              variants={rightSideVariants}
+              variants={rightSideVariants as any}
               className="hidden lg:flex flex-col justify-end w-1/3 pb-12 pl-12 border-l border-white/10 relative"
             >
               {/* Decorative line */}
