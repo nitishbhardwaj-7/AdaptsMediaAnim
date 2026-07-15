@@ -10,7 +10,7 @@ const navLinks = [
   { name: "Home", href: "/", number: "01", image: "/images/portfolio/Hero.png" },
   { name: "Services", href: "/services", number: "02", image: "/images/BrandingCreative/HeroImage.png" },
   { name: "Work", href: "/portfolio", number: "03", image: "/images/portfolio/Target Hit.L03.2k 1.png" },
-  { name: "About", href: "/about", number: "04", image: "/images/portfolio/Layer 1.png" },
+  { name: "About", href: "/about-us", number: "04", image: "/images/portfolio/Layer 1.png" },
   { name: "Insights", href: "/blogs", number: "05", image: "/images/BrandingCreative/DesignSystemLogoBg.png" },
   { name: "Contact", href: "/contact", number: "06", image: "/images/ContactIcon.png" },
 ];
@@ -51,7 +51,7 @@ function MenuLink({
   return (
     <div className="overflow-hidden relative group -my-4 md:-my-6">
       <motion.div variants={linkVariants as any} className="flex items-start md:items-center gap-4 md:gap-8">
-        <span className="text-sm md:text-lg font-light text-white/30 font-sans mt-2 md:mt-0 transition-colors duration-300 group-hover:text-[#FAC02D]">
+        <span className="text-xs md:text-sm font-mono tracking-[0.2em] font-light text-white/25 mt-2 md:mt-0 transition-colors duration-300 group-hover:text-[#C9A96E]">
           {link.number}
         </span>
         <Link 
@@ -125,8 +125,8 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
           <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: "url('/images/noise.png')" }}></div>
           
           {/* Subtle Ambient Light Leaks */}
-          <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-r from-[#C52A27]/20 to-[#FAC02D]/10 blur-[120px] pointer-events-none z-0"></div>
-          <div className="absolute bottom-[-20%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-gradient-to-l from-[#3b6ef5]/10 to-[#FAC02D]/10 blur-[100px] pointer-events-none z-0"></div>
+          <div className="absolute top-[-10%] left-[-5%] w-[30vw] h-[30vw] rounded-full bg-gradient-to-r from-[#C9A96E]/8 to-transparent blur-[140px] pointer-events-none z-0"></div>
+          <div className="absolute bottom-[-10%] right-[-5%] w-[25vw] h-[25vw] rounded-full bg-gradient-to-l from-[#C9A96E]/6 to-transparent blur-[120px] pointer-events-none z-0"></div>
 
           {/* Hover Preview Images */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-20 transition-opacity duration-700">
@@ -170,7 +170,7 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
               <div className="space-y-12">
                 <div className="space-y-4">
                   <h4 className="text-sm font-semibold tracking-[0.2em] uppercase text-[#FAC02D]">The Agency</h4>
-                  <p className="text-lg md:text-xl font-light text-white/70 leading-relaxed font-sans max-w-sm">
+                  <p className="text-xl md:text-2xl font-light italic text-white/60 leading-relaxed font-heading max-w-sm">
                     Crafting digital experiences that bridge the gap between imagination and reality.
                   </p>
                 </div>

@@ -30,7 +30,7 @@ const Navbar = () => {
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isHoveringNav = useRef(false);
 
-  const menuBarClass = "block w-[22px] h-[2px] bg-white rounded-[2px]";
+  const menuBarClass = "block w-[22px] h-[1.5px] bg-[#C9A96E] rounded-[2px]";
   // Menu state and refs
   const [menuOpen, setMenuOpen] = useState(false);
   const topBarRef = useRef<HTMLSpanElement>(null);
@@ -151,7 +151,7 @@ const Navbar = () => {
         className={`
           mx-auto flex items-center justify-between transition-all duration-[800ms] [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] pointer-events-auto
           ${isScrolled
-            ? "w-[calc(100%-4rem)] md:w-[calc(100%-8rem)] max-w-[calc(1350px-4rem)] md:max-w-[calc(1350px-8rem)] bg-white/10 backdrop-blur-md border border-white/20 px-6 md:px-8 py-3 rounded-full shadow-lg"
+            ? "w-[calc(100%-4rem)] md:w-[calc(100%-8rem)] max-w-[calc(1350px-4rem)] md:max-w-[calc(1350px-8rem)] bg-black/80 backdrop-blur-xl border border-white/10 px-6 md:px-8 py-3 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.05)]"
             : "max-w-[1600px] w-full bg-transparent border-transparent px-8 md:px-12 py-4 rounded-none shadow-none"
           }
         `}
@@ -163,10 +163,10 @@ const Navbar = () => {
         <div className="flex items-center gap-4 md:gap-[28px]">
           <Link
             href="/start-project"
-            className="flex items-center gap-2 bg-[#3b6ef5] text-white border-none rounded-full 
-                       px-4 py-2 md:px-5 md:py-[10px] 
-                       text-[16px] md:text-[20px] font-regular tracking-[0.01em] 
-                       cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 no-underline"
+            className="flex items-center gap-2 bg-transparent text-white border border-white/20 rounded-full
+                       px-4 py-2 md:px-5 md:py-[10px]
+                       text-[10px] md:text-[11px] font-sans tracking-[0.18em] uppercase
+                       cursor-pointer transition-all duration-300 ease-in-out hover:border-[#C9A96E] hover:text-[#C9A96E] no-underline"
           >
             <span className="font-sans">Start a Project</span>
             <Image
@@ -181,9 +181,10 @@ const Navbar = () => {
           <button
             type="button"
             aria-label={menuOpen ? "Close Menu" : "Open Menu"}
-            className="w-10 h-10 md:w-12 md:h-12 bg-[#f5a623] border-none rounded-full 
-                       flex flex-col items-center justify-center gap-1 cursor-pointer 
-                       transition-transform duration-300 [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)]"
+            className="w-10 h-10 md:w-12 md:h-12 bg-black/40 border border-[#C9A96E]/60 rounded-full
+                       flex flex-col items-center justify-center gap-[5px] cursor-pointer
+                       transition-all duration-300 hover:bg-[#C9A96E]/20 hover:border-[#C9A96E]
+                       [transition-timing-function:cubic-bezier(0.175,0.885,0.32,1.275)]"
             onClick={toggleMenu}
             onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") toggleMenu(); }}
           >
