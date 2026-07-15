@@ -112,12 +112,12 @@ export default function RootLayout({
       </head>
       <body>
         <CustomCursor />
-        {/* <SmoothScroll> */}
-        <Navbar />
-        <main style={{ paddingTop: '0px' }}>
-          {children}
-        </main>
-        {/* </SmoothScroll> */}
+        <SmoothScroll>
+          <Navbar />
+          <main style={{ paddingTop: '0px' }}>
+            {children}
+          </main>
+        </SmoothScroll>
         {/* Google Tag Manager - Loads only after the page is interactive */}
         <Script id="gtm" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
