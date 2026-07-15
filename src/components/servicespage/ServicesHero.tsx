@@ -94,7 +94,7 @@ const ServicesHero = () => {
         {/* Right Side */}
         <div className="relative z-10 flex flex-col justify-center max-w-md">
           <h2 className="hero-subtitle mb-6 text-3xl leading-snug md:text-5xl">
-            Services Built to <br /> Drive Real Growth.
+            Services for all brands for best results.
           </h2>
           <p className="hero-desc text-2xl font-extralight leading-tight tracking-wide text-white">
             From strategy to execution, we create integrated solutions 
