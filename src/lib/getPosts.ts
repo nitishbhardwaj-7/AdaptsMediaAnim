@@ -9,7 +9,7 @@ export async function getWordPressPosts(limit: number = 100) {
   try {
     const res = await fetch(
       `${BASE_URL}/wp-json/wp/v2/posts?_embed&per_page=${limit}&_fields=title,slug,date,categories,featured_media,_links,_embedded`,
-      { next: { revalidate: 600 } } // Cache for 10 minutes
+      { cache: "no-store" } // Disable cache because payload can be over 2MB
     );
 
     if (!res.ok) throw new Error(`WordPress API returned status: ${res.status}`);

@@ -46,12 +46,7 @@ const LocationSection = () => {
 
           {/* Left: Dubai Info */}
           <div className="w-full md:w-[70%]">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-[10px] font-bold tracking-[0.2em] text-[#f5a623] uppercase">
-                Locations
-              </span>
-              <div className="w-12 h-[1px] bg-[#f5a623]" />
-            </div>
+
 
             <h2 className="text-5xl md:text-7xl relative font-heading font-medium mb-16 leading-tight tracking-tight">
               Exactly Where <br /> You Need Us <Image
@@ -93,6 +88,7 @@ const LocationSection = () => {
                 alt=''
                 height={20}
                 width={30}
+                style={{ width: "auto", height: "auto" }}
                 className='hidden md:block lg:block md:absolute lg:absolute top-[38%] left-[58%]' />
             </div>
           </div>

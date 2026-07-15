@@ -194,7 +194,7 @@ const OrangeSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-screen overflow-x-hidden flex items-center justify-center bg-[#c42a27] text-white py-20"
+      className="relative w-full min-h-screen overflow-x-hidden flex items-center justify-center bg-[#C52A27] text-white py-20"
     >
       <Image
         src="/images/About_Us_Bg.png"
@@ -220,7 +220,7 @@ const OrangeSection = () => {
         <source src="/assets/video_bg2.mp4" type="video/mp4" />
       </video>
 
-      <div className="relative z-20 max-w-[1350px] px-8 md:px-16">
+      <div className="relative z-20 max-w-[1350px] w-full px-8 md:px-16">
 
         {/* Main Heading */}
         <h1 className="orange-heading text-[clamp(1.5rem,3.2vw,4rem)] font-extralight mb-6 md:mb-8 tracking-wider leading-tight">
@@ -256,14 +256,14 @@ const OrangeSection = () => {
               <div className="orange-cta flex flex-wrap justify-start gap-3 sm:gap-6 items-center">
                 <ArrowButton title="Read More" width="md" />
                 <div className="btn-start-project p-6 -m-6">
-                  <YellowButton title="Start a Project" variant="red" width="md" />
+                  <YellowButton title="Start a Project" variant="red" width="md" href="/start-project" />
                 </div>
               </div>
             </div>
           </div>
 
           {/* RIGHT COLUMN (Stats Cards) */}
-          <div className="flex gap-4 md:gap-6 mt-6 w-auto lg:w-auto lg:flex-shrink lg:justify-start min-[1200px]:translate-x-8 min-[1400px]:translate-x-12" style={{ perspective: "1000px" }}>
+          <div className="flex gap-4 md:gap-6 mt-6 w-auto lg:w-auto lg:flex-shrink lg:justify-start min-[1200px]:-translate-x-4 min-[1400px]:-translate-x-8" style={{ perspective: "1000px" }}>
             <div className="flex flex-col gap-3 sm:gap-4 lg:flex-none">
               <StatsCard className="stats-card-3d" value="100+" title={`Brands Scaled\n Across Industries`} />
               <StatsCard className="stats-card-3d" value="500+" title={`Successfully Executed Campaigns`} />

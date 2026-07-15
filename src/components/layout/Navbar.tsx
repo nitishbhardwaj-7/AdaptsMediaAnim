@@ -4,8 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import "./NavbarMenu.css";
 import { gsap } from "gsap";
+import FullscreenMenu from "./FullscreenMenu";
 
 const NavLogo = () => (
   <div className="relative w-[60px] h-[40px]">
@@ -13,8 +13,7 @@ const NavLogo = () => (
       alt="Company Logo"
       src="/images/navlogo.png"
       fill
-      priority
-      sizes="(max-width: 768px) 45px, 60px"
+      sizes="60px"
       className="object-contain"
     />
   </div>
@@ -32,12 +31,11 @@ const Navbar = () => {
   const isHoveringNav = useRef(false);
 
   const menuBarClass = "block w-[22px] h-[2px] bg-white rounded-[2px]";
-// Menu state and refs
-const [menuOpen, setMenuOpen] = useState(false);
-const topBarRef = useRef<HTMLSpanElement>(null);
-const middleBarRef = useRef<HTMLSpanElement>(null);
-const bottomBarRef = useRef<HTMLSpanElement>(null);
-const menuRef = useRef<HTMLDivElement>(null);
+  // Menu state and refs
+  const [menuOpen, setMenuOpen] = useState(false);
+  const topBarRef = useRef<HTMLSpanElement>(null);
+  const middleBarRef = useRef<HTMLSpanElement>(null);
+  const bottomBarRef = useRef<HTMLSpanElement>(null);
 
   // ── Reset idle timer: hides navbar after inactivity ──
   const resetIdleTimer = useCallback(() => {
@@ -59,16 +57,10 @@ const menuRef = useRef<HTMLDivElement>(null);
       tl.to(topBarRef.current, { rotate: 45, y: 6 })
         .to(middleBarRef.current, { opacity: 0 }, 0)
         .to(bottomBarRef.current, { rotate: -45, y: -6 }, 0);
-      gsap.fromTo(
-        menuRef.current,
-        { autoAlpha: 0, y: -20 },
-        { autoAlpha: 1, y: 0, duration: 0.4, ease: "power3.out" }
-      );
     } else {
       tl.to(topBarRef.current, { rotate: 0, y: 0 })
         .to(middleBarRef.current, { opacity: 1 }, 0)
         .to(bottomBarRef.current, { rotate: 0, y: 0 }, 0);
-      gsap.to(menuRef.current, { autoAlpha: 0, y: -20, duration: 0.3, ease: "power3.out" });
     }
   };
 
@@ -137,12 +129,13 @@ const menuRef = useRef<HTMLDivElement>(null);
   }, []);
 
   return (
-    <header
-      className="fixed top-0 left-0 w-full z-[1000] py-4 pointer-events-none"
-      style={{
-        transform: isVisible ? "translateY(0)" : "translateY(-100%)",
-        transition: "transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
-      }}
+    <>
+      <header
+        className="fixed top-0 left-0 w-full z-[1000] py-4 pointer-events-none"
+        style={{
+          transform: (isVisible || menuOpen) ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
       onMouseEnter={() => {
         isHoveringNav.current = true;
         setIsVisible(true);
@@ -156,11 +149,10 @@ const menuRef = useRef<HTMLDivElement>(null);
       <nav
         aria-label="Main Navigation"
         className={`
-          mx-auto flex items-center justify-between transition-all duration-500 ease-in-out pointer-events-auto
-          ${
-            isScrolled
-              ? "w-[calc(100%-4rem)] md:w-[calc(100%-8rem)] max-w-[calc(1350px-4rem)] md:max-w-[calc(1350px-8rem)] bg-white/10 backdrop-blur-md border border-white/20 px-6 md:px-8 py-3 rounded-full shadow-lg"
-              : "max-w-[1350px] w-full bg-transparent border-transparent px-8 md:px-16 py-4 rounded-none shadow-none"
+          mx-auto flex items-center justify-between transition-all duration-[800ms] [transition-timing-function:cubic-bezier(0.4,0,0.2,1)] pointer-events-auto
+          ${isScrolled
+            ? "w-[calc(100%-4rem)] md:w-[calc(100%-8rem)] max-w-[calc(1350px-4rem)] md:max-w-[calc(1350px-8rem)] bg-white/10 backdrop-blur-md border border-white/20 px-6 md:px-8 py-3 rounded-full shadow-lg"
+            : "max-w-[1600px] w-full bg-transparent border-transparent px-8 md:px-12 py-4 rounded-none shadow-none"
           }
         `}
       >
@@ -169,12 +161,12 @@ const menuRef = useRef<HTMLDivElement>(null);
         </Link>
 
         <div className="flex items-center gap-4 md:gap-[28px]">
-          <button
-            type="button"
+          <Link
+            href="/start-project"
             className="flex items-center gap-2 bg-[#3b6ef5] text-white border-none rounded-full 
                        px-4 py-2 md:px-5 md:py-[10px] 
                        text-[16px] md:text-[20px] font-regular tracking-[0.01em] 
-                       cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105"
+                       cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 no-underline"
           >
             <span className="font-sans">Start a Project</span>
             <Image
@@ -182,10 +174,9 @@ const menuRef = useRef<HTMLDivElement>(null);
               src="/images/clock.png"
               width={20}
               height={20}
-              style={{ width: 'auto', height: 'auto' }}
-              className="w-4 md:w-5 object-contain shrink-0"
+              className="w-5 md:w-5 object-contain shrink-0"
             />
-          </button>
+          </Link>
 
           <button
             type="button"
@@ -201,38 +192,11 @@ const menuRef = useRef<HTMLDivElement>(null);
             <span ref={bottomBarRef} className={menuBarClass} />
           </button>
         </div>
-</nav>
-        {/* Dropdown Menu */}
-        <div
-          ref={menuRef}
-          className={`menu-dropdown ${menuOpen ? "open" : ""}`}
-          aria-hidden={!menuOpen}
-        >
-          <div className="menu-grid">
-            <div className="menu-card">
-              <h3 className="card-title">About</h3>
-              <ul className="card-links">
-                <li><a href="/about">Our Story ↗</a></li>
-                <li><a href="/team">Team ↗</a></li>
-              </ul>
-            </div>
-            <div className="menu-card">
-              <h3 className="card-title">Projects</h3>
-              <ul className="card-links">
-                <li><a href="/projects">Portfolio ↗</a></li>
-                <li><a href="/services">Services ↗</a></li>
-              </ul>
-            </div>
-            <div className="menu-card">
-              <h3 className="card-title">Contact</h3>
-              <ul className="card-links">
-                <li><a href="/contact">Get in Touch ↗</a></li>
-                <li><a href="/support">Support ↗</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-    </header>
+      </nav>
+      </header>
+      {/* Fullscreen Menu Overlay */}
+      <FullscreenMenu isOpen={menuOpen} onClose={toggleMenu} />
+    </>
   );
 };
 

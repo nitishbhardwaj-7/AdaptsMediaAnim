@@ -97,6 +97,7 @@ const BlogHero = () => {
                 alt=""
                 fill
                 priority={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain"
               />
             </div>
@@ -107,6 +108,7 @@ const BlogHero = () => {
                 alt="Get Idea"
                 fill
                 priority={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain"
               />
             </div>

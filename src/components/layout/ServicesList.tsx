@@ -30,7 +30,6 @@ const ServiceList = ({ items }: ServiceListProps) => {
   );
 };
 
-// Internal Arrow Component to keep the UI identical
 const ArrowIcon = () => (
   <svg
     className="w-5 h-5 md:w-6 md:h-6 rotate-45 rounded-full border border-white/40 p-1 md:p-1.5 duration-300 ease-linear group-hover:border-none group-hover:bg-white group-hover:rotate-90 text-white group-hover:text-black relative z-10"

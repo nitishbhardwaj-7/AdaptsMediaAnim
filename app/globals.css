@@ -127,6 +127,11 @@
 .animate-scan {
   animation: scan 4s linear infinite;
 }
+
+@keyframes shine {
+  0% { transform: translateX(-200%); }
+  100% { transform: translateX(200%); }
+}
 body {
   background: var(--background);
   color: var(--foreground);
@@ -322,7 +327,11 @@ body::-webkit-scrollbar,
 .designsystems-title > div > div,
 .contentstrategy-title > div > div,
 .leverage-title > div > div,
-.intro-paragraph > div > div {
+.intro-paragraph > div > div,
+.orange-heading > div > div,
+.services-heading > div > div,
+.orange-subheading > div > div,
+.service-card-title > div > div {
   padding-bottom: 0.25em !important;
   margin-bottom: -0.25em !important;
 }

@@ -1,10 +1,13 @@
+import Link from "next/link";
+
 interface YellowButtonProps {
   title: string;
   width?: 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'auto';
   variant?: 'red' | 'blue'; // Added variant prop
+  href?: string; // Optional href prop to make it a link
 }
 
-const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonProps) => {
+const YellowButton = ({ title, width = 'auto', variant = 'red', href }: YellowButtonProps) => {
   // Responsive width mapping
   const widthMap = {
     sm: "w-32 md:w-40",
@@ -21,18 +24,18 @@ const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonPr
   const borderColor = isBlue ? 'border-[#0043e0] group-hover:border-white' : 'border-[#c42a27] group-hover:border-white';
   const hoverBgColor = isBlue ? 'bg-[#0043e0]' : 'bg-[#c42a27]';
 
-  return (
-    <button
-      type="button"
-      className={`
-        ${widthMap[width]}
-        ${textColor}
-        group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border border-black/5 bg-transparent 
-        px-5 py-2.5 md:px-6 md:py-3 
-        font-['DM_Sans'] text-[16px] md:text-[18px] font-heading font-semibold tracking-[0.02em] transition-colors duration-300 ease-out
-        shadow-md shadow-yellow-500/5 hover:shadow-lg hover:shadow-yellow-500/10 whitespace-nowrap
-      `}
-    >
+  const buttonClasses = `
+    ${widthMap[width]}
+    ${textColor}
+    group cursor-pointer relative z-10 flex items-center justify-center gap-3 overflow-hidden rounded-full border border-black/5 bg-transparent 
+    px-5 py-2.5 md:px-6 md:py-3 
+    font-['DM_Sans'] text-[16px] md:text-[18px] font-heading font-semibold tracking-[0.02em] transition-colors duration-300 ease-out
+    shadow-md shadow-yellow-500/5 hover:shadow-lg hover:shadow-yellow-500/10 whitespace-nowrap no-underline
+    transform-gpu backface-hidden [clip-path:inset(0_round_9999px)]
+  `;
+
+  const innerContent = (
+    <>
       {/* Layer 1: Base Yellow Background */}
       <span className="absolute inset-0 -z-20 bg-[#fac02d] rounded-full" />
 
@@ -52,6 +55,20 @@ const YellowButton = ({ title, width = 'auto', variant = 'red' }: YellowButtonPr
           fill="currentColor"
         ></path>
       </svg>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link href={href} className={buttonClasses}>
+        {innerContent}
+      </Link>
+    );
+  }
+
+  return (
+    <button type="button" className={buttonClasses}>
+      {innerContent}
     </button>
   );
 };

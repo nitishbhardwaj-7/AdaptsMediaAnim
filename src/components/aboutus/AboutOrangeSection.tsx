@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const AboutOrangeSection = () => {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center bg-[#c42a27] text-white py-20">
+    <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center bg-[#C52A27] text-white py-20">
       
       {/* LAYER 0: The Background Image */}
       <img 
@@ -12,7 +12,7 @@ const AboutOrangeSection = () => {
       />
 
       {/* LAYER 20: The Content Layer */}
-      <div className="relative z-20 max-w-[1350px] px-8 md:px-16">
+      <div className="relative z-20 max-w-[1350px] w-full px-8 md:px-16">
         <div className="flex flex-col min-[1200px]:flex-row justify-between items-start gap-8 md:gap-16">
           
           {/* LEFT COLUMN */}

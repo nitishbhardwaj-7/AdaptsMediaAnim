@@ -114,6 +114,7 @@ const PortfolioHero = () => {
                 alt=""
                 fill
                 priority={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain"
               />
             </div>
@@ -124,6 +125,7 @@ const PortfolioHero = () => {
                 alt="Target Hit"
                 fill
                 priority={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain"
               />
             </div>

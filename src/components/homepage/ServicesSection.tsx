@@ -227,14 +227,15 @@ const ServicesSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#064ED3] bg-gradient-to-br from-[#0052FF] relative to-[#0039CC] text-white flex flex-col w-full items-start justify-start md:items-center md:justify-center py-20 font-sans overflow-hidden"
+      className="bg-[#064ED3] relative text-white flex flex-col w-full items-start justify-start md:items-center md:justify-center py-20 font-sans overflow-hidden"
     >
+      {/* Services Mask Group */}
       <Image
-        src="/images/Services_Bg.png"
+        src="/images/ServicesMaskNewPng.png"
         alt=""
         fill
         sizes="100vw"
-        quality={80}
+        quality={90}
         className="absolute z-10 pointer-events-none object-cover"
       />
 
@@ -307,7 +308,7 @@ const ServicesSection = () => {
           <ArrowButton title="Explore All Services" />
         </div>
         <div className="btn-start-project p-6 -m-6">
-          <YellowButton title="Start a Project" variant="blue" />
+          <YellowButton title="Start a Project" variant="blue" href="/start-project" />
         </div>
       </div>
     </section>

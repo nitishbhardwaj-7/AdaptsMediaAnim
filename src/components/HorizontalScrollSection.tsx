@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -189,12 +190,12 @@ export default function HorizontalScrollSection() {
                 Ready to grow your brand? Let's build something remarkable together.
               </p>
               
-              <a
-                href="#contact"
-                className="inline-block bg-white text-black border border-white px-10 py-4 rounded-full text-sm uppercase tracking-widest font-semibold hover:bg-transparent hover:text-white transition-all duration-300"
+              <Link
+                href="/start-project"
+                className="inline-block bg-white text-black border border-white px-10 py-4 rounded-full text-sm uppercase tracking-widest font-semibold hover:bg-transparent hover:text-white transition-all duration-300 no-underline"
               >
                 Start a Project →
-              </a>
+              </Link>
             </div>
           </div>
 

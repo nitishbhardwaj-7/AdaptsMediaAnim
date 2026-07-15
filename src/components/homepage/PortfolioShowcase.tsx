@@ -228,7 +228,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
               <button onClick={prev} className="w-[44px] h-[44px] border border-white/40 rounded-full flex items-center justify-center text-white"><ArrowIcon direction="left" /></button>
             </div>
 
-            <Link href={`/portfolio/${getSlug(p)}`}>
+            <Link href={`/portfolio/${getSlug(p)}`} prefetch={false}>
               <ArrowButton title="Read Case Study" />
             </Link>
 
@@ -282,7 +282,7 @@ export default function PortfolioShowcase({ projects: externalProjects, variant 
             </div>
 
             <div className="flex items-center justify-start md:justify-end shrink-0 pointer-events-auto z-10">
-              <Link href={`/portfolio/${getSlug(p)}`}>
+              <Link href={`/portfolio/${getSlug(p)}`} prefetch={false}>
                 <ArrowButton title="Read Case Study" />
               </Link>
             </div>

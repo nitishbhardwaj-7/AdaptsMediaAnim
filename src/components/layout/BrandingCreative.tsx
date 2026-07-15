@@ -93,7 +93,7 @@ const BrandingCreative = () => {
       }
     );
 
-    gsap.fromTo(".img-main-brand", 
+    gsap.fromTo(".img-main-brand",
       { y: 60 },
       { 
         y: -80, 

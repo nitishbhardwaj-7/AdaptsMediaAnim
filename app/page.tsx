@@ -48,14 +48,14 @@ export default async function Home() {
         />
       )}
       <main>
-        {/* <HeroSection /> */}
-        {/* <ParallaxSection /> */}
+        <HeroSection />
+        <ParallaxSection />
 
         <OrangeSection />
+        
+<ServicesSection />
 
         <PortfolioShowcase />
-
-        <ServicesSection />
 
         <ClientsSection />
 
