@@ -10,16 +10,16 @@ const navLinks = [
   { name: "Home", href: "/", number: "01", image: "/images/portfolio/Hero.png" },
   { name: "Services", href: "/services", number: "02", image: "/images/BrandingCreative/HeroImage.png" },
   { name: "Work", href: "/portfolio", number: "03", image: "/images/portfolio/Target Hit.L03.2k 1.png" },
-  { name: "About", href: "/about", number: "04", image: "/images/portfolio/Layer 1.png" },
+  { name: "About", href: "/about-us", number: "04", image: "/images/portfolio/Layer 1.png" },
   { name: "Insights", href: "/blogs", number: "05", image: "/images/BrandingCreative/DesignSystemLogoBg.png" },
   { name: "Contact", href: "/contact", number: "06", image: "/images/ContactIcon.png" },
 ];
 
 const socials = [
-  { name: "Instagram", href: "#" },
-  { name: "LinkedIn", href: "#" },
-  { name: "Twitter", href: "#" },
-  { name: "Behance", href: "#" },
+  { name: "Instagram", href: "https://www.instagram.com/adaptsmedia/" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/adaptsmedia" },
+  { name: "Twitter", href: "https://x.com/adaptsmedia" },
+  { name: "Facebook", href: "https://www.facebook.com/adaptsmedia/" },
 ];
 
 function MenuLink({ 
@@ -190,7 +190,7 @@ export default function FullscreenMenu({ isOpen, onClose }: { isOpen: boolean; o
                   <ul className="flex gap-6">
                     {socials.map((social) => (
                       <li key={social.name}>
-                        <a href={social.href} className="text-base text-white/70 hover:text-[#FAC02D] transition-colors duration-300 relative group overflow-hidden inline-block">
+                        <a href={social.href} target="_blank" rel="noopener noreferrer" className="text-base text-white/70 hover:text-[#FAC02D] transition-colors duration-300 relative group overflow-hidden inline-block">
                           <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">{social.name}</span>
                           <span className="absolute left-0 top-full inline-block transition-transform duration-300 group-hover:-translate-y-full text-[#FAC02D]">{social.name}</span>
                         </a>
