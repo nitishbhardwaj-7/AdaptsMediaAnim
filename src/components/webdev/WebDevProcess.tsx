@@ -2,135 +2,103 @@
 
 import { useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger, SplitText } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
-const STEPS = [
-  {
-    number: "01",
-    title: "Discovery",
-    description: "Deep-dive into your brand, audience, and goals. We map the competitive landscape and identify what will make your digital presence unmistakable.",
-  },
-  {
-    number: "02",
-    title: "Strategy & Architecture",
-    description: "Information architecture, tech stack selection, and a detailed project roadmap — agreed before a single line of code is written.",
-  },
-  {
-    number: "03",
-    title: "Design",
-    description: "High-fidelity prototypes in Figma. Every screen, every state, every interaction designed and signed off before development begins.",
-  },
-  {
-    number: "04",
-    title: "Development",
-    description: "Component-driven build with staging previews at every milestone. Continuous QA across devices, browsers, and accessibility standards.",
-  },
-  {
-    number: "05",
-    title: "Launch & Optimise",
-    description: "Zero-downtime deployment, performance benchmarking, and 90-day post-launch support. We don't ship and disappear.",
-  },
+const steps = [
+  { number: "01", title: "Discovery", desc: "We dig into your business, audience, and goals. Stakeholder interviews, competitor analysis, and a clear project brief." },
+  { number: "02", title: "Strategy & Architecture", desc: "Information architecture, tech stack decisions, CMS selection, and a full wireframe blueprint before a pixel is designed." },
+  { number: "03", title: "Design", desc: "High-fidelity UI in Figma. Brand-aligned, responsive across all breakpoints. You get full design review rounds." },
+  { number: "04", title: "Development", desc: "We build in React / Next.js, integrating your CMS, APIs, and third-party tools. GSAP animations included by default." },
+  { number: "05", title: "Launch & Optimise", desc: "QA across devices and browsers, performance audit, SEO baseline setup, then go live. We monitor Core Web Vitals post-launch." },
 ];
 
 const WebDevProcess = () => {
-  const containerRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    gsap.from(".wdp-header", {
-      opacity: 0, y: 30, duration: 1,
-      scrollTrigger: { trigger: ".wdp-header", start: "top 80%" },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const splits: any[] = [];
+
+    const headingSplit = SplitText.create(".wdp-heading", { type: "lines", mask: "lines" });
+    splits.push(headingSplit);
+    gsap.from(headingSplit.lines, {
+      yPercent: 110, opacity: 0, rotationX: -12, transformOrigin: "0% 50% -60px",
+      duration: 1.0, ease: "expo.out", stagger: 0.12,
+      scrollTrigger: { trigger: ".wdp-heading", start: "top 82%", toggleActions: "play none none none" },
     });
 
-    gsap.from(".wdp-step", {
-      opacity: 0, x: -30, stagger: 0.15, duration: 0.9, ease: "expo.out",
-      scrollTrigger: { trigger: ".wdp-list", start: "top 75%" },
+    gsap.utils.toArray<HTMLElement>(".wdp-step").forEach((step, i) => {
+      gsap.from(step, {
+        opacity: 0, y: 40, duration: 0.8, ease: "expo.out", delay: i * 0.07,
+        scrollTrigger: { trigger: step, start: "top 85%", toggleActions: "play none none none" },
+      });
     });
 
-    gsap.from(".wdp-connector", {
-      scaleY: 0, transformOrigin: "top center", stagger: 0.15, duration: 1, ease: "expo.out",
-      scrollTrigger: { trigger: ".wdp-list", start: "top 70%" },
+    gsap.utils.toArray<HTMLElement>(".wdp-step-num").forEach((num) => {
+      gsap.from(num, {
+        opacity: 0, x: -30, scale: 0.7, duration: 0.6, ease: "back.out(1.7)",
+        scrollTrigger: { trigger: num, start: "top 88%", toggleActions: "play none none none" },
+      });
     });
-  }, { scope: containerRef });
+
+    gsap.utils.toArray<HTMLElement>(".wdp-line").forEach((line) => {
+      gsap.from(line, {
+        scaleY: 0, transformOrigin: "top center", duration: 0.6, ease: "expo.out",
+        scrollTrigger: { trigger: line, start: "top 85%", toggleActions: "play none none none" },
+      });
+    });
+
+    return () => splits.forEach((s) => s.revert());
+  }, { scope: sectionRef });
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full py-28 overflow-hidden"
-      style={{ background: "#080808" }}
-    >
+    <section ref={sectionRef} className="bg-black text-white w-full py-24 overflow-hidden font-sans">
+      {/* Noise overlay */}
       <div
-        className="pointer-events-none absolute top-0 right-0 h-[500px] w-[500px] opacity-[0.08]"
-        style={{ background: "radial-gradient(circle, #C9A96E 0%, transparent 70%)", filter: "blur(80px)" }}
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundSize: "200px 200px",
+        }}
       />
 
-      <div className="relative z-10 max-w-[1350px] w-full px-8 md:px-16 mx-auto">
+      <div className="relative max-w-[1350px] mx-auto px-8 md:px-16">
         {/* Header */}
-        <div className="wdp-header mb-20 grid grid-cols-1 min-[900px]:grid-cols-2 gap-10 items-end">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <div className="h-px w-12" style={{ background: "#C9A96E" }} />
-              <span className="font-mono text-xs uppercase tracking-[0.35em]" style={{ color: "#C9A96E" }}>
-                Our Process
-              </span>
-            </div>
-            <h2
-              className="text-white leading-tight"
-              style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontStyle: "italic",
-                fontSize: "clamp(2.5rem, 5vw, 5rem)",
-                fontWeight: 300,
-              }}
-            >
-              How we build
-              <br />
-              what lasts.
-            </h2>
-          </div>
-          <p className="text-sm font-light leading-loose tracking-wide max-w-md" style={{ color: "rgba(255,255,255,0.45)" }}>
-            A rigorous, transparent process that eliminates surprises. You see every step,
-            approve every milestone, and get a handover so clean your team can own it from day one.
-          </p>
+        <div className="mb-20">
+          <p className="font-heading text-xs uppercase tracking-[0.4em] text-[#fac02d] mb-6">Our Process</p>
+          <h2 className="wdp-heading text-4xl md:text-6xl font-heading font-medium leading-tight max-w-2xl">
+            How We<br />Build Sites
+          </h2>
         </div>
 
         {/* Steps */}
-        <div className="wdp-list relative">
-          {STEPS.map((step, i) => (
-            <div key={step.number} className="wdp-step relative flex gap-8 items-start mb-0">
-              {/* Left column — number + connector */}
-              <div className="flex flex-col items-center w-14 shrink-0 pt-1">
-                <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border text-xs font-mono tracking-widest"
-                  style={{ borderColor: "rgba(201,169,110,0.4)", color: "#C9A96E" }}
+        <div className="relative flex flex-col gap-0">
+          {steps.map((step, index) => (
+            <div key={index} className="wdp-step relative flex gap-8 md:gap-16 pb-0">
+
+              {/* Left column: number + connector line */}
+              <div className="flex flex-col items-center flex-shrink-0 w-14 md:w-20">
+                <span
+                  className="wdp-step-num font-heading font-black text-4xl md:text-5xl leading-none"
+                  style={{ color: "rgba(250,192,45,0.25)" }}
                 >
                   {step.number}
-                </div>
-                {i < STEPS.length - 1 && (
-                  <div
-                    className="wdp-connector mt-2 w-px flex-1 min-h-[60px]"
-                    style={{ background: "linear-gradient(to bottom, rgba(201,169,110,0.35), transparent)" }}
-                  />
+                </span>
+                {index < steps.length - 1 && (
+                  <div className="wdp-line w-px flex-1 mt-4 mb-0 min-h-[60px]" style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0.15), transparent)" }} />
                 )}
               </div>
 
-              {/* Right column — content */}
-              <div className="pb-14 flex-1">
-                <h3
-                  className="mb-3 text-white"
-                  style={{
-                    fontFamily: "'Cormorant Garamond', Georgia, serif",
-                    fontStyle: "italic",
-                    fontSize: "clamp(1.6rem, 2.5vw, 2.4rem)",
-                    fontWeight: 300,
-                  }}
-                >
+              {/* Right column: content */}
+              <div className="pb-16 flex-1 border-b border-white/10">
+                <h3 className="font-heading font-semibold text-2xl md:text-3xl text-white mb-3 leading-tight">
                   {step.title}
                 </h3>
-                <p className="text-sm font-light leading-loose max-w-xl" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  {step.description}
+                <p className="font-heading font-light text-white/55 leading-relaxed text-[clamp(0.9rem,1.3vw,1.1rem)] max-w-2xl">
+                  {step.desc}
                 </p>
               </div>
             </div>

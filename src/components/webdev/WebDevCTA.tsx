@@ -2,114 +2,74 @@
 
 import { useRef } from "react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/all";
 import { useGSAP } from "@gsap/react";
-import Link from "next/link";
+import { ScrollTrigger, SplitText } from "gsap/all";
+import YellowButton from "../buttons/YellowButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
 
 const WebDevCTA = () => {
-  const containerRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    const splits: ReturnType<typeof SplitText.create>[] = [];
-
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: containerRef.current, start: "top 70%" },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const splits: any[] = [];
+    const headingSplit = SplitText.create(".wdc-heading", { type: "words", mask: "words" });
+    splits.push(headingSplit);
+    gsap.from(headingSplit.words, {
+      yPercent: 115, opacity: 0, rotationX: -12, transformOrigin: "0% 50% -50px",
+      duration: 1.0, ease: "expo.out", stagger: 0.06,
+      scrollTrigger: { trigger: ".wdc-heading", start: "top 82%", toggleActions: "play none none none" },
     });
 
-    tl.from(".wdc-rule", { scaleX: 0, transformOrigin: "left center", duration: 1 });
-    tl.from(".wdc-label", { opacity: 0, y: 10, duration: 0.7 }, "-=0.5");
-
-    const heading = SplitText.create(".wdc-heading", { type: "lines", mask: "lines" });
-    splits.push(heading);
-    tl.from(
-      heading.lines,
-      { opacity: 0, yPercent: 110, rotationX: -12, transformOrigin: "0% 50% -60px", stagger: 0.12, duration: 1.1, ease: "expo.out" },
-      "-=0.4"
-    );
-
-    tl.from(".wdc-sub", { opacity: 0, y: 20, duration: 0.9 }, "-=0.6");
-    tl.from(".wdc-btn", { opacity: 0, y: 14, stagger: 0.1, duration: 0.8 }, "-=0.5");
+    gsap.from(".wdc-btn", {
+      opacity: 0, y: 24, scale: 0.96, duration: 0.7, ease: "back.out(1.4)",
+      scrollTrigger: { trigger: ".wdc-btn", start: "top 90%", toggleActions: "play none none none" },
+    });
 
     return () => splits.forEach((s) => s.revert());
-  }, { scope: containerRef });
+  }, { scope: sectionRef });
 
   return (
     <section
-      ref={containerRef}
-      className="relative w-full py-36 overflow-hidden"
-      style={{ background: "#080808" }}
+      ref={sectionRef}
+      className="relative overflow-hidden py-24 w-full flex flex-col items-center justify-center bg-[#c42a27]"
     >
-      {/* Ambient top centre */}
-      <div
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[800px] opacity-[0.12]"
-        style={{ background: "radial-gradient(ellipse, #C9A96E 0%, transparent 65%)", filter: "blur(70px)" }}
-      />
-      {/* Top divider */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-[70%]"
-        style={{ background: "linear-gradient(to right, transparent, rgba(201,169,110,0.3), transparent)" }}
-      />
+      {/* Background video */}
+      <video
+        autoPlay loop muted playsInline
+        style={{
+          maskImage: "radial-gradient(circle, black 50%, transparent 95%)",
+          WebkitMaskImage: "radial-gradient(circle, black 50%, transparent 95%)",
+        }}
+        className="absolute z-10 top-1/2 -translate-y-1/2 right-0 w-[45%] h-[90%] object-cover opacity-40 mix-blend-multiply pointer-events-none"
+      >
+        <source src="/assets/video_bg5.mp4" type="video/mp4" />
+      </video>
 
-      <div className="relative z-10 max-w-[1350px] mx-auto px-8 md:px-16 text-center">
-        {/* Rule + label */}
-        <div className="mb-10 flex items-center justify-center gap-5">
-          <div
-            className="wdc-rule h-px flex-1 max-w-[100px]"
-            style={{ background: "linear-gradient(to right, transparent, #C9A96E)" }}
-          />
-          <span className="wdc-label font-mono text-xs uppercase tracking-[0.35em]" style={{ color: "#C9A96E" }}>
-            Let&apos;s Build
-          </span>
-          <div
-            className="wdc-rule h-px flex-1 max-w-[100px]"
-            style={{ background: "linear-gradient(to left, transparent, #C9A96E)" }}
-          />
-        </div>
+      <div className="relative z-20 max-w-[1350px] w-full px-8 md:px-16 items-start justify-start">
+        <div className="flex flex-col gap-8 max-w-4xl">
+          <h2 className="wdc-heading text-3xl md:text-7xl font-heading font-medium text-white leading-[1.2] tracking-tight">
+            Ready to build your next website?{" "}
+            <a
+              href="/start-project"
+              className="relative inline-flex items-center justify-center md:px-6 lg:px-6 py-2 md:skew-x-[-12deg] overflow-hidden transition-all bg-transparent group align-middle duration-500 cursor-pointer"
+            >
+              <span className="flex items-center gap-3 text-3xl md:text-7xl font-heading font-thin italic border-b md:skew-x-[12deg] border-white/70 text-white group-hover:text-[#c42a27] transition-colors duration-500">
+                Let&apos;s talk
+                <svg viewBox="0 0 16 19" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 md:w-12 md:h-12 rotate-45 group-hover:rotate-90 transition-all duration-500 ease-out">
+                  <g stroke="currentColor" fill="none" strokeWidth="0">
+                    <path d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z" fill="currentColor" />
+                  </g>
+                </svg>
+              </span>
+              <span className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out -z-10" />
+            </a>
+          </h2>
 
-        <h2
-          className="wdc-heading mx-auto mb-8 text-white leading-tight"
-          style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
-            fontStyle: "italic",
-            fontSize: "clamp(3rem, 7vw, 7rem)",
-            fontWeight: 300,
-            maxWidth: "900px",
-          }}
-        >
-          Ready to build something
-          <br />
-          truly premium?
-        </h2>
-
-        <p
-          className="wdc-sub mx-auto mb-12 text-sm font-extralight leading-loose tracking-widest max-w-lg"
-          style={{ color: "rgba(255,255,255,0.45)" }}
-        >
-          Tell us about your project and we&apos;ll come back with a detailed proposal
-          within 48 hours — no obligation, no generic pitch deck.
-        </p>
-
-        <div className="flex items-center justify-center gap-5 flex-wrap">
-          <Link
-            href="/start-project"
-            className="wdc-btn inline-flex items-center gap-3 border px-10 py-4 text-xs uppercase tracking-[0.3em] transition-all duration-400 hover:bg-[#C9A96E] hover:border-[#C9A96E] hover:text-black"
-            style={{ borderColor: "#C9A96E", color: "#C9A96E" }}
-          >
-            Start a Project
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M1 6h10M7 2l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
-          <Link
-            href="/contact"
-            className="wdc-btn inline-flex items-center gap-3 px-10 py-4 text-xs uppercase tracking-[0.3em] transition-all duration-400 hover:text-[#C9A96E]"
-            style={{ color: "rgba(255,255,255,0.5)", borderBottom: "1px solid rgba(255,255,255,0.15)" }}
-          >
-            Get in Touch
-          </Link>
+          <div className="wdc-btn">
+            <YellowButton title="Start a Project" variant="blue" href="/start-project" />
+          </div>
         </div>
       </div>
     </section>
