@@ -74,7 +74,7 @@ const WebDevHero = () => {
             className="wdh-line-2 font-heading font-black italic uppercase leading-[0.9] tracking-[-0.02em]"
             style={{ fontSize: "clamp(3.5rem, 11vw, 11rem)", color: "#fac02d" }}
           >
-            Web Experiences
+            Experiences
           </h1>
         </div>
 
