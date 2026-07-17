@@ -66,7 +66,7 @@ const WebDevHero = () => {
             className="wdh-line-1 font-heading font-extralight text-white uppercase leading-[0.9] tracking-[-0.02em]"
             style={{ fontSize: "clamp(3.5rem, 11vw, 11rem)" }}
           >
-            We Build
+            We Don&apos;t Just
           </h1>
         </div>
         <div className="overflow-hidden mb-12">
@@ -74,7 +74,7 @@ const WebDevHero = () => {
             className="wdh-line-2 font-heading font-black italic uppercase leading-[0.9] tracking-[-0.02em]"
             style={{ fontSize: "clamp(3.5rem, 11vw, 11rem)", color: "#fac02d" }}
           >
-            Experiences
+            Build Businesses.
           </h1>
         </div>
 
