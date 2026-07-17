@@ -9,10 +9,11 @@ import { gsap } from "gsap";
 const navLinks = [
   { name: "Home", href: "/", number: "01", image: "/images/portfolio/Hero.png" },
   { name: "Services", href: "/services", number: "02", image: "/images/BrandingCreative/HeroImage.png" },
-  { name: "Work", href: "/portfolio", number: "03", image: "/images/portfolio/Target Hit.L03.2k 1.png" },
-  { name: "About", href: "/about", number: "04", image: "/images/portfolio/Layer 1.png" },
-  { name: "Insights", href: "/blogs", number: "05", image: "/images/BrandingCreative/DesignSystemLogoBg.png" },
-  { name: "Contact", href: "/contact", number: "06", image: "/images/ContactIcon.png" },
+  { name: "Web Dev", href: "/web-development", number: "03", image: "/images/portfolio/Target Hit.L03.2k 1.png" },
+  { name: "Work", href: "/portfolio", number: "04", image: "/images/portfolio/Target Hit.L03.2k 1.png" },
+  { name: "About", href: "/about-us", number: "05", image: "/images/portfolio/Layer 1.png" },
+  { name: "Insights", href: "/blogs", number: "06", image: "/images/BrandingCreative/DesignSystemLogoBg.png" },
+  { name: "Contact", href: "/contact", number: "07", image: "/images/ContactIcon.png" },
 ];
 
 const socials = [
